@@ -21,11 +21,11 @@ def generate(env):
 
     source_dir = Dir(env['NANOPB_DIR'])
     target_dir = Dir(env['NANOPB_TARGET'])
-    env.ProtocPython(target_dir.Dir('generator/proto'), source_dir.File('generator/proto/nanopb.proto'))
-    env.ProtocPython(target_dir.Dir('generator/proto'), source_dir.File('generator/proto/plugin.proto'))
-    env.Command(target_dir.File('generator/nanopb_generator.py'), source_dir.File('generator/nanopb_generator.py'),
+    plugin_nanopb = env.ProtocPython(target_dir.Dir('generator/proto'), source_dir.File('generator/proto/nanopb.proto'))
+    plugin_plugin = env.ProtocPython(target_dir.Dir('generator/proto'), source_dir.File('generator/proto/plugin.proto'))
+    plugin_gen = env.Command(target_dir.File('generator/nanopb_generator.py'), source_dir.File('generator/nanopb_generator.py'),
         Copy('$TARGET', '$SOURCE'))
-    env.Command(target_dir.File('generator/proto/__init__.py'), source_dir.File('generator/proto/__init__.py'),
+    plugin_init = env.Command(target_dir.File('generator/proto/__init__.py'), source_dir.File('generator/proto/__init__.py'),
         Copy('$TARGET', '$SOURCE'))
     plugin_linux = env.Command(
         target_dir.File('generator/protoc-gen-nanopb'), source_dir.File('generator/protoc-gen-nanopb'),
@@ -38,7 +38,9 @@ def generate(env):
     assert len(plugin) == 1, "Internal error, unexpected multiple plugin executables"
     env['NANOPB_PLUGIN'] = plugin[0]
 
-    env.AddMethod(env['PROTOC_GENERATOR']('$NANOPBCOM', '$NANOPBCOMSTR', ['.pb.cc', '.pb.h']), 'Nanopb')
+    deps = [plugin_nanopb, plugin_plugin, plugin_gen, plugin_init, plugin]
+
+    env.AddMethod(env['PROTOC_GENERATOR']('$NANOPBCOM', '$NANOPBCOMSTR', ['.pb.cc', '.pb.h'], deps), 'Nanopb')
     env['NANOPBCOM'] = '$PROTOCCOM --plugin=protoc-gen-nanopb=${NANOPB_PLUGIN.abspath} --nanopb_out=${TARGET.dir.abspath}'
 
 def exists(env):

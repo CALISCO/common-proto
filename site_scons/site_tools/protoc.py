@@ -20,7 +20,7 @@ from SCons.Script import File, Dir, Action, Builder
 
 import os.path
 
-def ProtocGenerator(com, comstr, postfixes):
+def ProtocGenerator(com, comstr, postfixes, deps=[]):
   _protoc_builder = Builder(
       action = Action(com, comstr),
       src_suffix='$PROTOCSRCSUFFIX',
@@ -37,7 +37,13 @@ def ProtocGenerator(com, comstr, postfixes):
       targets.append(target_dir.File(modulename + postfix))
 
     # must run in source dir, otherwise protoc creates source dir hierarchy in target dir
-    _protoc_builder.__call__(env, target=targets, source=source)
+    targets = _protoc_builder.__call__(env, target=targets, source=source)
+
+    for target in targets:
+      for dep in deps:
+        env.Depends(target, dep)
+
+    return targets
   return Protoc
 
 def generate(env):
