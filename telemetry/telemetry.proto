@@ -1,5 +1,5 @@
-syntax = "proto3";
+syntax = "proto2";
 
 message Telemetry {
-  int32 timestamp_ms = 1;
+  optional int32 timestamp_ms = 1;
 }
