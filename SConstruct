@@ -25,6 +25,6 @@ if ARGUMENTS.get('VERBOSE') != '1':
 ###
 ### Actual build targets here
 ###
-SConscript('SConscript', variant_dir='build',
+SConscript('SConscript', variant_dir='generated',
           exports=['env'],
           duplicate=0)
