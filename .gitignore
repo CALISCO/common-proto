@@ -1,0 +1,9 @@
+.project
+.cproject
+.pydevproject
+
+.sconsign.dblite
+
+build/
+
+site_scons/site_tools/*.pyc
