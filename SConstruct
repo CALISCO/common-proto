@@ -20,6 +20,7 @@ if ARGUMENTS.get('VERBOSE') != '1':
   simplify_output(env, {
     'PROTOCPYTHONCOMSTR': 'PYPROTO',
     'NANOPBCOMSTR': 'NANOPB',
+    'PROTOCJAVACOMSTR': 'JAVAPROTO',
   })
 
 ###
