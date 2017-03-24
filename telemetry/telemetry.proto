@@ -1,5 +1,7 @@
 syntax = "proto2";
 
+option java_outer_classname="TelemetryProto";
+
 message Telemetry {
   optional int32 timestamp_ms = 1;
 }
