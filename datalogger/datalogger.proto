@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import 'nanopb.proto';
+
+message DataloggerRecord {
+  optional int32 timestamp_ms = 1;
+}
