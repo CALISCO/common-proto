@@ -1,5 +1,7 @@
 syntax = "proto2";
 
+import 'google/protobuf/timestamp.proto';
+import 'google/protobuf/empty.proto';
 import 'nanopb.proto';
 
 // Helper messages
@@ -15,17 +17,40 @@ message StatisticalAggregate {
 message DataloggerRecord {
   optional uint32 timestamp_ms = 1;
   optional uint32 timestamp_variability = 2;
-  optional DataloggerPayload payload = 3;
+  optional uint32 sourceId = 3;
+  optional DataloggerPayload payload = 4;
 }
 
 message DataloggerPayload {
   oneof value {
-    CanMessage canMessage = 1;
-    CanErrorCounter canError = 2;
-    VoltageReading voltageReading = 3;
-    TimingPulse timingPulse = 4;
-    RtcTime rtcTime = 5;
+    DataloggerHeader header = 1;
+    CanMessage receivedCanMessage = 2;
+    CanMessage transmittedCanMessage = 3;
+    CanErrorCounter canError = 4;
+    StatisticalAggregate voltageReading = 5;
+    google.protobuf.Empty timingPulse = 6;
+    google.protobuf.Timestamp rtcTime = 7;
   }
+}
+
+message DataloggerHeader {
+  message CanHeader {
+    optional uint32 id = 1;
+    optional string name = 2 [(nanopb).max_size = 32];
+  }
+  repeated CanHeader canData = 1 [(nanopb).max_count = 2];
+
+  message VoltageHeader {
+    optional uint32 id = 1;
+    optional string name = 2 [(nanopb).max_size = 32];
+  }
+  repeated VoltageHeader voltageData = 2 [(nanopb).max_count = 8];
+
+  message TimingHeader {
+    optional uint32 id = 1;
+    optional string name = 2 [(nanopb).max_size = 32];
+  }
+  repeated TimingHeader timingData = 3 [(nanopb).max_count = 2];
 }
 
 message CanMessage {
@@ -41,33 +66,6 @@ message CanMessage {
   }
   optional RtrType rtr = 3;
   optional bytes data = 4 [(nanopb).max_size = 8];
-}
-
-message VoltageReading {
-  enum Rail {
-    RAIL_12V = 0;
-    RAIL_5V = 1;
-    RAIL_3V3 = 2;
-    RAIL_SUPERCAP = 3;
-  }
-  optional Rail rail = 1;
-  optional StatisticalAggregate millivolts = 2;  // millivolts
-}
-
-message TimingPulse {
-  enum Source {
-    SOURCE_RTC = 0;
-  }
-}
-
-message RtcTime {
-  optional uint32 year = 1;
-  optional uint32 month = 2;
-  optional uint32 day = 3;
-  optional uint32 hour = 4;
-  optional uint32 minute = 5;
-  optional uint32 second = 6;
-  optional uint32 millisecond = 7;
 }
 
 message CanErrorCounter {
