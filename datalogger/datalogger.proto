@@ -2,6 +2,79 @@ syntax = "proto2";
 
 import 'nanopb.proto';
 
+// Helper messages
+message StatisticalAggregate {
+  optional uint32 samples = 1;
+  optional uint32 min = 2;
+  optional uint32 max = 3;
+  optional uint32 avg = 4;
+  optional uint32 stdev = 5;
+}
+
+// Actual messages
 message DataloggerRecord {
-  optional int32 timestamp_ms = 1;
+  optional uint32 timestamp_ms = 1;
+  optional uint32 timestamp_variability = 2;
+  optional DataloggerPayload payload = 3;
+}
+
+message DataloggerPayload {
+  oneof value {
+    CanMessage canMessage = 1;
+    CanErrorCounter canError = 2;
+    VoltageReading voltageReading = 3;
+    TimingPulse timingPulse = 4;
+    RtcTime rtcTime = 5;
+  }
+}
+
+message CanMessage {
+  optional uint32 id = 1;
+  enum FrameType {
+    STANDARD_FRAME = 0;
+    EXTENDED_FRAME = 1;
+  }
+  optional FrameType length = 2;
+  enum RtrType {
+    DATA_FRAME = 0;
+    REMOTE_FRAME = 1;
+  }
+  optional RtrType rtr = 3;
+  optional bytes data = 4 [(nanopb).max_count = 8];
+}
+
+message VoltageReading {
+  enum Rail {
+    RAIL_12V = 0;
+    RAIL_5V = 1;
+    RAIL_3V3 = 2;
+    RAIL_SUPERCAP = 3;
+  }
+  optional Rail rail = 1;
+  optional StatisticalAggregate millivolts = 2;  // millivolts
+}
+
+message TimingPulse {
+  enum Source {
+    SOURCE_RTC = 0;
+  }
+}
+
+message RtcTime {
+  optional uint32 year = 1;
+  optional uint32 month = 2;
+  optional uint32 day = 3;
+  optional uint32 hour = 4;
+  optional uint32 minute = 5;
+  optional uint32 second = 6;
+  optional uint32 millisecond = 7;
+}
+
+message CanErrorCounter {
+  enum ErrorCounterSource {
+    TRANSMIT_COUNTER = 0;
+    RECEIVE_COUNTER = 1;
+  }
+  optional ErrorCounterSource source = 3;
+  optional uint32 count = 2;
 }
