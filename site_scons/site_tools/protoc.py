@@ -41,7 +41,9 @@ def ProtocGenerator(com, comstr, postfixes, deps=[]):
         targets.append(target_dir.File(modulename + postfix))
 
     # must run in source dir, otherwise protoc creates source dir hierarchy in target dir
-    targets = _protoc_builder.__call__(env, target=targets, source=source)
+    pb_env = env.Clone()
+    pb_env['PBTARGET'] = target_dir
+    targets = _protoc_builder.__call__(pb_env, target=targets, source=source)
 
     for target in targets:
       for dep in deps:
@@ -64,13 +66,13 @@ def generate(env):
     env['PROTOCCOM']     = '$PROTOC -I${SOURCES.dir} ${["-I%s"%x for x in PROTOCPROTOPATH]} $PROTOCFLAGS ${SOURCES}'
 
     env.AddMethod(ProtocGenerator('$PROTOCPYTHONCOM', '$PROTOCPYTHONCOMSTR', ['_pb2.py']), 'ProtocPython')
-    env['PROTOCPYTHONCOM'] = '$PROTOCCOM --python_out=${TARGET.dir.abspath}'
+    env['PROTOCPYTHONCOM'] = '$PROTOCCOM --python_out=$PBTARGET'
 
     env.AddMethod(ProtocGenerator('$PROTOCCPPCOM', '$PROTOCCPPCOMSTR', ['.pb.cc', '.pb.h']), 'ProtocCpp')
-    env['PROTOCCPPCOM'] = '$PROTOCCOM --cpp_out=${TARGET.dir.abspath}'
+    env['PROTOCCPPCOM'] = '$PROTOCCOM --cpp_out=$PBTARGET'
 
     env.AddMethod(ProtocGenerator('$PROTOCJAVACOM', '$PROTOCJAVACOMSTR', ['.java']), 'ProtocJava')
-    env['PROTOCJAVACOM'] = '$PROTOCCOM --java_out=${TARGET.dir.abspath}'
+    env['PROTOCJAVACOM'] = '$PROTOCCOM --java_out=$PBTARGET'
 
 def exists(env):
     return env.Detect(protocs)

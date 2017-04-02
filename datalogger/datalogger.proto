@@ -36,19 +36,19 @@ message DataloggerPayload {
 message DataloggerHeader {
   message CanHeader {
     optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 32];
+    optional string name = 2 [(nanopb).max_size = 16];
   }
   repeated CanHeader canData = 1 [(nanopb).max_count = 2];
 
   message VoltageHeader {
     optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 32];
+    optional string name = 2 [(nanopb).max_size = 16];
   }
   repeated VoltageHeader voltageData = 2 [(nanopb).max_count = 8];
 
   message TimingHeader {
     optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 32];
+    optional string name = 2 [(nanopb).max_size = 16];
   }
   repeated TimingHeader timingData = 3 [(nanopb).max_count = 2];
 }
