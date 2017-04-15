@@ -24,33 +24,47 @@ message DataloggerRecord {
 message DataloggerPayload {
   oneof value {
     DataloggerHeader header = 1;
-    CanMessage receivedCanMessage = 2;
-    CanMessage transmittedCanMessage = 3;
-    CanErrorCounter canError = 4;
-    StatisticalAggregate voltageReading = 5;
-    google.protobuf.Empty timingPulse = 6;
-    google.protobuf.Timestamp rtcTime = 7;
+    DataloggerSystemInfo system = 2;
+    InfoString info = 3;
+    CanMessage receivedCanMessage = 4;
+    CanMessage transmittedCanMessage = 5;
+    CanError canError = 6;
+    CanErrorCounter canErrorCount = 7;
+    StatisticalAggregate voltageReading = 8;
+    google.protobuf.Empty timingPulse = 9;
+    google.protobuf.Timestamp rtcTime = 10;
   }
 }
 
 message DataloggerHeader {
+  optional string name = 1 [(nanopb).max_size = 16];
+  optional string ver = 2 [(nanopb).max_size = 64];
+
   message CanHeader {
     optional uint32 id = 1;
     optional string name = 2 [(nanopb).max_size = 8];
   }
-  repeated CanHeader canData = 1 [(nanopb).max_count = 2];
+  repeated CanHeader canData = 3 [(nanopb).max_count = 2];
 
   message VoltageHeader {
     optional uint32 id = 1;
     optional string name = 2 [(nanopb).max_size = 8];
   }
-  repeated VoltageHeader voltageData = 2 [(nanopb).max_count = 4];
+  repeated VoltageHeader voltageData = 4 [(nanopb).max_count = 4];
 
   message TimingHeader {
     optional uint32 id = 1;
     optional string name = 2 [(nanopb).max_size = 8];
   }
-  repeated TimingHeader timingData = 3 [(nanopb).max_count = 2];
+  repeated TimingHeader timingData = 5 [(nanopb).max_count = 2];
+}
+
+message DataloggerSystemInfo {
+  optional string info = 1 [(nanopb).max_size = 128];
+}
+
+message InfoString {
+  optional string info = 1 [(nanopb).max_size = 128];
 }
 
 message CanMessage {
@@ -68,11 +82,24 @@ message CanMessage {
   optional bytes data = 4 [(nanopb).max_size = 8];
 }
 
+message CanError {
+  enum ErrorSource {
+    ERROR_WARNING = 0;
+    ERROR_PASSIVE = 1;
+    BUS_OFF = 2;
+    DATA_OVERRUN = 4;
+    ARBITRATION_LOST = 5;
+    UNKNOWN = 126;
+    OTHER = 127;
+  }
+  optional ErrorSource source = 1;
+}
+
 message CanErrorCounter {
   enum ErrorCounterSource {
     TRANSMIT_COUNTER = 0;
     RECEIVE_COUNTER = 1;
   }
-  optional ErrorCounterSource source = 3;
+  optional ErrorCounterSource source = 1;
   optional uint32 count = 2;
 }

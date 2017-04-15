@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='datalogger.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x10\x64\x61talogger.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x0cnanopb.proto\"]\n\x14StatisticalAggregate\x12\x0f\n\x07samples\x18\x01 \x01(\r\x12\x0b\n\x03min\x18\x02 \x01(\r\x12\x0b\n\x03max\x18\x03 \x01(\r\x12\x0b\n\x03\x61vg\x18\x04 \x01(\r\x12\r\n\x05stdev\x18\x05 \x01(\r\"~\n\x10\x44\x61taloggerRecord\x12\x14\n\x0ctimestamp_ms\x18\x01 \x01(\r\x12\x1d\n\x15timestamp_variability\x18\x02 \x01(\r\x12\x10\n\x08sourceId\x18\x03 \x01(\r\x12#\n\x07payload\x18\x04 \x01(\x0b\x32\x12.DataloggerPayload\"\xcf\x02\n\x11\x44\x61taloggerPayload\x12#\n\x06header\x18\x01 \x01(\x0b\x32\x11.DataloggerHeaderH\x00\x12)\n\x12receivedCanMessage\x18\x02 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x03 \x01(\x0b\x32\x0b.CanMessageH\x00\x12$\n\x08\x63\x61nError\x18\x04 \x01(\x0b\x32\x10.CanErrorCounterH\x00\x12/\n\x0evoltageReading\x18\x05 \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12-\n\x0btimingPulse\x18\x06 \x01(\x0b\x32\x16.google.protobuf.EmptyH\x00\x12-\n\x07rtcTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x42\x07\n\x05value\"\xd0\x02\n\x10\x44\x61taloggerHeader\x12\x33\n\x07\x63\x61nData\x18\x01 \x03(\x0b\x32\x1b.DataloggerHeader.CanHeaderB\x05\x92?\x02\x10\x02\x12;\n\x0bvoltageData\x18\x02 \x03(\x0b\x32\x1f.DataloggerHeader.VoltageHeaderB\x05\x92?\x02\x10\x04\x12\x39\n\ntimingData\x18\x03 \x03(\x0b\x32\x1e.DataloggerHeader.TimingHeaderB\x05\x92?\x02\x10\x02\x1a,\n\tCanHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\x1a\x30\n\rVoltageHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\x1a/\n\x0cTimingHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\"\xd8\x01\n\nCanMessage\x12\n\n\x02id\x18\x01 \x01(\r\x12%\n\x06length\x18\x02 \x01(\x0e\x32\x15.CanMessage.FrameType\x12 \n\x03rtr\x18\x03 \x01(\x0e\x32\x13.CanMessage.RtrType\x12\x13\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x42\x05\x92?\x02\x08\x08\"3\n\tFrameType\x12\x12\n\x0eSTANDARD_FRAME\x10\x00\x12\x12\n\x0e\x45XTENDED_FRAME\x10\x01\"+\n\x07RtrType\x12\x0e\n\nDATA_FRAME\x10\x00\x12\x10\n\x0cREMOTE_FRAME\x10\x01\"\x96\x01\n\x0f\x43\x61nErrorCounter\x12\x33\n\x06source\x18\x03 \x01(\x0e\x32#.CanErrorCounter.ErrorCounterSource\x12\r\n\x05\x63ount\x18\x02 \x01(\r\"?\n\x12\x45rrorCounterSource\x12\x14\n\x10TRANSMIT_COUNTER\x10\x00\x12\x13\n\x0fRECEIVE_COUNTER\x10\x01')
+  serialized_pb=_b('\n\x10\x64\x61talogger.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x0cnanopb.proto\"]\n\x14StatisticalAggregate\x12\x0f\n\x07samples\x18\x01 \x01(\r\x12\x0b\n\x03min\x18\x02 \x01(\r\x12\x0b\n\x03max\x18\x03 \x01(\r\x12\x0b\n\x03\x61vg\x18\x04 \x01(\r\x12\r\n\x05stdev\x18\x05 \x01(\r\"~\n\x10\x44\x61taloggerRecord\x12\x14\n\x0ctimestamp_ms\x18\x01 \x01(\r\x12\x1d\n\x15timestamp_variability\x18\x02 \x01(\r\x12\x10\n\x08sourceId\x18\x03 \x01(\r\x12#\n\x07payload\x18\x04 \x01(\x0b\x32\x12.DataloggerPayload\"\xb9\x03\n\x11\x44\x61taloggerPayload\x12#\n\x06header\x18\x01 \x01(\x0b\x32\x11.DataloggerHeaderH\x00\x12\'\n\x06system\x18\x02 \x01(\x0b\x32\x15.DataloggerSystemInfoH\x00\x12\x1b\n\x04info\x18\x03 \x01(\x0b\x32\x0b.InfoStringH\x00\x12)\n\x12receivedCanMessage\x18\x04 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x05 \x01(\x0b\x32\x0b.CanMessageH\x00\x12\x1d\n\x08\x63\x61nError\x18\x06 \x01(\x0b\x32\t.CanErrorH\x00\x12)\n\rcanErrorCount\x18\x07 \x01(\x0b\x32\x10.CanErrorCounterH\x00\x12/\n\x0evoltageReading\x18\x08 \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12-\n\x0btimingPulse\x18\t \x01(\x0b\x32\x16.google.protobuf.EmptyH\x00\x12-\n\x07rtcTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x42\x07\n\x05value\"\xf9\x02\n\x10\x44\x61taloggerHeader\x12\x13\n\x04name\x18\x01 \x01(\tB\x05\x92?\x02\x08\x10\x12\x12\n\x03ver\x18\x02 \x01(\tB\x05\x92?\x02\x08@\x12\x33\n\x07\x63\x61nData\x18\x03 \x03(\x0b\x32\x1b.DataloggerHeader.CanHeaderB\x05\x92?\x02\x10\x02\x12;\n\x0bvoltageData\x18\x04 \x03(\x0b\x32\x1f.DataloggerHeader.VoltageHeaderB\x05\x92?\x02\x10\x04\x12\x39\n\ntimingData\x18\x05 \x03(\x0b\x32\x1e.DataloggerHeader.TimingHeaderB\x05\x92?\x02\x10\x02\x1a,\n\tCanHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\x1a\x30\n\rVoltageHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\x1a/\n\x0cTimingHeader\x12\n\n\x02id\x18\x01 \x01(\r\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08\x08\",\n\x14\x44\x61taloggerSystemInfo\x12\x14\n\x04info\x18\x01 \x01(\tB\x06\x92?\x03\x08\x80\x01\"\"\n\nInfoString\x12\x14\n\x04info\x18\x01 \x01(\tB\x06\x92?\x03\x08\x80\x01\"\xd8\x01\n\nCanMessage\x12\n\n\x02id\x18\x01 \x01(\r\x12%\n\x06length\x18\x02 \x01(\x0e\x32\x15.CanMessage.FrameType\x12 \n\x03rtr\x18\x03 \x01(\x0e\x32\x13.CanMessage.RtrType\x12\x13\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x42\x05\x92?\x02\x08\x08\"3\n\tFrameType\x12\x12\n\x0eSTANDARD_FRAME\x10\x00\x12\x12\n\x0e\x45XTENDED_FRAME\x10\x01\"+\n\x07RtrType\x12\x0e\n\nDATA_FRAME\x10\x00\x12\x10\n\x0cREMOTE_FRAME\x10\x01\"\xb4\x01\n\x08\x43\x61nError\x12%\n\x06source\x18\x01 \x01(\x0e\x32\x15.CanError.ErrorSource\"\x80\x01\n\x0b\x45rrorSource\x12\x11\n\rERROR_WARNING\x10\x00\x12\x11\n\rERROR_PASSIVE\x10\x01\x12\x0b\n\x07\x42US_OFF\x10\x02\x12\x10\n\x0c\x44\x41TA_OVERRUN\x10\x04\x12\x14\n\x10\x41RBITRATION_LOST\x10\x05\x12\x0b\n\x07UNKNOWN\x10~\x12\t\n\x05OTHER\x10\x7f\"\x96\x01\n\x0f\x43\x61nErrorCounter\x12\x33\n\x06source\x18\x01 \x01(\x0e\x32#.CanErrorCounter.ErrorCounterSource\x12\r\n\x05\x63ount\x18\x02 \x01(\r\"?\n\x12\x45rrorCounterSource\x12\x14\n\x10TRANSMIT_COUNTER\x10\x00\x12\x13\n\x0fRECEIVE_COUNTER\x10\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,nanopb__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -46,8 +46,8 @@ _CANMESSAGE_FRAMETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1117,
-  serialized_end=1168,
+  serialized_start=1346,
+  serialized_end=1397,
 )
 _sym_db.RegisterEnumDescriptor(_CANMESSAGE_FRAMETYPE)
 
@@ -68,10 +68,52 @@ _CANMESSAGE_RTRTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1170,
-  serialized_end=1213,
+  serialized_start=1399,
+  serialized_end=1442,
 )
 _sym_db.RegisterEnumDescriptor(_CANMESSAGE_RTRTYPE)
+
+_CANERROR_ERRORSOURCE = _descriptor.EnumDescriptor(
+  name='ErrorSource',
+  full_name='CanError.ErrorSource',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ERROR_WARNING', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ERROR_PASSIVE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='BUS_OFF', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DATA_OVERRUN', index=3, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ARBITRATION_LOST', index=4, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UNKNOWN', index=5, number=126,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='OTHER', index=6, number=127,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=1497,
+  serialized_end=1625,
+)
+_sym_db.RegisterEnumDescriptor(_CANERROR_ERRORSOURCE)
 
 _CANERRORCOUNTER_ERRORCOUNTERSOURCE = _descriptor.EnumDescriptor(
   name='ErrorCounterSource',
@@ -90,8 +132,8 @@ _CANERRORCOUNTER_ERRORCOUNTERSOURCE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1303,
-  serialized_end=1366,
+  serialized_start=1715,
+  serialized_end=1778,
 )
 _sym_db.RegisterEnumDescriptor(_CANERRORCOUNTER_ERRORCOUNTERSOURCE)
 
@@ -222,43 +264,64 @@ _DATALOGGERPAYLOAD = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='receivedCanMessage', full_name='DataloggerPayload.receivedCanMessage', index=1,
+      name='system', full_name='DataloggerPayload.system', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='transmittedCanMessage', full_name='DataloggerPayload.transmittedCanMessage', index=2,
+      name='info', full_name='DataloggerPayload.info', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='canError', full_name='DataloggerPayload.canError', index=3,
+      name='receivedCanMessage', full_name='DataloggerPayload.receivedCanMessage', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='voltageReading', full_name='DataloggerPayload.voltageReading', index=4,
+      name='transmittedCanMessage', full_name='DataloggerPayload.transmittedCanMessage', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='timingPulse', full_name='DataloggerPayload.timingPulse', index=5,
+      name='canError', full_name='DataloggerPayload.canError', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rtcTime', full_name='DataloggerPayload.rtcTime', index=6,
+      name='canErrorCount', full_name='DataloggerPayload.canErrorCount', index=6,
       number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='voltageReading', full_name='DataloggerPayload.voltageReading', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='timingPulse', full_name='DataloggerPayload.timingPulse', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='rtcTime', full_name='DataloggerPayload.rtcTime', index=9,
+      number=10, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -279,7 +342,7 @@ _DATALOGGERPAYLOAD = _descriptor.Descriptor(
       index=0, containing_type=None, fields=[]),
   ],
   serialized_start=320,
-  serialized_end=655,
+  serialized_end=761,
 )
 
 
@@ -316,8 +379,8 @@ _DATALOGGERHEADER_CANHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=851,
-  serialized_end=895,
+  serialized_start=998,
+  serialized_end=1042,
 )
 
 _DATALOGGERHEADER_VOLTAGEHEADER = _descriptor.Descriptor(
@@ -353,8 +416,8 @@ _DATALOGGERHEADER_VOLTAGEHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=897,
-  serialized_end=945,
+  serialized_start=1044,
+  serialized_end=1092,
 )
 
 _DATALOGGERHEADER_TIMINGHEADER = _descriptor.Descriptor(
@@ -390,8 +453,8 @@ _DATALOGGERHEADER_TIMINGHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=947,
-  serialized_end=994,
+  serialized_start=1094,
+  serialized_end=1141,
 )
 
 _DATALOGGERHEADER = _descriptor.Descriptor(
@@ -402,22 +465,36 @@ _DATALOGGERHEADER = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='canData', full_name='DataloggerHeader.canData', index=0,
-      number=1, type=11, cpp_type=10, label=3,
+      name='name', full_name='DataloggerHeader.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\020'))),
+    _descriptor.FieldDescriptor(
+      name='ver', full_name='DataloggerHeader.ver', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010@'))),
+    _descriptor.FieldDescriptor(
+      name='canData', full_name='DataloggerHeader.canData', index=2,
+      number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\002'))),
     _descriptor.FieldDescriptor(
-      name='voltageData', full_name='DataloggerHeader.voltageData', index=1,
-      number=2, type=11, cpp_type=10, label=3,
+      name='voltageData', full_name='DataloggerHeader.voltageData', index=3,
+      number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\004'))),
     _descriptor.FieldDescriptor(
-      name='timingData', full_name='DataloggerHeader.timingData', index=2,
-      number=3, type=11, cpp_type=10, label=3,
+      name='timingData', full_name='DataloggerHeader.timingData', index=4,
+      number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -434,8 +511,70 @@ _DATALOGGERHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=658,
-  serialized_end=994,
+  serialized_start=764,
+  serialized_end=1141,
+)
+
+
+_DATALOGGERSYSTEMINFO = _descriptor.Descriptor(
+  name='DataloggerSystemInfo',
+  full_name='DataloggerSystemInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='info', full_name='DataloggerSystemInfo.info', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\003\010\200\001'))),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1143,
+  serialized_end=1187,
+)
+
+
+_INFOSTRING = _descriptor.Descriptor(
+  name='InfoString',
+  full_name='InfoString',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='info', full_name='InfoString.info', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\003\010\200\001'))),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1189,
+  serialized_end=1223,
 )
 
 
@@ -488,8 +627,40 @@ _CANMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=997,
-  serialized_end=1213,
+  serialized_start=1226,
+  serialized_end=1442,
+)
+
+
+_CANERROR = _descriptor.Descriptor(
+  name='CanError',
+  full_name='CanError',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='source', full_name='CanError.source', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _CANERROR_ERRORSOURCE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1445,
+  serialized_end=1625,
 )
 
 
@@ -502,7 +673,7 @@ _CANERRORCOUNTER = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='source', full_name='CanErrorCounter.source', index=0,
-      number=3, type=14, cpp_type=8, label=1,
+      number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -527,21 +698,30 @@ _CANERRORCOUNTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1216,
-  serialized_end=1366,
+  serialized_start=1628,
+  serialized_end=1778,
 )
 
 _DATALOGGERRECORD.fields_by_name['payload'].message_type = _DATALOGGERPAYLOAD
 _DATALOGGERPAYLOAD.fields_by_name['header'].message_type = _DATALOGGERHEADER
+_DATALOGGERPAYLOAD.fields_by_name['system'].message_type = _DATALOGGERSYSTEMINFO
+_DATALOGGERPAYLOAD.fields_by_name['info'].message_type = _INFOSTRING
 _DATALOGGERPAYLOAD.fields_by_name['receivedCanMessage'].message_type = _CANMESSAGE
 _DATALOGGERPAYLOAD.fields_by_name['transmittedCanMessage'].message_type = _CANMESSAGE
-_DATALOGGERPAYLOAD.fields_by_name['canError'].message_type = _CANERRORCOUNTER
+_DATALOGGERPAYLOAD.fields_by_name['canError'].message_type = _CANERROR
+_DATALOGGERPAYLOAD.fields_by_name['canErrorCount'].message_type = _CANERRORCOUNTER
 _DATALOGGERPAYLOAD.fields_by_name['voltageReading'].message_type = _STATISTICALAGGREGATE
 _DATALOGGERPAYLOAD.fields_by_name['timingPulse'].message_type = google_dot_protobuf_dot_empty__pb2._EMPTY
 _DATALOGGERPAYLOAD.fields_by_name['rtcTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
   _DATALOGGERPAYLOAD.fields_by_name['header'])
 _DATALOGGERPAYLOAD.fields_by_name['header'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
+_DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
+  _DATALOGGERPAYLOAD.fields_by_name['system'])
+_DATALOGGERPAYLOAD.fields_by_name['system'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
+_DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
+  _DATALOGGERPAYLOAD.fields_by_name['info'])
+_DATALOGGERPAYLOAD.fields_by_name['info'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
 _DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
   _DATALOGGERPAYLOAD.fields_by_name['receivedCanMessage'])
 _DATALOGGERPAYLOAD.fields_by_name['receivedCanMessage'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
@@ -551,6 +731,9 @@ _DATALOGGERPAYLOAD.fields_by_name['transmittedCanMessage'].containing_oneof = _D
 _DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
   _DATALOGGERPAYLOAD.fields_by_name['canError'])
 _DATALOGGERPAYLOAD.fields_by_name['canError'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
+_DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
+  _DATALOGGERPAYLOAD.fields_by_name['canErrorCount'])
+_DATALOGGERPAYLOAD.fields_by_name['canErrorCount'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
 _DATALOGGERPAYLOAD.oneofs_by_name['value'].fields.append(
   _DATALOGGERPAYLOAD.fields_by_name['voltageReading'])
 _DATALOGGERPAYLOAD.fields_by_name['voltageReading'].containing_oneof = _DATALOGGERPAYLOAD.oneofs_by_name['value']
@@ -570,13 +753,18 @@ _CANMESSAGE.fields_by_name['length'].enum_type = _CANMESSAGE_FRAMETYPE
 _CANMESSAGE.fields_by_name['rtr'].enum_type = _CANMESSAGE_RTRTYPE
 _CANMESSAGE_FRAMETYPE.containing_type = _CANMESSAGE
 _CANMESSAGE_RTRTYPE.containing_type = _CANMESSAGE
+_CANERROR.fields_by_name['source'].enum_type = _CANERROR_ERRORSOURCE
+_CANERROR_ERRORSOURCE.containing_type = _CANERROR
 _CANERRORCOUNTER.fields_by_name['source'].enum_type = _CANERRORCOUNTER_ERRORCOUNTERSOURCE
 _CANERRORCOUNTER_ERRORCOUNTERSOURCE.containing_type = _CANERRORCOUNTER
 DESCRIPTOR.message_types_by_name['StatisticalAggregate'] = _STATISTICALAGGREGATE
 DESCRIPTOR.message_types_by_name['DataloggerRecord'] = _DATALOGGERRECORD
 DESCRIPTOR.message_types_by_name['DataloggerPayload'] = _DATALOGGERPAYLOAD
 DESCRIPTOR.message_types_by_name['DataloggerHeader'] = _DATALOGGERHEADER
+DESCRIPTOR.message_types_by_name['DataloggerSystemInfo'] = _DATALOGGERSYSTEMINFO
+DESCRIPTOR.message_types_by_name['InfoString'] = _INFOSTRING
 DESCRIPTOR.message_types_by_name['CanMessage'] = _CANMESSAGE
+DESCRIPTOR.message_types_by_name['CanError'] = _CANERROR
 DESCRIPTOR.message_types_by_name['CanErrorCounter'] = _CANERRORCOUNTER
 
 StatisticalAggregate = _reflection.GeneratedProtocolMessageType('StatisticalAggregate', (_message.Message,), dict(
@@ -631,12 +819,33 @@ _sym_db.RegisterMessage(DataloggerHeader.CanHeader)
 _sym_db.RegisterMessage(DataloggerHeader.VoltageHeader)
 _sym_db.RegisterMessage(DataloggerHeader.TimingHeader)
 
+DataloggerSystemInfo = _reflection.GeneratedProtocolMessageType('DataloggerSystemInfo', (_message.Message,), dict(
+  DESCRIPTOR = _DATALOGGERSYSTEMINFO,
+  __module__ = 'datalogger_pb2'
+  # @@protoc_insertion_point(class_scope:DataloggerSystemInfo)
+  ))
+_sym_db.RegisterMessage(DataloggerSystemInfo)
+
+InfoString = _reflection.GeneratedProtocolMessageType('InfoString', (_message.Message,), dict(
+  DESCRIPTOR = _INFOSTRING,
+  __module__ = 'datalogger_pb2'
+  # @@protoc_insertion_point(class_scope:InfoString)
+  ))
+_sym_db.RegisterMessage(InfoString)
+
 CanMessage = _reflection.GeneratedProtocolMessageType('CanMessage', (_message.Message,), dict(
   DESCRIPTOR = _CANMESSAGE,
   __module__ = 'datalogger_pb2'
   # @@protoc_insertion_point(class_scope:CanMessage)
   ))
 _sym_db.RegisterMessage(CanMessage)
+
+CanError = _reflection.GeneratedProtocolMessageType('CanError', (_message.Message,), dict(
+  DESCRIPTOR = _CANERROR,
+  __module__ = 'datalogger_pb2'
+  # @@protoc_insertion_point(class_scope:CanError)
+  ))
+_sym_db.RegisterMessage(CanError)
 
 CanErrorCounter = _reflection.GeneratedProtocolMessageType('CanErrorCounter', (_message.Message,), dict(
   DESCRIPTOR = _CANERRORCOUNTER,
@@ -652,12 +861,20 @@ _DATALOGGERHEADER_VOLTAGEHEADER.fields_by_name['name'].has_options = True
 _DATALOGGERHEADER_VOLTAGEHEADER.fields_by_name['name']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\010'))
 _DATALOGGERHEADER_TIMINGHEADER.fields_by_name['name'].has_options = True
 _DATALOGGERHEADER_TIMINGHEADER.fields_by_name['name']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\010'))
+_DATALOGGERHEADER.fields_by_name['name'].has_options = True
+_DATALOGGERHEADER.fields_by_name['name']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\020'))
+_DATALOGGERHEADER.fields_by_name['ver'].has_options = True
+_DATALOGGERHEADER.fields_by_name['ver']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010@'))
 _DATALOGGERHEADER.fields_by_name['canData'].has_options = True
 _DATALOGGERHEADER.fields_by_name['canData']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\002'))
 _DATALOGGERHEADER.fields_by_name['voltageData'].has_options = True
 _DATALOGGERHEADER.fields_by_name['voltageData']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\004'))
 _DATALOGGERHEADER.fields_by_name['timingData'].has_options = True
 _DATALOGGERHEADER.fields_by_name['timingData']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\002'))
+_DATALOGGERSYSTEMINFO.fields_by_name['info'].has_options = True
+_DATALOGGERSYSTEMINFO.fields_by_name['info']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\003\010\200\001'))
+_INFOSTRING.fields_by_name['info'].has_options = True
+_INFOSTRING.fields_by_name['info']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\003\010\200\001'))
 _CANMESSAGE.fields_by_name['data'].has_options = True
 _CANMESSAGE.fields_by_name['data']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\010'))
 # @@protoc_insertion_point(module_scope)
