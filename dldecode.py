@@ -29,12 +29,12 @@ if __name__ == "__main__":
   parser.add_argument('infile', type=argparse.FileType('rb'), default=sys.stdin)
   args = parser.parse_args()
   
-  split = args.infile.read().split(bytes([0]))
+  split = args.infile.read().split(b'\x00')
 
   if not split[0]:  # discard empty first message
     split = split[1:]
 
-  msgs_raw = [cobs.decode(x) for x in split]
+  msgs_raw = [cobs.decode(bytearray(x)) for x in split]
   msgs = [x for x in msgs_raw if x is not None]
 
   for i, msg in enumerate(msgs):
