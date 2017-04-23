@@ -43,7 +43,7 @@ def generate(env):
     deps = [plugin_nanopb, plugin_plugin, plugin_gen, plugin_init, plugin]
 
     env.AddMethod(env['PROTOC_GENERATOR']('$NANOPBCOM', '$NANOPBCOMSTR', ['.pb.c', '.pb.h'], deps), 'Nanopb')
-    env['NANOPBCOM'] = '$PROTOCCOM --plugin=protoc-gen-nanopb=$NANOPB_PLUGIN --nanopb_out=$PBTARGET'
+    env['NANOPBCOM'] = '$PROTOCCOM --plugin=protoc-gen-nanopb=$NANOPB_PLUGIN --nanopb_out=--no-timestamp:$PBTARGET'
 
 def exists(env):
     return env.Detect(protocs)
