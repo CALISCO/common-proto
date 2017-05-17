@@ -1,15 +1,14 @@
 syntax = "proto2";
 
 import 'google/protobuf/timestamp.proto';
-import 'google/protobuf/empty.proto';
 import 'nanopb.proto';
 
 // Helper messages
 message StatisticalAggregate {
   optional uint32 samples = 1;
-  optional uint32 min = 2;
-  optional uint32 max = 3;
-  optional uint32 avg = 4;
+  optional int32 min = 2;
+  optional int32 max = 3;
+  optional int32 avg = 4;
   optional uint32 stdev = 5;
 }
 
@@ -23,34 +22,33 @@ message DataloggerRecord {
 
 message DataloggerPayload {
   oneof value {
-    DataloggerHeader header = 1;
-    CanMessage receivedCanMessage = 2;
-    CanMessage transmittedCanMessage = 3;
-    CanErrorCounter canError = 4;
-    StatisticalAggregate voltageReading = 5;
-    google.protobuf.Empty timingPulse = 6;
-    google.protobuf.Timestamp rtcTime = 7;
+    SourceDef sourceDef = 1;
+    InfoString info = 2;
+    CanMessage receivedCanMessage = 3;
+    CanMessage transmittedCanMessage = 4;
+    CanError canError = 5;
+    CanErrorCounter canErrorCount = 6;
+    StatisticalAggregate voltageReading = 7;
+    StatisticalAggregate temperatureReading = 8;
+    StatisticalAggregate loopTimer = 9;
+    google.protobuf.Timestamp rtcTime = 10;
   }
 }
 
-message DataloggerHeader {
-  message CanHeader {
-    optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 8];
+message SourceDef {
+  enum SourceType {
+    UNKNOWN = 0;
+    CAN = 1;
+    TIME = 2;
+    VOLTAGE = 3;
+    TEMPERATURE = 4;
   }
-  repeated CanHeader canData = 1 [(nanopb).max_count = 2];
+  optional SourceType sourceType = 1;
+  optional string name = 2 [(nanopb).max_size = 32];
+}
 
-  message VoltageHeader {
-    optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 8];
-  }
-  repeated VoltageHeader voltageData = 2 [(nanopb).max_count = 4];
-
-  message TimingHeader {
-    optional uint32 id = 1;
-    optional string name = 2 [(nanopb).max_size = 8];
-  }
-  repeated TimingHeader timingData = 3 [(nanopb).max_count = 2];
+message InfoString {
+  optional string info = 1 [(nanopb).max_size = 128];
 }
 
 message CanMessage {
@@ -68,11 +66,24 @@ message CanMessage {
   optional bytes data = 4 [(nanopb).max_size = 8];
 }
 
+message CanError {
+  enum ErrorSource {
+    UNKNOWN = 0;
+    ERROR_WARNING = 1;
+    ERROR_PASSIVE = 2;
+    BUS_OFF = 3;
+    DATA_OVERRUN = 4;
+    ARBITRATION_LOST = 5;
+    OTHER = 127;
+  }
+  optional ErrorSource source = 1;
+}
+
 message CanErrorCounter {
   enum ErrorCounterSource {
     TRANSMIT_COUNTER = 0;
     RECEIVE_COUNTER = 1;
   }
-  optional ErrorCounterSource source = 3;
+  optional ErrorCounterSource source = 1;
   optional uint32 count = 2;
 }
