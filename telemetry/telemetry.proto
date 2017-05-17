@@ -4,6 +4,57 @@ import 'nanopb.proto';
 
 option java_outer_classname="TelemetryProto";
 
-message Telemetry {
-  optional int32 timestamp_ms = 1;
+//Should be sent only after device resets
+message NameIDMessage { //Send the device ID with its corresponding name
+	optional uint32 id = 1;
+	optional string name = 2 [(nanopb).max_size = 32];
+}
+
+message StatisticalAggregate {
+  optional uint32 numSamples = 1;
+  optional uint32 min = 2;
+  optional uint32 max = 3;
+  optional uint32 mean = 4;
+  optional uint32 stdev = 5;
+}
+
+message GeneralReading { //this might want a more specific name?
+	enum READING_TYPE {
+		VOLTAGE = 1;
+		CURRENT = 2;
+		TEMPERATURE = 3;
+	}
+	optional READING_TYPE type = 1;
+	optional uint32 id = 2; //id of the device being read
+	optional StatisticalAggregate reading = 3;
+}
+
+message MCCInfoMessage {
+	optional StatisticalAggregate speed = 1; //information about the entire car's speed
+}
+
+message PedalMessage {
+	optional StatisticalAggregate accelPos = 1;
+	optional StatisticalAggregate brakePos = 2;
+}
+
+message ErrorMessage {
+	optional uint32 id = 1; //id of the device that's causing the error
+	optional string error = 2 [(nanopb).max_size = 32];
+}
+
+message InfoString { //right now meant as a debugging/random info tool
+  optional string info = 1 [(nanopb).max_size = 128];
+}
+
+message TelemetryMessage {
+  optional uint32 timestamp_ms = 1;
+  optional uint32 timestamp_variability = 2;
+  oneof value {
+  	GeneralReading generalReading = 3;
+  	MCCInfoMessage mccInfo = 4;
+  	PedalMessage userControlBoard = 5;
+  	ErrorMessage errorMessage = 6;
+  	InfoString infoString = 7;
+  }
 }
