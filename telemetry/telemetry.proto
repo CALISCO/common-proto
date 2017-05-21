@@ -4,57 +4,72 @@ import 'nanopb.proto';
 
 option java_outer_classname="TelemetryProto";
 
-//Should be sent only after device resets
-message NameIDMessage { //Send the device ID with its corresponding name
-	optional uint32 id = 1;
-	optional string name = 2 [(nanopb).max_size = 32];
-}
-
-message StatisticalAggregate {
-  optional uint32 numSamples = 1;
-  optional uint32 min = 2;
-  optional uint32 max = 3;
-  optional uint32 mean = 4;
-  optional uint32 stdev = 5;
-}
-
-message GeneralReading { //this might want a more specific name?
+//A DeviceInfoMessage should only be sent if a request is received from the telemetry viewer (ex. if the
+//		viewer sees a device it hasn't registered yet)
+//Otherwise, the viewer will just reference its config files (stored offline) for this information
+//Note: formerly NameIDMessage
+message DeviceInfoMessage { //send the device ID with its corresponding information
 	enum READING_TYPE {
 		VOLTAGE = 1;
 		CURRENT = 2;
 		TEMPERATURE = 3;
+		MCC = 4;
+		DRIVER_CONTROL = 5; //i.e. pedal board
+		OTHER = 127;
 	}
-	optional READING_TYPE type = 1;
-	optional uint32 id = 2; //id of the device being read
-	optional StatisticalAggregate reading = 3;
+	optional uint32 id = 1;
+	optional READING_TYPE readingType = 2 [default = OTHER];
+	optional string name = 3 [(nanopb).max_size = 32];
+	optional uint32 expectedSampleDelay = 4; //expected time between sample readings
+	optional uint32 longestAllowedSampleDelay = 5;
+	optional uint32 numAggregateSamples = 6; //= numSamples in StatisticalAggregate (below)
+	optional string units = 7 [(nanopb).max_size = 4]; //max of four letters (mV, A, degC, mph, etc.)
+	optional uint32 minSensorLimit = 8;
+	optional uint32 maxSensorLimit = 9;
+	optional uint32 resolution = 10;
+	optional uint32 accuracy = 11;
 }
 
-message MCCInfoMessage {
-	optional StatisticalAggregate speed = 1; //information about the entire car's speed
+message StatisticalAggregate {
+	optional uint32 numSamples = 1;
+	optional uint32 min = 2;
+	optional uint32 max = 3;
+	optional uint32 mean = 4;
+	optional uint32 stdev = 5;
 }
 
-message PedalMessage {
-	optional StatisticalAggregate accelPos = 1;
-	optional StatisticalAggregate brakePos = 2;
+message MeasurementAggregate {
+	optional uint32 id = 1; //id of the device being read
+	optional StatisticalAggregate reading = 2;
+	optional StatisticalAggregate sampleDelay = 3; //statistics on the times between samples
+												   //(largely for debugging, heartbeat/reading failures
+												   //will be send as InfoMessages (below))
 }
 
-message ErrorMessage {
-	optional uint32 id = 1; //id of the device that's causing the error
-	optional string error = 2 [(nanopb).max_size = 32];
-}
-
-message InfoString { //right now meant as a debugging/random info tool
-  optional string info = 1 [(nanopb).max_size = 128];
+message InfoMessage {
+	enum MESSAGE_TYPE { //TODO: expand the list of error types for quick identification
+		INFO_MESSAGE = 1; //right now, this is the only non-error message type
+		ERROR_CRITICAL = 2;
+		ERROR_WARNING = 3;
+		ERROR_PASSIVE = 4;
+		HEARTBEAT_FAILURE = 5; //device failure/disconnected
+		READING_FAILURE = 6; //device still connected but not sending any data
+							 //(is this even likely enough to be a concern?)
+		DATA_OVERRUN = 7;
+		OTHER = 127;
+	}
+	optional MESSAGE_TYPE messageType = 1;
+	optional uint32 id = 2; //id of the device that's prompting this message
+	optional string message = 3 [(nanopb).max_size = 64];
 }
 
 message TelemetryMessage {
-  optional uint32 timestamp_ms = 1;
-  optional uint32 timestamp_variability = 2;
-  oneof value {
-  	GeneralReading generalReading = 3;
-  	MCCInfoMessage mccInfo = 4;
-  	PedalMessage userControlBoard = 5;
-  	ErrorMessage errorMessage = 6;
-  	InfoString infoString = 7;
-  }
+	optional uint32 timestamp_ms = 1;
+	optional uint32 timestamp_variability = 2;
+	oneof value {
+		MeasurementAggregate sensorReading = 3;    //reading type specified by device id in the DeviceInfoMessage
+		MeasurementAggregate heartbeatReading = 4; //statistics on the heartbeats received from a device
+												   //only includes the device id and sampleDelay statistics
+		InfoMessage infoMessage = 5;
+	}
 }
