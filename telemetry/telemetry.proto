@@ -54,7 +54,7 @@ message InfoMessage {
 		ERROR_PASSIVE = 4;
 		HEARTBEAT_FAILURE = 5; //device failure/disconnected
 		READING_FAILURE = 6; //device still connected but not sending any data
-							 //(is this even likely enough to be a concern?)
+							 //    (is this even likely enough to be a concern?)
 		DATA_OVERRUN = 7;
 		OTHER = 127;
 	}
