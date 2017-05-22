@@ -12,6 +12,16 @@ message StatisticalAggregate {
   optional uint32 stdev = 5;
 }
 
+// Histogram with integer bucket boundaries and counts
+message IntHistogram {
+  // Parallel list of histogram bucket boundaries and counts.
+  // Bucket 0 is the range from [INT32_MIN, bucket[0])
+  // Bucket i is the range from [bucket[i-1], bucket[i])
+  // If there is one more count element than bucket, the last bucket's upper range is INT32_MAX
+  repeated int32 buckets = 1 [(nanopb).max_count = 10];  // exclusive upper limit
+  repeated uint32 counts = 2 [(nanopb).max_count = 11];
+}
+
 // Actual messages
 message DataloggerRecord {
   optional uint32 timestamp_ms = 1;
@@ -31,6 +41,7 @@ message DataloggerPayload {
     StatisticalAggregate voltageReading = 7;
     StatisticalAggregate temperatureReading = 8;
     StatisticalAggregate loopTimer = 9;
+    IntHistogram loopTimerDistribution = 11;
     google.protobuf.Timestamp rtcTime = 10;
   }
 }

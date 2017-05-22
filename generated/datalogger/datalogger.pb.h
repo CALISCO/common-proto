@@ -99,6 +99,14 @@ typedef struct _InfoString {
 /* @@protoc_insertion_point(struct:InfoString) */
 } InfoString;
 
+typedef struct _IntHistogram {
+    pb_size_t buckets_count;
+    int32_t buckets[10];
+    pb_size_t counts_count;
+    uint32_t counts[11];
+/* @@protoc_insertion_point(struct:IntHistogram) */
+} IntHistogram;
+
 typedef struct _SourceDef {
     bool has_sourceType;
     SourceDef_SourceType sourceType;
@@ -134,6 +142,7 @@ typedef struct _DataloggerPayload {
         StatisticalAggregate temperatureReading;
         StatisticalAggregate loopTimer;
         google_protobuf_Timestamp rtcTime;
+        IntHistogram loopTimerDistribution;
     } value;
 /* @@protoc_insertion_point(struct:DataloggerPayload) */
 } DataloggerPayload;
@@ -154,6 +163,7 @@ typedef struct _DataloggerRecord {
 
 /* Initializer values for message structs */
 #define StatisticalAggregate_init_default        {false, 0, false, 0, false, 0, false, 0, false, 0}
+#define IntHistogram_init_default                {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 #define DataloggerRecord_init_default            {false, 0, false, 0, false, 0, false, DataloggerPayload_init_default}
 #define DataloggerPayload_init_default           {0, {SourceDef_init_default}}
 #define SourceDef_init_default                   {false, (SourceDef_SourceType)0, false, ""}
@@ -162,6 +172,7 @@ typedef struct _DataloggerRecord {
 #define CanError_init_default                    {false, (CanError_ErrorSource)0}
 #define CanErrorCounter_init_default             {false, (CanErrorCounter_ErrorCounterSource)0, false, 0}
 #define StatisticalAggregate_init_zero           {false, 0, false, 0, false, 0, false, 0, false, 0}
+#define IntHistogram_init_zero                   {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 #define DataloggerRecord_init_zero               {false, 0, false, 0, false, 0, false, DataloggerPayload_init_zero}
 #define DataloggerPayload_init_zero              {0, {SourceDef_init_zero}}
 #define SourceDef_init_zero                      {false, (SourceDef_SourceType)0, false, ""}
@@ -179,6 +190,8 @@ typedef struct _DataloggerRecord {
 #define CanMessage_rtr_tag                       3
 #define CanMessage_data_tag                      4
 #define InfoString_info_tag                      1
+#define IntHistogram_buckets_tag                 1
+#define IntHistogram_counts_tag                  2
 #define SourceDef_sourceType_tag                 1
 #define SourceDef_name_tag                       2
 #define StatisticalAggregate_samples_tag         1
@@ -196,6 +209,7 @@ typedef struct _DataloggerRecord {
 #define DataloggerPayload_temperatureReading_tag 8
 #define DataloggerPayload_loopTimer_tag          9
 #define DataloggerPayload_rtcTime_tag            10
+#define DataloggerPayload_loopTimerDistribution_tag 11
 #define DataloggerRecord_timestamp_ms_tag        1
 #define DataloggerRecord_timestamp_variability_tag 2
 #define DataloggerRecord_sourceId_tag            3
@@ -203,8 +217,9 @@ typedef struct _DataloggerRecord {
 
 /* Struct field encoding specification for nanopb */
 extern const pb_field_t StatisticalAggregate_fields[6];
+extern const pb_field_t IntHistogram_fields[3];
 extern const pb_field_t DataloggerRecord_fields[5];
-extern const pb_field_t DataloggerPayload_fields[11];
+extern const pb_field_t DataloggerPayload_fields[12];
 extern const pb_field_t SourceDef_fields[3];
 extern const pb_field_t InfoString_fields[2];
 extern const pb_field_t CanMessage_fields[5];
@@ -213,8 +228,9 @@ extern const pb_field_t CanErrorCounter_fields[3];
 
 /* Maximum encoded size of messages (where known) */
 #define StatisticalAggregate_size                45
-#define DataloggerRecord_size                    155
-#define DataloggerPayload_size                   134
+#define IntHistogram_size                        176
+#define DataloggerRecord_size                    200
+#define DataloggerPayload_size                   179
 #define SourceDef_size                           36
 #define InfoString_size                          131
 #define CanMessage_size                          20
