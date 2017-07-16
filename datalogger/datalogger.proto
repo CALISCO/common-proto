@@ -1,15 +1,15 @@
-syntax = "proto2";
+syntax = "proto3";
 
 import 'google/protobuf/timestamp.proto';
 import 'nanopb.proto';
 
 // Helper messages
 message StatisticalAggregate {
-  optional uint32 samples = 1;
-  optional int32 min = 2;
-  optional int32 max = 3;
-  optional int32 avg = 4;
-  optional uint32 stdev = 5;
+  uint32 samples = 1;
+  int32 min = 2;
+  int32 max = 3;
+  int32 avg = 4;
+  uint32 stdev = 5;
 }
 
 // Histogram with integer bucket boundaries and counts
@@ -24,10 +24,10 @@ message IntHistogram {
 
 // Actual messages
 message DataloggerRecord {
-  optional uint32 timestamp_ms = 1;
-  optional uint32 timestamp_variability = 2;
-  optional uint32 sourceId = 3;
-  optional DataloggerPayload payload = 4;
+  uint32 timestamp_ms = 1;
+  uint32 timestamp_variability = 2;
+  uint32 sourceId = 3;
+  DataloggerPayload payload = 4;
 }
 
 message DataloggerPayload {
@@ -37,12 +37,13 @@ message DataloggerPayload {
     CanMessage receivedCanMessage = 3;
     CanMessage transmittedCanMessage = 4;
     CanError canError = 5;
-    CanErrorCounter canErrorCount = 6;
-    StatisticalAggregate voltageReading = 7;
-    StatisticalAggregate temperatureReading = 8;
+    CanErrorCounter canErrorCount = 6 [deprecated=true];
+    StatisticalAggregate voltageReading = 7 [deprecated=true];
+    StatisticalAggregate temperatureReading = 8 [deprecated=true];
     StatisticalAggregate loopTimer = 9;
     IntHistogram loopTimerDistribution = 11;
     google.protobuf.Timestamp rtcTime = 10;
+    StatisticalAggregate sensorReading = 12;
   }
 }
 
@@ -54,27 +55,27 @@ message SourceDef {
     VOLTAGE = 3;
     TEMPERATURE = 4;
   }
-  optional SourceType sourceType = 1;
-  optional string name = 2 [(nanopb).max_size = 32];
+  SourceType sourceType = 1;
+  string name = 2 [(nanopb).max_size = 32];
 }
 
 message InfoString {
-  optional string info = 1 [(nanopb).max_size = 128];
+  string info = 1 [(nanopb).max_size = 128];
 }
 
 message CanMessage {
-  optional uint32 id = 1;
+  uint32 id = 1;
   enum FrameType {
     STANDARD_FRAME = 0;
     EXTENDED_FRAME = 1;
   }
-  optional FrameType length = 2;
+  FrameType length = 2;
   enum RtrType {
     DATA_FRAME = 0;
     REMOTE_FRAME = 1;
   }
-  optional RtrType rtr = 3;
-  optional bytes data = 4 [(nanopb).max_size = 8];
+  RtrType rtr = 3;
+  bytes data = 4 [(nanopb).max_size = 8];
 }
 
 message CanError {
@@ -87,7 +88,7 @@ message CanError {
     ARBITRATION_LOST = 5;
     OTHER = 127;
   }
-  optional ErrorSource source = 1;
+  ErrorSource source = 1;
 }
 
 message CanErrorCounter {
@@ -95,6 +96,6 @@ message CanErrorCounter {
     TRANSMIT_COUNTER = 0;
     RECEIVE_COUNTER = 1;
   }
-  optional ErrorCounterSource source = 1;
-  optional uint32 count = 2;
+  ErrorCounterSource source = 1;
+  uint32 count = 2;
 }
