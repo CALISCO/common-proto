@@ -129,6 +129,7 @@ typedef struct _DataloggerPayload {
         google_protobuf_Timestamp rtcTime;
         IntHistogram loopTimerDistribution;
         StatisticalAggregate sensorReading;
+        IntHistogram sensorDistribution;
     } value;
 /* @@protoc_insertion_point(struct:DataloggerPayload) */
 } DataloggerPayload;
@@ -193,6 +194,7 @@ typedef struct _DataloggerRecord {
 #define DataloggerPayload_rtcTime_tag            10
 #define DataloggerPayload_loopTimerDistribution_tag 11
 #define DataloggerPayload_sensorReading_tag      12
+#define DataloggerPayload_sensorDistribution_tag 13
 #define DataloggerRecord_timestamp_ms_tag        1
 #define DataloggerRecord_timestamp_variability_tag 2
 #define DataloggerRecord_sourceId_tag            3
@@ -202,7 +204,7 @@ typedef struct _DataloggerRecord {
 extern const pb_field_t StatisticalAggregate_fields[6];
 extern const pb_field_t IntHistogram_fields[3];
 extern const pb_field_t DataloggerRecord_fields[5];
-extern const pb_field_t DataloggerPayload_fields[13];
+extern const pb_field_t DataloggerPayload_fields[14];
 extern const pb_field_t SourceDef_fields[3];
 extern const pb_field_t InfoString_fields[2];
 extern const pb_field_t CanMessage_fields[5];

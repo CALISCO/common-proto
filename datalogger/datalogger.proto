@@ -40,10 +40,11 @@ message DataloggerPayload {
     CanErrorCounter canErrorCount = 6 [deprecated=true];
     StatisticalAggregate voltageReading = 7 [deprecated=true];
     StatisticalAggregate temperatureReading = 8 [deprecated=true];
-    StatisticalAggregate loopTimer = 9;
-    IntHistogram loopTimerDistribution = 11;
+    StatisticalAggregate loopTimer = 9 [deprecated=true];
+    IntHistogram loopTimerDistribution = 11 [deprecated=true];
     google.protobuf.Timestamp rtcTime = 10;
     StatisticalAggregate sensorReading = 12;
+    IntHistogram sensorDistribution = 13;
   }
 }
 
