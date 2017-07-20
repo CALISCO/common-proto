@@ -67,34 +67,26 @@ typedef enum _CanErrorCounter_ErrorCounterSource {
 
 /* Struct definitions */
 typedef struct _CanError {
-    bool has_source;
     CanError_ErrorSource source;
 /* @@protoc_insertion_point(struct:CanError) */
 } CanError;
 
 typedef struct _CanErrorCounter {
-    bool has_source;
     CanErrorCounter_ErrorCounterSource source;
-    bool has_count;
     uint32_t count;
 /* @@protoc_insertion_point(struct:CanErrorCounter) */
 } CanErrorCounter;
 
 typedef PB_BYTES_ARRAY_T(8) CanMessage_data_t;
 typedef struct _CanMessage {
-    bool has_id;
     uint32_t id;
-    bool has_length;
     CanMessage_FrameType length;
-    bool has_rtr;
     CanMessage_RtrType rtr;
-    bool has_data;
     CanMessage_data_t data;
 /* @@protoc_insertion_point(struct:CanMessage) */
 } CanMessage;
 
 typedef struct _InfoString {
-    bool has_info;
     char info[128];
 /* @@protoc_insertion_point(struct:InfoString) */
 } InfoString;
@@ -108,23 +100,16 @@ typedef struct _IntHistogram {
 } IntHistogram;
 
 typedef struct _SourceDef {
-    bool has_sourceType;
     SourceDef_SourceType sourceType;
-    bool has_name;
     char name[32];
 /* @@protoc_insertion_point(struct:SourceDef) */
 } SourceDef;
 
 typedef struct _StatisticalAggregate {
-    bool has_samples;
     uint32_t samples;
-    bool has_min;
     int32_t min;
-    bool has_max;
     int32_t max;
-    bool has_avg;
     int32_t avg;
-    bool has_stdev;
     uint32_t stdev;
 /* @@protoc_insertion_point(struct:StatisticalAggregate) */
 } StatisticalAggregate;
@@ -143,18 +128,16 @@ typedef struct _DataloggerPayload {
         StatisticalAggregate loopTimer;
         google_protobuf_Timestamp rtcTime;
         IntHistogram loopTimerDistribution;
+        StatisticalAggregate sensorReading;
+        IntHistogram sensorDistribution;
     } value;
 /* @@protoc_insertion_point(struct:DataloggerPayload) */
 } DataloggerPayload;
 
 typedef struct _DataloggerRecord {
-    bool has_timestamp_ms;
     uint32_t timestamp_ms;
-    bool has_timestamp_variability;
     uint32_t timestamp_variability;
-    bool has_sourceId;
     uint32_t sourceId;
-    bool has_payload;
     DataloggerPayload payload;
 /* @@protoc_insertion_point(struct:DataloggerRecord) */
 } DataloggerRecord;
@@ -162,24 +145,24 @@ typedef struct _DataloggerRecord {
 /* Default values for struct fields */
 
 /* Initializer values for message structs */
-#define StatisticalAggregate_init_default        {false, 0, false, 0, false, 0, false, 0, false, 0}
+#define StatisticalAggregate_init_default        {0, 0, 0, 0, 0}
 #define IntHistogram_init_default                {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_default            {false, 0, false, 0, false, 0, false, DataloggerPayload_init_default}
+#define DataloggerRecord_init_default            {0, 0, 0, DataloggerPayload_init_default}
 #define DataloggerPayload_init_default           {0, {SourceDef_init_default}}
-#define SourceDef_init_default                   {false, (SourceDef_SourceType)0, false, ""}
-#define InfoString_init_default                  {false, ""}
-#define CanMessage_init_default                  {false, 0, false, (CanMessage_FrameType)0, false, (CanMessage_RtrType)0, false, {0, {0}}}
-#define CanError_init_default                    {false, (CanError_ErrorSource)0}
-#define CanErrorCounter_init_default             {false, (CanErrorCounter_ErrorCounterSource)0, false, 0}
-#define StatisticalAggregate_init_zero           {false, 0, false, 0, false, 0, false, 0, false, 0}
+#define SourceDef_init_default                   {(SourceDef_SourceType)0, ""}
+#define InfoString_init_default                  {""}
+#define CanMessage_init_default                  {0, (CanMessage_FrameType)0, (CanMessage_RtrType)0, {0, {0}}}
+#define CanError_init_default                    {(CanError_ErrorSource)0}
+#define CanErrorCounter_init_default             {(CanErrorCounter_ErrorCounterSource)0, 0}
+#define StatisticalAggregate_init_zero           {0, 0, 0, 0, 0}
 #define IntHistogram_init_zero                   {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_zero               {false, 0, false, 0, false, 0, false, DataloggerPayload_init_zero}
+#define DataloggerRecord_init_zero               {0, 0, 0, DataloggerPayload_init_zero}
 #define DataloggerPayload_init_zero              {0, {SourceDef_init_zero}}
-#define SourceDef_init_zero                      {false, (SourceDef_SourceType)0, false, ""}
-#define InfoString_init_zero                     {false, ""}
-#define CanMessage_init_zero                     {false, 0, false, (CanMessage_FrameType)0, false, (CanMessage_RtrType)0, false, {0, {0}}}
-#define CanError_init_zero                       {false, (CanError_ErrorSource)0}
-#define CanErrorCounter_init_zero                {false, (CanErrorCounter_ErrorCounterSource)0, false, 0}
+#define SourceDef_init_zero                      {(SourceDef_SourceType)0, ""}
+#define InfoString_init_zero                     {""}
+#define CanMessage_init_zero                     {0, (CanMessage_FrameType)0, (CanMessage_RtrType)0, {0, {0}}}
+#define CanError_init_zero                       {(CanError_ErrorSource)0}
+#define CanErrorCounter_init_zero                {(CanErrorCounter_ErrorCounterSource)0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define CanError_source_tag                      1
@@ -210,6 +193,8 @@ typedef struct _DataloggerRecord {
 #define DataloggerPayload_loopTimer_tag          9
 #define DataloggerPayload_rtcTime_tag            10
 #define DataloggerPayload_loopTimerDistribution_tag 11
+#define DataloggerPayload_sensorReading_tag      12
+#define DataloggerPayload_sensorDistribution_tag 13
 #define DataloggerRecord_timestamp_ms_tag        1
 #define DataloggerRecord_timestamp_variability_tag 2
 #define DataloggerRecord_sourceId_tag            3
@@ -219,7 +204,7 @@ typedef struct _DataloggerRecord {
 extern const pb_field_t StatisticalAggregate_fields[6];
 extern const pb_field_t IntHistogram_fields[3];
 extern const pb_field_t DataloggerRecord_fields[5];
-extern const pb_field_t DataloggerPayload_fields[12];
+extern const pb_field_t DataloggerPayload_fields[14];
 extern const pb_field_t SourceDef_fields[3];
 extern const pb_field_t InfoString_fields[2];
 extern const pb_field_t CanMessage_fields[5];

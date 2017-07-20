@@ -11,11 +11,11 @@
 
 
 const pb_field_t StatisticalAggregate_fields[6] = {
-    PB_FIELD(  1, UINT32  , OPTIONAL, STATIC  , FIRST, StatisticalAggregate, samples, samples, 0),
-    PB_FIELD(  2, INT32   , OPTIONAL, STATIC  , OTHER, StatisticalAggregate, min, samples, 0),
-    PB_FIELD(  3, INT32   , OPTIONAL, STATIC  , OTHER, StatisticalAggregate, max, min, 0),
-    PB_FIELD(  4, INT32   , OPTIONAL, STATIC  , OTHER, StatisticalAggregate, avg, max, 0),
-    PB_FIELD(  5, UINT32  , OPTIONAL, STATIC  , OTHER, StatisticalAggregate, stdev, avg, 0),
+    PB_FIELD(  1, UINT32  , SINGULAR, STATIC  , FIRST, StatisticalAggregate, samples, samples, 0),
+    PB_FIELD(  2, INT32   , SINGULAR, STATIC  , OTHER, StatisticalAggregate, min, samples, 0),
+    PB_FIELD(  3, INT32   , SINGULAR, STATIC  , OTHER, StatisticalAggregate, max, min, 0),
+    PB_FIELD(  4, INT32   , SINGULAR, STATIC  , OTHER, StatisticalAggregate, avg, max, 0),
+    PB_FIELD(  5, UINT32  , SINGULAR, STATIC  , OTHER, StatisticalAggregate, stdev, avg, 0),
     PB_LAST_FIELD
 };
 
@@ -26,14 +26,14 @@ const pb_field_t IntHistogram_fields[3] = {
 };
 
 const pb_field_t DataloggerRecord_fields[5] = {
-    PB_FIELD(  1, UINT32  , OPTIONAL, STATIC  , FIRST, DataloggerRecord, timestamp_ms, timestamp_ms, 0),
-    PB_FIELD(  2, UINT32  , OPTIONAL, STATIC  , OTHER, DataloggerRecord, timestamp_variability, timestamp_ms, 0),
-    PB_FIELD(  3, UINT32  , OPTIONAL, STATIC  , OTHER, DataloggerRecord, sourceId, timestamp_variability, 0),
-    PB_FIELD(  4, MESSAGE , OPTIONAL, STATIC  , OTHER, DataloggerRecord, payload, sourceId, &DataloggerPayload_fields),
+    PB_FIELD(  1, UINT32  , SINGULAR, STATIC  , FIRST, DataloggerRecord, timestamp_ms, timestamp_ms, 0),
+    PB_FIELD(  2, UINT32  , SINGULAR, STATIC  , OTHER, DataloggerRecord, timestamp_variability, timestamp_ms, 0),
+    PB_FIELD(  3, UINT32  , SINGULAR, STATIC  , OTHER, DataloggerRecord, sourceId, timestamp_variability, 0),
+    PB_FIELD(  4, MESSAGE , SINGULAR, STATIC  , OTHER, DataloggerRecord, payload, sourceId, &DataloggerPayload_fields),
     PB_LAST_FIELD
 };
 
-const pb_field_t DataloggerPayload_fields[12] = {
+const pb_field_t DataloggerPayload_fields[14] = {
     PB_ONEOF_FIELD(value,   1, MESSAGE , ONEOF, STATIC  , FIRST, DataloggerPayload, sourceDef, sourceDef, &SourceDef_fields),
     PB_ONEOF_FIELD(value,   2, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, info, info, &InfoString_fields),
     PB_ONEOF_FIELD(value,   3, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, receivedCanMessage, receivedCanMessage, &CanMessage_fields),
@@ -45,36 +45,38 @@ const pb_field_t DataloggerPayload_fields[12] = {
     PB_ONEOF_FIELD(value,   9, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, loopTimer, loopTimer, &StatisticalAggregate_fields),
     PB_ONEOF_FIELD(value,  10, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, rtcTime, rtcTime, &google_protobuf_Timestamp_fields),
     PB_ONEOF_FIELD(value,  11, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, loopTimerDistribution, loopTimerDistribution, &IntHistogram_fields),
+    PB_ONEOF_FIELD(value,  12, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, sensorReading, sensorReading, &StatisticalAggregate_fields),
+    PB_ONEOF_FIELD(value,  13, MESSAGE , ONEOF, STATIC  , UNION, DataloggerPayload, sensorDistribution, sensorDistribution, &IntHistogram_fields),
     PB_LAST_FIELD
 };
 
 const pb_field_t SourceDef_fields[3] = {
-    PB_FIELD(  1, UENUM   , OPTIONAL, STATIC  , FIRST, SourceDef, sourceType, sourceType, 0),
-    PB_FIELD(  2, STRING  , OPTIONAL, STATIC  , OTHER, SourceDef, name, sourceType, 0),
+    PB_FIELD(  1, UENUM   , SINGULAR, STATIC  , FIRST, SourceDef, sourceType, sourceType, 0),
+    PB_FIELD(  2, STRING  , SINGULAR, STATIC  , OTHER, SourceDef, name, sourceType, 0),
     PB_LAST_FIELD
 };
 
 const pb_field_t InfoString_fields[2] = {
-    PB_FIELD(  1, STRING  , OPTIONAL, STATIC  , FIRST, InfoString, info, info, 0),
+    PB_FIELD(  1, STRING  , SINGULAR, STATIC  , FIRST, InfoString, info, info, 0),
     PB_LAST_FIELD
 };
 
 const pb_field_t CanMessage_fields[5] = {
-    PB_FIELD(  1, UINT32  , OPTIONAL, STATIC  , FIRST, CanMessage, id, id, 0),
-    PB_FIELD(  2, UENUM   , OPTIONAL, STATIC  , OTHER, CanMessage, length, id, 0),
-    PB_FIELD(  3, UENUM   , OPTIONAL, STATIC  , OTHER, CanMessage, rtr, length, 0),
-    PB_FIELD(  4, BYTES   , OPTIONAL, STATIC  , OTHER, CanMessage, data, rtr, 0),
+    PB_FIELD(  1, UINT32  , SINGULAR, STATIC  , FIRST, CanMessage, id, id, 0),
+    PB_FIELD(  2, UENUM   , SINGULAR, STATIC  , OTHER, CanMessage, length, id, 0),
+    PB_FIELD(  3, UENUM   , SINGULAR, STATIC  , OTHER, CanMessage, rtr, length, 0),
+    PB_FIELD(  4, BYTES   , SINGULAR, STATIC  , OTHER, CanMessage, data, rtr, 0),
     PB_LAST_FIELD
 };
 
 const pb_field_t CanError_fields[2] = {
-    PB_FIELD(  1, UENUM   , OPTIONAL, STATIC  , FIRST, CanError, source, source, 0),
+    PB_FIELD(  1, UENUM   , SINGULAR, STATIC  , FIRST, CanError, source, source, 0),
     PB_LAST_FIELD
 };
 
 const pb_field_t CanErrorCounter_fields[3] = {
-    PB_FIELD(  1, UENUM   , OPTIONAL, STATIC  , FIRST, CanErrorCounter, source, source, 0),
-    PB_FIELD(  2, UINT32  , OPTIONAL, STATIC  , OTHER, CanErrorCounter, count, source, 0),
+    PB_FIELD(  1, UENUM   , SINGULAR, STATIC  , FIRST, CanErrorCounter, source, source, 0),
+    PB_FIELD(  2, UINT32  , SINGULAR, STATIC  , OTHER, CanErrorCounter, count, source, 0),
     PB_LAST_FIELD
 };
 
@@ -93,7 +95,7 @@ const pb_field_t CanErrorCounter_fields[3] = {
  * numbers or field sizes that are larger than what can fit in 8 or 16 bit
  * field descriptors.
  */
-PB_STATIC_ASSERT((pb_membersize(DataloggerRecord, payload) < 65536 && pb_membersize(DataloggerPayload, value.sourceDef) < 65536 && pb_membersize(DataloggerPayload, value.info) < 65536 && pb_membersize(DataloggerPayload, value.receivedCanMessage) < 65536 && pb_membersize(DataloggerPayload, value.transmittedCanMessage) < 65536 && pb_membersize(DataloggerPayload, value.canError) < 65536 && pb_membersize(DataloggerPayload, value.canErrorCount) < 65536 && pb_membersize(DataloggerPayload, value.voltageReading) < 65536 && pb_membersize(DataloggerPayload, value.temperatureReading) < 65536 && pb_membersize(DataloggerPayload, value.loopTimer) < 65536 && pb_membersize(DataloggerPayload, value.rtcTime) < 65536 && pb_membersize(DataloggerPayload, value.loopTimerDistribution) < 65536), YOU_MUST_DEFINE_PB_FIELD_32BIT_FOR_MESSAGES_StatisticalAggregate_IntHistogram_DataloggerRecord_DataloggerPayload_SourceDef_InfoString_CanMessage_CanError_CanErrorCounter)
+PB_STATIC_ASSERT((pb_membersize(DataloggerRecord, payload) < 65536 && pb_membersize(DataloggerPayload, value.sourceDef) < 65536 && pb_membersize(DataloggerPayload, value.info) < 65536 && pb_membersize(DataloggerPayload, value.receivedCanMessage) < 65536 && pb_membersize(DataloggerPayload, value.transmittedCanMessage) < 65536 && pb_membersize(DataloggerPayload, value.canError) < 65536 && pb_membersize(DataloggerPayload, value.canErrorCount) < 65536 && pb_membersize(DataloggerPayload, value.voltageReading) < 65536 && pb_membersize(DataloggerPayload, value.temperatureReading) < 65536 && pb_membersize(DataloggerPayload, value.loopTimer) < 65536 && pb_membersize(DataloggerPayload, value.rtcTime) < 65536 && pb_membersize(DataloggerPayload, value.loopTimerDistribution) < 65536 && pb_membersize(DataloggerPayload, value.sensorReading) < 65536 && pb_membersize(DataloggerPayload, value.sensorDistribution) < 65536), YOU_MUST_DEFINE_PB_FIELD_32BIT_FOR_MESSAGES_StatisticalAggregate_IntHistogram_DataloggerRecord_DataloggerPayload_SourceDef_InfoString_CanMessage_CanError_CanErrorCounter)
 #endif
 
 #if !defined(PB_FIELD_16BIT) && !defined(PB_FIELD_32BIT)
@@ -104,7 +106,7 @@ PB_STATIC_ASSERT((pb_membersize(DataloggerRecord, payload) < 65536 && pb_members
  * numbers or field sizes that are larger than what can fit in the default
  * 8 bit descriptors.
  */
-PB_STATIC_ASSERT((pb_membersize(DataloggerRecord, payload) < 256 && pb_membersize(DataloggerPayload, value.sourceDef) < 256 && pb_membersize(DataloggerPayload, value.info) < 256 && pb_membersize(DataloggerPayload, value.receivedCanMessage) < 256 && pb_membersize(DataloggerPayload, value.transmittedCanMessage) < 256 && pb_membersize(DataloggerPayload, value.canError) < 256 && pb_membersize(DataloggerPayload, value.canErrorCount) < 256 && pb_membersize(DataloggerPayload, value.voltageReading) < 256 && pb_membersize(DataloggerPayload, value.temperatureReading) < 256 && pb_membersize(DataloggerPayload, value.loopTimer) < 256 && pb_membersize(DataloggerPayload, value.rtcTime) < 256 && pb_membersize(DataloggerPayload, value.loopTimerDistribution) < 256), YOU_MUST_DEFINE_PB_FIELD_16BIT_FOR_MESSAGES_StatisticalAggregate_IntHistogram_DataloggerRecord_DataloggerPayload_SourceDef_InfoString_CanMessage_CanError_CanErrorCounter)
+PB_STATIC_ASSERT((pb_membersize(DataloggerRecord, payload) < 256 && pb_membersize(DataloggerPayload, value.sourceDef) < 256 && pb_membersize(DataloggerPayload, value.info) < 256 && pb_membersize(DataloggerPayload, value.receivedCanMessage) < 256 && pb_membersize(DataloggerPayload, value.transmittedCanMessage) < 256 && pb_membersize(DataloggerPayload, value.canError) < 256 && pb_membersize(DataloggerPayload, value.canErrorCount) < 256 && pb_membersize(DataloggerPayload, value.voltageReading) < 256 && pb_membersize(DataloggerPayload, value.temperatureReading) < 256 && pb_membersize(DataloggerPayload, value.loopTimer) < 256 && pb_membersize(DataloggerPayload, value.rtcTime) < 256 && pb_membersize(DataloggerPayload, value.loopTimerDistribution) < 256 && pb_membersize(DataloggerPayload, value.sensorReading) < 256 && pb_membersize(DataloggerPayload, value.sensorDistribution) < 256), YOU_MUST_DEFINE_PB_FIELD_16BIT_FOR_MESSAGES_StatisticalAggregate_IntHistogram_DataloggerRecord_DataloggerPayload_SourceDef_InfoString_CanMessage_CanError_CanErrorCounter)
 #endif
 
 
