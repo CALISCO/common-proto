@@ -114,7 +114,7 @@ typedef struct _StatisticalAggregate {
 /* @@protoc_insertion_point(struct:StatisticalAggregate) */
 } StatisticalAggregate;
 
-typedef struct _DataloggerPayload {
+typedef struct _LegacyPayload {
     pb_size_t which_value;
     union {
         SourceDef sourceDef;
@@ -131,14 +131,25 @@ typedef struct _DataloggerPayload {
         StatisticalAggregate sensorReading;
         IntHistogram sensorDistribution;
     } value;
-/* @@protoc_insertion_point(struct:DataloggerPayload) */
-} DataloggerPayload;
+/* @@protoc_insertion_point(struct:LegacyPayload) */
+} LegacyPayload;
 
 typedef struct _DataloggerRecord {
     uint32_t timestamp_ms;
     uint32_t timestamp_variability;
     uint32_t sourceId;
-    DataloggerPayload payload;
+    pb_size_t which_payload;
+    union {
+        LegacyPayload legacy_payload;
+        SourceDef sourceDef;
+        InfoString info;
+        CanMessage receivedCanMessage;
+        CanMessage transmittedCanMessage;
+        CanError canError;
+        google_protobuf_Timestamp rtcTime;
+        StatisticalAggregate sensorReading;
+        IntHistogram sensorDistribution;
+    } payload;
 /* @@protoc_insertion_point(struct:DataloggerRecord) */
 } DataloggerRecord;
 
@@ -147,8 +158,8 @@ typedef struct _DataloggerRecord {
 /* Initializer values for message structs */
 #define StatisticalAggregate_init_default        {0, 0, 0, 0, 0}
 #define IntHistogram_init_default                {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_default            {0, 0, 0, DataloggerPayload_init_default}
-#define DataloggerPayload_init_default           {0, {SourceDef_init_default}}
+#define DataloggerRecord_init_default            {0, 0, 0, 0, {LegacyPayload_init_default}}
+#define LegacyPayload_init_default               {0, {SourceDef_init_default}}
 #define SourceDef_init_default                   {(SourceDef_SourceType)0, ""}
 #define InfoString_init_default                  {""}
 #define CanMessage_init_default                  {0, (CanMessage_FrameType)0, (CanMessage_RtrType)0, {0, {0}}}
@@ -156,8 +167,8 @@ typedef struct _DataloggerRecord {
 #define CanErrorCounter_init_default             {(CanErrorCounter_ErrorCounterSource)0, 0}
 #define StatisticalAggregate_init_zero           {0, 0, 0, 0, 0}
 #define IntHistogram_init_zero                   {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_zero               {0, 0, 0, DataloggerPayload_init_zero}
-#define DataloggerPayload_init_zero              {0, {SourceDef_init_zero}}
+#define DataloggerRecord_init_zero               {0, 0, 0, 0, {LegacyPayload_init_zero}}
+#define LegacyPayload_init_zero                  {0, {SourceDef_init_zero}}
 #define SourceDef_init_zero                      {(SourceDef_SourceType)0, ""}
 #define InfoString_init_zero                     {""}
 #define CanMessage_init_zero                     {0, (CanMessage_FrameType)0, (CanMessage_RtrType)0, {0, {0}}}
@@ -182,29 +193,37 @@ typedef struct _DataloggerRecord {
 #define StatisticalAggregate_max_tag             3
 #define StatisticalAggregate_avg_tag             4
 #define StatisticalAggregate_stdev_tag           5
-#define DataloggerPayload_sourceDef_tag          1
-#define DataloggerPayload_info_tag               2
-#define DataloggerPayload_receivedCanMessage_tag 3
-#define DataloggerPayload_transmittedCanMessage_tag 4
-#define DataloggerPayload_canError_tag           5
-#define DataloggerPayload_canErrorCount_tag      6
-#define DataloggerPayload_voltageReading_tag     7
-#define DataloggerPayload_temperatureReading_tag 8
-#define DataloggerPayload_loopTimer_tag          9
-#define DataloggerPayload_rtcTime_tag            10
-#define DataloggerPayload_loopTimerDistribution_tag 11
-#define DataloggerPayload_sensorReading_tag      12
-#define DataloggerPayload_sensorDistribution_tag 13
+#define LegacyPayload_sourceDef_tag              1
+#define LegacyPayload_info_tag                   2
+#define LegacyPayload_receivedCanMessage_tag     3
+#define LegacyPayload_transmittedCanMessage_tag  4
+#define LegacyPayload_canError_tag               5
+#define LegacyPayload_canErrorCount_tag          6
+#define LegacyPayload_voltageReading_tag         7
+#define LegacyPayload_temperatureReading_tag     8
+#define LegacyPayload_loopTimer_tag              9
+#define LegacyPayload_rtcTime_tag                10
+#define LegacyPayload_loopTimerDistribution_tag  11
+#define LegacyPayload_sensorReading_tag          12
+#define LegacyPayload_sensorDistribution_tag     13
+#define DataloggerRecord_legacy_payload_tag      4
+#define DataloggerRecord_sourceDef_tag           5
+#define DataloggerRecord_info_tag                6
+#define DataloggerRecord_receivedCanMessage_tag  7
+#define DataloggerRecord_transmittedCanMessage_tag 8
+#define DataloggerRecord_canError_tag            9
+#define DataloggerRecord_rtcTime_tag             10
+#define DataloggerRecord_sensorReading_tag       11
+#define DataloggerRecord_sensorDistribution_tag  12
 #define DataloggerRecord_timestamp_ms_tag        1
 #define DataloggerRecord_timestamp_variability_tag 2
 #define DataloggerRecord_sourceId_tag            3
-#define DataloggerRecord_payload_tag             4
 
 /* Struct field encoding specification for nanopb */
 extern const pb_field_t StatisticalAggregate_fields[6];
 extern const pb_field_t IntHistogram_fields[3];
-extern const pb_field_t DataloggerRecord_fields[5];
-extern const pb_field_t DataloggerPayload_fields[14];
+extern const pb_field_t DataloggerRecord_fields[13];
+extern const pb_field_t LegacyPayload_fields[14];
 extern const pb_field_t SourceDef_fields[3];
 extern const pb_field_t InfoString_fields[2];
 extern const pb_field_t CanMessage_fields[5];
@@ -215,7 +234,7 @@ extern const pb_field_t CanErrorCounter_fields[3];
 #define StatisticalAggregate_size                45
 #define IntHistogram_size                        176
 #define DataloggerRecord_size                    200
-#define DataloggerPayload_size                   179
+#define LegacyPayload_size                       179
 #define SourceDef_size                           36
 #define InfoString_size                          131
 #define CanMessage_size                          20
