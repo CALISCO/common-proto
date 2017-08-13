@@ -27,10 +27,21 @@ message DataloggerRecord {
   uint32 timestamp_ms = 1;
   uint32 timestamp_variability = 2;
   uint32 sourceId = 3;
-  DataloggerPayload payload = 4;
+  oneof payload {
+    LegacyPayload legacy_payload = 4 [deprecated=true];
+    SourceDef sourceDef = 5;
+    InfoString info = 6;
+    CanMessage receivedCanMessage = 7;
+    CanMessage transmittedCanMessage = 8;
+    CanError canError = 9;
+    google.protobuf.Timestamp rtcTime = 10;
+    StatisticalAggregate sensorReading = 11;
+    IntHistogram sensorDistribution = 12;
+  }
 }
 
-message DataloggerPayload {
+// Not used anymore, payload placed directly in DataloggerRecord
+message LegacyPayload {
   oneof value {
     SourceDef sourceDef = 1;
     InfoString info = 2;
