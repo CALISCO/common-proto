@@ -48,9 +48,8 @@ message StatisticalAggregate {
 }
 
 message MeasurementAggregate {
-	optional uint32 id = 1; //id of the device being read
-	optional StatisticalAggregate reading = 2;
-	optional StatisticalAggregate sampleDelay = 3; //statistics on the times between samples
+	optional StatisticalAggregate reading = 1;
+	optional StatisticalAggregate sampleDelay = 2; //statistics on the times between samples
 												   //(largely for debugging, heartbeat/reading failures
 												   //will be send as InfoMessages (below))
 }
@@ -63,17 +62,18 @@ message InfoMessage {
 		ERROR = 4;
 	}
 	optional MESSAGE_TYPE messageType = 1 [default = INFO];
-	optional uint32 id = 2; //id of the device that's prompting this message
-	optional string message = 3 [(nanopb).max_size = 64];
+	optional string message = 2 [(nanopb).max_size = 64];
 }
 
 message TelemetryMessage {
-	optional uint32 timestamp_ms = 1; //time the message is sent
-	optional uint32 timestamp_variability = 2;
+    optional uint32 id = 1 //id of the device sending this message
+	optional uint32 timestamp_ms = 2; //time the message is sent
+	optional uint32 timestamp_variability = 3;
 	oneof value {
-		MeasurementAggregate sensorReading = 3;    //reading type specified by device id in the DeviceInfoMessage
-		MeasurementAggregate heartbeatReading = 4; //statistics on the heartbeats received from a device
+		MeasurementAggregate sensorReading = 4;    //reading type specified by device id in the DeviceInfoMessage
+		MeasurementAggregate heartbeatReading = 5; //statistics on the heartbeats received from a device
 												   //only includes the device id and sampleDelay statistics
-		InfoMessage infoMessage = 5;
+		InfoMessage infoMessage = 6;
+        DeviceInfoMessage deviceInfo = 7;
 	}
 }
