@@ -5,75 +5,72 @@ import 'nanopb.proto';
 option java_outer_classname="TelemetryProto";
 
 //A DeviceInfoMessage should only be sent if a request is received from the telemetry viewer (ex. if the
-//		viewer sees a device it hasn't registered yet)
+//      viewer sees a device it hasn't registered yet)
 //Otherwise, the viewer will just reference its config files (stored offline) for this information
 //TODO: Make a better model for determining anomalies (a machine learning algorithm perhaps?)
 message DeviceInfoMessage { //send the device ID with its corresponding information
-	message DeviceMeasurementInfo {
-		enum READING_TYPE {
-			VOLTAGE = 1;
-			CURRENT = 2;
-			TEMPERATURE = 3;
-			MCC = 4;
-			DRIVER_CONTROL = 5; //i.e. pedal board
-		}
-		optional READING_TYPE readingType = 1;
-		optional string units = 2 [(nanopb).max_size = 4]; //max of four letters (mV, A, degC, mph, etc.)
-		optional uint32 minSensorLimit = 3;
-		optional uint32 maxSensorLimit = 4;
-		optional uint32 minErrorBound = 5; //if a reading < minErrorBound -> send error message
-		optional uint32 maxErrorBound = 6; //if a reading > maxErrorBound -> send error message
-		optional uint32 resolution = 7;
-		optional uint32 accuracy = 8;
-	}
+    message DeviceMeasurementInfo {
+        enum READING_TYPE {
+            VOLTAGE = 1;
+            CURRENT = 2;
+            TEMPERATURE = 3;
+            MCC = 4;
+            DRIVER_CONTROL = 5; //i.e. pedal board
+        }
+        optional READING_TYPE readingType = 1;
+        optional string units = 2 [(nanopb).max_size = 4]; //max of four letters (mV, A, degC, mph, etc.)
+        optional uint32 minSensorLimit = 3;
+        optional uint32 maxSensorLimit = 4;
+        optional uint32 minErrorBound = 5; //if a reading < minErrorBound -> send error message
+        optional uint32 maxErrorBound = 6; //if a reading > maxErrorBound -> send error message
+        optional uint32 resolution = 7;
+        optional uint32 accuracy = 8;
+    }
 
-	message DeviceDelayInfo {
-		optional uint32 expectedSampleDelay = 1; //expected time between sample readings
-		optional uint32 longestAcceptedSampleDelay = 2; //if exceeded, indicates a probable lack of connection
-	}
+    message DeviceDelayInfo {
+        optional uint32 expectedSampleDelay = 1; //expected time between sample readings
+        optional uint32 longestAcceptedSampleDelay = 2; //if exceeded, indicates a probable lack of connection
+    }
 
-	optional uint32 id = 1;
-	optional string name = 2 [(nanopb).max_size = 32];
-	optional uint32 numAggregateSamples = 3; //= numSamples in StatisticalAggregate (below)
-	optional DeviceMeasurementInfo measurementInfo = 4;
-	optional DeviceDelayInfo delayInfo = 5;
+    optional uint32 id = 1;
+    optional string name = 2 [(nanopb).max_size = 32];
+    optional DeviceMeasurementInfo measurementInfo = 3;
+    optional DeviceDelayInfo delayInfo = 4;
 }
 
 message StatisticalAggregate {
-	optional uint32 numSamples = 1;
-	optional uint32 min = 2;
-	optional uint32 max = 3;
-	optional uint32 mean = 4;
-	optional uint32 stdev = 5;
+    optional uint32 numSamples = 1;
+    optional uint32 min = 2;
+    optional uint32 max = 3;
+    optional uint32 mean = 4;
+    optional uint32 stdev = 5;
 }
 
 message MeasurementAggregate {
-	optional StatisticalAggregate reading = 1;
-	optional StatisticalAggregate sampleDelay = 2; //statistics on the times between samples
-												   //(largely for debugging, heartbeat/reading failures
-												   //will be send as InfoMessages (below))
+    optional StatisticalAggregate reading = 1;
+    optional StatisticalAggregate sampleDelay = 2; //statistics on the times between samples
+                                                   //(largely for debugging, heartbeat/reading failures
+                                                   //will be send as InfoMessages (below))
 }
 
 message InfoMessage {
-	enum MESSAGE_TYPE {
-		INFO = 1;
-		DEBUG = 2;
-		WARNING = 3;
-		ERROR = 4;
-	}
-	optional MESSAGE_TYPE messageType = 1 [default = INFO];
-	optional string message = 2 [(nanopb).max_size = 64];
+    enum MESSAGE_TYPE {
+        INFO = 1;
+        DEBUG = 2;
+        WARNING = 3;
+        ERROR = 4;
+    }
+    optional MESSAGE_TYPE messageType = 1 [default = INFO];
+    optional string message = 2 [(nanopb).max_size = 64];
 }
 
 message TelemetryMessage {
     optional uint32 id = 1; //id of the device sending this message
-	optional uint32 timestamp_ms = 2; //time the message is sent
-	optional uint32 timestamp_variability = 3;
-	oneof value {
-		MeasurementAggregate sensorReading = 4;    //reading type specified by device id in the DeviceInfoMessage
-		MeasurementAggregate heartbeatReading = 5; //statistics on the heartbeats received from a device
-												   //only includes the device id and sampleDelay statistics
-		InfoMessage infoMessage = 6;
-        DeviceInfoMessage deviceInfo = 7;
-	}
+    optional uint32 timestamp_ms = 2; //time the message is sent
+    optional uint32 timestamp_variability = 3;
+    oneof value {
+        MeasurementAggregate sensorReading = 4;    //reading type specified by device id in the DeviceInfoMessage
+        InfoMessage infoMessage = 5;
+        DeviceInfoMessage deviceInfo = 6;
+    }
 }
