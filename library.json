@@ -7,6 +7,7 @@
     "nanopb/Nanopb": "^0.4.5"
   },
   "build": {
-    "includeDir": "."
+    "includeDir": "generated",
+    "srcDir": "generated"
   }
 }
