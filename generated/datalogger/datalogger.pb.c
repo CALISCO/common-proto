@@ -12,9 +12,6 @@ PB_BIND(StatisticalAggregate, StatisticalAggregate, AUTO)
 PB_BIND(IntHistogram, IntHistogram, AUTO)
 
 
-PB_BIND(DataloggerRecord, DataloggerRecord, 2)
-
-
 PB_BIND(LegacyPayload, LegacyPayload, 2)
 
 
@@ -31,6 +28,9 @@ PB_BIND(CanError, CanError, AUTO)
 
 
 PB_BIND(CanErrorCounter, CanErrorCounter, AUTO)
+
+
+PB_BIND(DataloggerRecord, DataloggerRecord, 2)
 
 
 

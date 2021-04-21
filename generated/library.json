@@ -1,0 +1,12 @@
+{
+  "owner": "CalSol",
+  "name": "common-proto",
+  "description": "Pre-compiled nanopb for common-proto",
+  "version": "0.0.0",
+  "dependencies": {
+    "nanopb/Nanopb": "^0.4.5"
+  },
+  "build": {
+    "includeDir": "."
+  }
+}

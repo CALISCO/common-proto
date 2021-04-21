@@ -161,22 +161,22 @@ extern "C" {
 /* Initializer values for message structs */
 #define StatisticalAggregate_init_default        {0, 0, 0, 0, 0}
 #define IntHistogram_init_default                {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_default            {0, 0, 0, 0, {LegacyPayload_init_default}}
 #define LegacyPayload_init_default               {0, {SourceDef_init_default}}
 #define SourceDef_init_default                   {_SourceDef_SourceType_MIN, ""}
 #define InfoString_init_default                  {""}
 #define CanMessage_init_default                  {0, _CanMessage_FrameType_MIN, _CanMessage_RtrType_MIN, {0, {0}}}
 #define CanError_init_default                    {_CanError_ErrorSource_MIN}
 #define CanErrorCounter_init_default             {_CanErrorCounter_ErrorCounterSource_MIN, 0}
+#define DataloggerRecord_init_default            {0, 0, 0, 0, {LegacyPayload_init_default}}
 #define StatisticalAggregate_init_zero           {0, 0, 0, 0, 0}
 #define IntHistogram_init_zero                   {0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
-#define DataloggerRecord_init_zero               {0, 0, 0, 0, {LegacyPayload_init_zero}}
 #define LegacyPayload_init_zero                  {0, {SourceDef_init_zero}}
 #define SourceDef_init_zero                      {_SourceDef_SourceType_MIN, ""}
 #define InfoString_init_zero                     {""}
 #define CanMessage_init_zero                     {0, _CanMessage_FrameType_MIN, _CanMessage_RtrType_MIN, {0, {0}}}
 #define CanError_init_zero                       {_CanError_ErrorSource_MIN}
 #define CanErrorCounter_init_zero                {_CanErrorCounter_ErrorCounterSource_MIN, 0}
+#define DataloggerRecord_init_zero               {0, 0, 0, 0, {LegacyPayload_init_zero}}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define CanError_source_tag                      1
@@ -238,31 +238,6 @@ X(a, STATIC,   REPEATED, UINT32,   counts,            2)
 #define IntHistogram_CALLBACK NULL
 #define IntHistogram_DEFAULT NULL
 
-#define DataloggerRecord_FIELDLIST(X, a) \
-X(a, STATIC,   SINGULAR, UINT32,   timestamp_ms,      1) \
-X(a, STATIC,   SINGULAR, UINT32,   timestamp_variability,   2) \
-X(a, STATIC,   SINGULAR, UINT32,   sourceId,          3) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,legacy_payload,payload.legacy_payload),   4) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sourceDef,payload.sourceDef),   5) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,info,payload.info),   6) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,receivedCanMessage,payload.receivedCanMessage),   7) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,transmittedCanMessage,payload.transmittedCanMessage),   8) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,canError,payload.canError),   9) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,rtcTime,payload.rtcTime),  10) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sensorReading,payload.sensorReading),  11) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sensorDistribution,payload.sensorDistribution),  12)
-#define DataloggerRecord_CALLBACK NULL
-#define DataloggerRecord_DEFAULT NULL
-#define DataloggerRecord_payload_legacy_payload_MSGTYPE LegacyPayload
-#define DataloggerRecord_payload_sourceDef_MSGTYPE SourceDef
-#define DataloggerRecord_payload_info_MSGTYPE InfoString
-#define DataloggerRecord_payload_receivedCanMessage_MSGTYPE CanMessage
-#define DataloggerRecord_payload_transmittedCanMessage_MSGTYPE CanMessage
-#define DataloggerRecord_payload_canError_MSGTYPE CanError
-#define DataloggerRecord_payload_rtcTime_MSGTYPE google_protobuf_Timestamp
-#define DataloggerRecord_payload_sensorReading_MSGTYPE StatisticalAggregate
-#define DataloggerRecord_payload_sensorDistribution_MSGTYPE IntHistogram
-
 #define LegacyPayload_FIELDLIST(X, a) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (value,sourceDef,value.sourceDef),   1) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (value,info,value.info),   2) \
@@ -323,26 +298,51 @@ X(a, STATIC,   SINGULAR, UINT32,   count,             2)
 #define CanErrorCounter_CALLBACK NULL
 #define CanErrorCounter_DEFAULT NULL
 
+#define DataloggerRecord_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, UINT32,   timestamp_ms,      1) \
+X(a, STATIC,   SINGULAR, UINT32,   timestamp_variability,   2) \
+X(a, STATIC,   SINGULAR, UINT32,   sourceId,          3) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,legacy_payload,payload.legacy_payload),   4) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sourceDef,payload.sourceDef),   5) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,info,payload.info),   6) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,receivedCanMessage,payload.receivedCanMessage),   7) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,transmittedCanMessage,payload.transmittedCanMessage),   8) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,canError,payload.canError),   9) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,rtcTime,payload.rtcTime),  10) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sensorReading,payload.sensorReading),  11) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (payload,sensorDistribution,payload.sensorDistribution),  12)
+#define DataloggerRecord_CALLBACK NULL
+#define DataloggerRecord_DEFAULT NULL
+#define DataloggerRecord_payload_legacy_payload_MSGTYPE LegacyPayload
+#define DataloggerRecord_payload_sourceDef_MSGTYPE SourceDef
+#define DataloggerRecord_payload_info_MSGTYPE InfoString
+#define DataloggerRecord_payload_receivedCanMessage_MSGTYPE CanMessage
+#define DataloggerRecord_payload_transmittedCanMessage_MSGTYPE CanMessage
+#define DataloggerRecord_payload_canError_MSGTYPE CanError
+#define DataloggerRecord_payload_rtcTime_MSGTYPE google_protobuf_Timestamp
+#define DataloggerRecord_payload_sensorReading_MSGTYPE StatisticalAggregate
+#define DataloggerRecord_payload_sensorDistribution_MSGTYPE IntHistogram
+
 extern const pb_msgdesc_t StatisticalAggregate_msg;
 extern const pb_msgdesc_t IntHistogram_msg;
-extern const pb_msgdesc_t DataloggerRecord_msg;
 extern const pb_msgdesc_t LegacyPayload_msg;
 extern const pb_msgdesc_t SourceDef_msg;
 extern const pb_msgdesc_t InfoString_msg;
 extern const pb_msgdesc_t CanMessage_msg;
 extern const pb_msgdesc_t CanError_msg;
 extern const pb_msgdesc_t CanErrorCounter_msg;
+extern const pb_msgdesc_t DataloggerRecord_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
 #define StatisticalAggregate_fields &StatisticalAggregate_msg
 #define IntHistogram_fields &IntHistogram_msg
-#define DataloggerRecord_fields &DataloggerRecord_msg
 #define LegacyPayload_fields &LegacyPayload_msg
 #define SourceDef_fields &SourceDef_msg
 #define InfoString_fields &InfoString_msg
 #define CanMessage_fields &CanMessage_msg
 #define CanError_fields &CanError_msg
 #define CanErrorCounter_fields &CanErrorCounter_msg
+#define DataloggerRecord_fields &DataloggerRecord_msg
 
 /* Maximum encoded size of messages (where known) */
 #define CanErrorCounter_size                     8
@@ -352,13 +352,13 @@ extern const pb_msgdesc_t CanErrorCounter_msg;
 #define IntHistogram_size                        176
 #define SourceDef_size                           35
 #define StatisticalAggregate_size                45
-#if defined(google_protobuf_Timestamp_size) && defined(google_protobuf_Timestamp_size)
-#define DataloggerRecord_size                    (18 + sizeof(union DataloggerRecord_payload_size_union))
-union DataloggerRecord_payload_size_union {char f4[(6 + sizeof(union LegacyPayload_value_size_union))]; char f10[(6 + google_protobuf_Timestamp_size)]; char f0[179];};
-#endif
 #if defined(google_protobuf_Timestamp_size)
 #define LegacyPayload_size                       (0 + sizeof(union LegacyPayload_value_size_union))
 union LegacyPayload_value_size_union {char f10[(6 + google_protobuf_Timestamp_size)]; char f0[179];};
+#endif
+#if defined(google_protobuf_Timestamp_size) && defined(google_protobuf_Timestamp_size)
+#define DataloggerRecord_size                    (18 + sizeof(union DataloggerRecord_payload_size_union))
+union DataloggerRecord_payload_size_union {char f4[(6 + sizeof(union LegacyPayload_value_size_union))]; char f10[(6 + google_protobuf_Timestamp_size)]; char f0[179];};
 #endif
 
 #ifdef __cplusplus
