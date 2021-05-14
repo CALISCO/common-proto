@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='datalogger.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x64\x61talogger.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0cnanopb.proto\"]\n\x14StatisticalAggregate\x12\x0f\n\x07samples\x18\x01 \x01(\r\x12\x0b\n\x03min\x18\x02 \x01(\x05\x12\x0b\n\x03max\x18\x03 \x01(\x05\x12\x0b\n\x03\x61vg\x18\x04 \x01(\x05\x12\r\n\x05stdev\x18\x05 \x01(\r\"=\n\x0cIntHistogram\x12\x16\n\x07\x62uckets\x18\x01 \x03(\x05\x42\x05\x92?\x02\x10\n\x12\x15\n\x06\x63ounts\x18\x02 \x03(\rB\x05\x92?\x02\x10\x0b\"\xd4\x03\n\x10\x44\x61taloggerRecord\x12\x14\n\x0ctimestamp_ms\x18\x01 \x01(\r\x12\x1d\n\x15timestamp_variability\x18\x02 \x01(\r\x12\x10\n\x08sourceId\x18\x03 \x01(\r\x12,\n\x0elegacy_payload\x18\x04 \x01(\x0b\x32\x0e.LegacyPayloadB\x02\x18\x01H\x00\x12\x1f\n\tsourceDef\x18\x05 \x01(\x0b\x32\n.SourceDefH\x00\x12\x1b\n\x04info\x18\x06 \x01(\x0b\x32\x0b.InfoStringH\x00\x12)\n\x12receivedCanMessage\x18\x07 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x08 \x01(\x0b\x32\x0b.CanMessageH\x00\x12\x1d\n\x08\x63\x61nError\x18\t \x01(\x0b\x32\t.CanErrorH\x00\x12-\n\x07rtcTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x12.\n\rsensorReading\x18\x0b \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12+\n\x12sensorDistribution\x18\x0c \x01(\x0b\x32\r.IntHistogramH\x00\x42\t\n\x07payload\"\xdb\x04\n\rLegacyPayload\x12\x1f\n\tsourceDef\x18\x01 \x01(\x0b\x32\n.SourceDefH\x00\x12\x1b\n\x04info\x18\x02 \x01(\x0b\x32\x0b.InfoStringH\x00\x12)\n\x12receivedCanMessage\x18\x03 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x04 \x01(\x0b\x32\x0b.CanMessageH\x00\x12\x1d\n\x08\x63\x61nError\x18\x05 \x01(\x0b\x32\t.CanErrorH\x00\x12-\n\rcanErrorCount\x18\x06 \x01(\x0b\x32\x10.CanErrorCounterB\x02\x18\x01H\x00\x12\x33\n\x0evoltageReading\x18\x07 \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12\x37\n\x12temperatureReading\x18\x08 \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12.\n\tloopTimer\x18\t \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12\x32\n\x15loopTimerDistribution\x18\x0b \x01(\x0b\x32\r.IntHistogramB\x02\x18\x01H\x00\x12-\n\x07rtcTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x12.\n\rsensorReading\x18\x0c \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12+\n\x12sensorDistribution\x18\r \x01(\x0b\x32\r.IntHistogramH\x00\x42\x07\n\x05value\"\x97\x01\n\tSourceDef\x12)\n\nsourceType\x18\x01 \x01(\x0e\x32\x15.SourceDef.SourceType\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08 \"J\n\nSourceType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03\x43\x41N\x10\x01\x12\x08\n\x04TIME\x10\x02\x12\x0b\n\x07VOLTAGE\x10\x03\x12\x0f\n\x0bTEMPERATURE\x10\x04\"\"\n\nInfoString\x12\x14\n\x04info\x18\x01 \x01(\tB\x06\x92?\x03\x08\x80\x01\"\xd8\x01\n\nCanMessage\x12\n\n\x02id\x18\x01 \x01(\r\x12%\n\x06length\x18\x02 \x01(\x0e\x32\x15.CanMessage.FrameType\x12 \n\x03rtr\x18\x03 \x01(\x0e\x32\x13.CanMessage.RtrType\x12\x13\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x42\x05\x92?\x02\x08\x08\"3\n\tFrameType\x12\x12\n\x0eSTANDARD_FRAME\x10\x00\x12\x12\n\x0e\x45XTENDED_FRAME\x10\x01\"+\n\x07RtrType\x12\x0e\n\nDATA_FRAME\x10\x00\x12\x10\n\x0cREMOTE_FRAME\x10\x01\"\xb4\x01\n\x08\x43\x61nError\x12%\n\x06source\x18\x01 \x01(\x0e\x32\x15.CanError.ErrorSource\"\x80\x01\n\x0b\x45rrorSource\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x11\n\rERROR_WARNING\x10\x01\x12\x11\n\rERROR_PASSIVE\x10\x02\x12\x0b\n\x07\x42US_OFF\x10\x03\x12\x10\n\x0c\x44\x41TA_OVERRUN\x10\x04\x12\x14\n\x10\x41RBITRATION_LOST\x10\x05\x12\t\n\x05OTHER\x10\x7f\"\x96\x01\n\x0f\x43\x61nErrorCounter\x12\x33\n\x06source\x18\x01 \x01(\x0e\x32#.CanErrorCounter.ErrorCounterSource\x12\r\n\x05\x63ount\x18\x02 \x01(\r\"?\n\x12\x45rrorCounterSource\x12\x14\n\x10TRANSMIT_COUNTER\x10\x00\x12\x13\n\x0fRECEIVE_COUNTER\x10\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x64\x61talogger.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0cnanopb.proto\"]\n\x14StatisticalAggregate\x12\x0f\n\x07samples\x18\x01 \x01(\r\x12\x0b\n\x03min\x18\x02 \x01(\x05\x12\x0b\n\x03max\x18\x03 \x01(\x05\x12\x0b\n\x03\x61vg\x18\x04 \x01(\x05\x12\r\n\x05stdev\x18\x05 \x01(\r\"=\n\x0cIntHistogram\x12\x16\n\x07\x62uckets\x18\x01 \x03(\x05\x42\x05\x92?\x02\x10\n\x12\x15\n\x06\x63ounts\x18\x02 \x03(\rB\x05\x92?\x02\x10\x0b\"\xdb\x04\n\rLegacyPayload\x12\x1f\n\tsourceDef\x18\x01 \x01(\x0b\x32\n.SourceDefH\x00\x12\x1b\n\x04info\x18\x02 \x01(\x0b\x32\x0b.InfoStringH\x00\x12)\n\x12receivedCanMessage\x18\x03 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x04 \x01(\x0b\x32\x0b.CanMessageH\x00\x12\x1d\n\x08\x63\x61nError\x18\x05 \x01(\x0b\x32\t.CanErrorH\x00\x12-\n\rcanErrorCount\x18\x06 \x01(\x0b\x32\x10.CanErrorCounterB\x02\x18\x01H\x00\x12\x33\n\x0evoltageReading\x18\x07 \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12\x37\n\x12temperatureReading\x18\x08 \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12.\n\tloopTimer\x18\t \x01(\x0b\x32\x15.StatisticalAggregateB\x02\x18\x01H\x00\x12\x32\n\x15loopTimerDistribution\x18\x0b \x01(\x0b\x32\r.IntHistogramB\x02\x18\x01H\x00\x12-\n\x07rtcTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x12.\n\rsensorReading\x18\x0c \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12+\n\x12sensorDistribution\x18\r \x01(\x0b\x32\r.IntHistogramH\x00\x42\x07\n\x05value\"\x97\x01\n\tSourceDef\x12)\n\nsourceType\x18\x01 \x01(\x0e\x32\x15.SourceDef.SourceType\x12\x13\n\x04name\x18\x02 \x01(\tB\x05\x92?\x02\x08 \"J\n\nSourceType\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x07\n\x03\x43\x41N\x10\x01\x12\x08\n\x04TIME\x10\x02\x12\x0b\n\x07VOLTAGE\x10\x03\x12\x0f\n\x0bTEMPERATURE\x10\x04\"\"\n\nInfoString\x12\x14\n\x04info\x18\x01 \x01(\tB\x06\x92?\x03\x08\x80\x01\"\xd8\x01\n\nCanMessage\x12\n\n\x02id\x18\x01 \x01(\r\x12%\n\x06length\x18\x02 \x01(\x0e\x32\x15.CanMessage.FrameType\x12 \n\x03rtr\x18\x03 \x01(\x0e\x32\x13.CanMessage.RtrType\x12\x13\n\x04\x64\x61ta\x18\x04 \x01(\x0c\x42\x05\x92?\x02\x08\x08\"3\n\tFrameType\x12\x12\n\x0eSTANDARD_FRAME\x10\x00\x12\x12\n\x0e\x45XTENDED_FRAME\x10\x01\"+\n\x07RtrType\x12\x0e\n\nDATA_FRAME\x10\x00\x12\x10\n\x0cREMOTE_FRAME\x10\x01\"\xb4\x01\n\x08\x43\x61nError\x12%\n\x06source\x18\x01 \x01(\x0e\x32\x15.CanError.ErrorSource\"\x80\x01\n\x0b\x45rrorSource\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x11\n\rERROR_WARNING\x10\x01\x12\x11\n\rERROR_PASSIVE\x10\x02\x12\x0b\n\x07\x42US_OFF\x10\x03\x12\x10\n\x0c\x44\x41TA_OVERRUN\x10\x04\x12\x14\n\x10\x41RBITRATION_LOST\x10\x05\x12\t\n\x05OTHER\x10\x7f\"\x96\x01\n\x0f\x43\x61nErrorCounter\x12\x33\n\x06source\x18\x01 \x01(\x0e\x32#.CanErrorCounter.ErrorCounterSource\x12\r\n\x05\x63ount\x18\x02 \x01(\r\"?\n\x12\x45rrorCounterSource\x12\x14\n\x10TRANSMIT_COUNTER\x10\x00\x12\x13\n\x0fRECEIVE_COUNTER\x10\x01\"\xd4\x03\n\x10\x44\x61taloggerRecord\x12\x14\n\x0ctimestamp_ms\x18\x01 \x01(\r\x12\x1d\n\x15timestamp_variability\x18\x02 \x01(\r\x12\x10\n\x08sourceId\x18\x03 \x01(\r\x12,\n\x0elegacy_payload\x18\x04 \x01(\x0b\x32\x0e.LegacyPayloadB\x02\x18\x01H\x00\x12\x1f\n\tsourceDef\x18\x05 \x01(\x0b\x32\n.SourceDefH\x00\x12\x1b\n\x04info\x18\x06 \x01(\x0b\x32\x0b.InfoStringH\x00\x12)\n\x12receivedCanMessage\x18\x07 \x01(\x0b\x32\x0b.CanMessageH\x00\x12,\n\x15transmittedCanMessage\x18\x08 \x01(\x0b\x32\x0b.CanMessageH\x00\x12\x1d\n\x08\x63\x61nError\x18\t \x01(\x0b\x32\t.CanErrorH\x00\x12-\n\x07rtcTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x12.\n\rsensorReading\x18\x0b \x01(\x0b\x32\x15.StatisticalAggregateH\x00\x12+\n\x12sensorDistribution\x18\x0c \x01(\x0b\x32\r.IntHistogramH\x00\x42\t\n\x07payloadb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,nanopb__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -57,8 +57,8 @@ _SOURCEDEF_SOURCETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1380,
-  serialized_end=1454,
+  serialized_start=909,
+  serialized_end=983,
 )
 _sym_db.RegisterEnumDescriptor(_SOURCEDEF_SOURCETYPE)
 
@@ -79,8 +79,8 @@ _CANMESSAGE_FRAMETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1613,
-  serialized_end=1664,
+  serialized_start=1142,
+  serialized_end=1193,
 )
 _sym_db.RegisterEnumDescriptor(_CANMESSAGE_FRAMETYPE)
 
@@ -101,8 +101,8 @@ _CANMESSAGE_RTRTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1666,
-  serialized_end=1709,
+  serialized_start=1195,
+  serialized_end=1238,
 )
 _sym_db.RegisterEnumDescriptor(_CANMESSAGE_RTRTYPE)
 
@@ -143,8 +143,8 @@ _CANERROR_ERRORSOURCE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1764,
-  serialized_end=1892,
+  serialized_start=1293,
+  serialized_end=1421,
 )
 _sym_db.RegisterEnumDescriptor(_CANERROR_ERRORSOURCE)
 
@@ -165,8 +165,8 @@ _CANERRORCOUNTER_ERRORCOUNTERSOURCE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1982,
-  serialized_end=2045,
+  serialized_start=1511,
+  serialized_end=1574,
 )
 _sym_db.RegisterEnumDescriptor(_CANERRORCOUNTER_ERRORCOUNTERSOURCE)
 
@@ -265,117 +265,6 @@ _INTHISTOGRAM = _descriptor.Descriptor(
   ],
   serialized_start=162,
   serialized_end=223,
-)
-
-
-_DATALOGGERRECORD = _descriptor.Descriptor(
-  name='DataloggerRecord',
-  full_name='DataloggerRecord',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='timestamp_ms', full_name='DataloggerRecord.timestamp_ms', index=0,
-      number=1, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='timestamp_variability', full_name='DataloggerRecord.timestamp_variability', index=1,
-      number=2, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='sourceId', full_name='DataloggerRecord.sourceId', index=2,
-      number=3, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='legacy_payload', full_name='DataloggerRecord.legacy_payload', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\030\001'))),
-    _descriptor.FieldDescriptor(
-      name='sourceDef', full_name='DataloggerRecord.sourceDef', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='info', full_name='DataloggerRecord.info', index=5,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='receivedCanMessage', full_name='DataloggerRecord.receivedCanMessage', index=6,
-      number=7, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='transmittedCanMessage', full_name='DataloggerRecord.transmittedCanMessage', index=7,
-      number=8, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='canError', full_name='DataloggerRecord.canError', index=8,
-      number=9, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='rtcTime', full_name='DataloggerRecord.rtcTime', index=9,
-      number=10, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='sensorReading', full_name='DataloggerRecord.sensorReading', index=10,
-      number=11, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='sensorDistribution', full_name='DataloggerRecord.sensorDistribution', index=11,
-      number=12, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-    _descriptor.OneofDescriptor(
-      name='payload', full_name='DataloggerRecord.payload',
-      index=0, containing_type=None, fields=[]),
-  ],
-  serialized_start=226,
-  serialized_end=694,
 )
 
 
@@ -492,8 +381,8 @@ _LEGACYPAYLOAD = _descriptor.Descriptor(
       name='value', full_name='LegacyPayload.value',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=697,
-  serialized_end=1300,
+  serialized_start=226,
+  serialized_end=829,
 )
 
 
@@ -531,8 +420,8 @@ _SOURCEDEF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1303,
-  serialized_end=1454,
+  serialized_start=832,
+  serialized_end=983,
 )
 
 
@@ -562,8 +451,8 @@ _INFOSTRING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1456,
-  serialized_end=1490,
+  serialized_start=985,
+  serialized_end=1019,
 )
 
 
@@ -616,8 +505,8 @@ _CANMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1493,
-  serialized_end=1709,
+  serialized_start=1022,
+  serialized_end=1238,
 )
 
 
@@ -648,8 +537,8 @@ _CANERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1712,
-  serialized_end=1892,
+  serialized_start=1241,
+  serialized_end=1421,
 )
 
 
@@ -687,46 +576,121 @@ _CANERRORCOUNTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1895,
+  serialized_start=1424,
+  serialized_end=1574,
+)
+
+
+_DATALOGGERRECORD = _descriptor.Descriptor(
+  name='DataloggerRecord',
+  full_name='DataloggerRecord',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timestamp_ms', full_name='DataloggerRecord.timestamp_ms', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='timestamp_variability', full_name='DataloggerRecord.timestamp_variability', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sourceId', full_name='DataloggerRecord.sourceId', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='legacy_payload', full_name='DataloggerRecord.legacy_payload', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\030\001'))),
+    _descriptor.FieldDescriptor(
+      name='sourceDef', full_name='DataloggerRecord.sourceDef', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='DataloggerRecord.info', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='receivedCanMessage', full_name='DataloggerRecord.receivedCanMessage', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='transmittedCanMessage', full_name='DataloggerRecord.transmittedCanMessage', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='canError', full_name='DataloggerRecord.canError', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='rtcTime', full_name='DataloggerRecord.rtcTime', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sensorReading', full_name='DataloggerRecord.sensorReading', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sensorDistribution', full_name='DataloggerRecord.sensorDistribution', index=11,
+      number=12, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='payload', full_name='DataloggerRecord.payload',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=1577,
   serialized_end=2045,
 )
 
-_DATALOGGERRECORD.fields_by_name['legacy_payload'].message_type = _LEGACYPAYLOAD
-_DATALOGGERRECORD.fields_by_name['sourceDef'].message_type = _SOURCEDEF
-_DATALOGGERRECORD.fields_by_name['info'].message_type = _INFOSTRING
-_DATALOGGERRECORD.fields_by_name['receivedCanMessage'].message_type = _CANMESSAGE
-_DATALOGGERRECORD.fields_by_name['transmittedCanMessage'].message_type = _CANMESSAGE
-_DATALOGGERRECORD.fields_by_name['canError'].message_type = _CANERROR
-_DATALOGGERRECORD.fields_by_name['rtcTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_DATALOGGERRECORD.fields_by_name['sensorReading'].message_type = _STATISTICALAGGREGATE
-_DATALOGGERRECORD.fields_by_name['sensorDistribution'].message_type = _INTHISTOGRAM
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['legacy_payload'])
-_DATALOGGERRECORD.fields_by_name['legacy_payload'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['sourceDef'])
-_DATALOGGERRECORD.fields_by_name['sourceDef'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['info'])
-_DATALOGGERRECORD.fields_by_name['info'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['receivedCanMessage'])
-_DATALOGGERRECORD.fields_by_name['receivedCanMessage'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['transmittedCanMessage'])
-_DATALOGGERRECORD.fields_by_name['transmittedCanMessage'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['canError'])
-_DATALOGGERRECORD.fields_by_name['canError'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['rtcTime'])
-_DATALOGGERRECORD.fields_by_name['rtcTime'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['sensorReading'])
-_DATALOGGERRECORD.fields_by_name['sensorReading'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
-_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
-  _DATALOGGERRECORD.fields_by_name['sensorDistribution'])
-_DATALOGGERRECORD.fields_by_name['sensorDistribution'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
 _LEGACYPAYLOAD.fields_by_name['sourceDef'].message_type = _SOURCEDEF
 _LEGACYPAYLOAD.fields_by_name['info'].message_type = _INFOSTRING
 _LEGACYPAYLOAD.fields_by_name['receivedCanMessage'].message_type = _CANMESSAGE
@@ -789,15 +753,51 @@ _CANERROR.fields_by_name['source'].enum_type = _CANERROR_ERRORSOURCE
 _CANERROR_ERRORSOURCE.containing_type = _CANERROR
 _CANERRORCOUNTER.fields_by_name['source'].enum_type = _CANERRORCOUNTER_ERRORCOUNTERSOURCE
 _CANERRORCOUNTER_ERRORCOUNTERSOURCE.containing_type = _CANERRORCOUNTER
+_DATALOGGERRECORD.fields_by_name['legacy_payload'].message_type = _LEGACYPAYLOAD
+_DATALOGGERRECORD.fields_by_name['sourceDef'].message_type = _SOURCEDEF
+_DATALOGGERRECORD.fields_by_name['info'].message_type = _INFOSTRING
+_DATALOGGERRECORD.fields_by_name['receivedCanMessage'].message_type = _CANMESSAGE
+_DATALOGGERRECORD.fields_by_name['transmittedCanMessage'].message_type = _CANMESSAGE
+_DATALOGGERRECORD.fields_by_name['canError'].message_type = _CANERROR
+_DATALOGGERRECORD.fields_by_name['rtcTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_DATALOGGERRECORD.fields_by_name['sensorReading'].message_type = _STATISTICALAGGREGATE
+_DATALOGGERRECORD.fields_by_name['sensorDistribution'].message_type = _INTHISTOGRAM
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['legacy_payload'])
+_DATALOGGERRECORD.fields_by_name['legacy_payload'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['sourceDef'])
+_DATALOGGERRECORD.fields_by_name['sourceDef'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['info'])
+_DATALOGGERRECORD.fields_by_name['info'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['receivedCanMessage'])
+_DATALOGGERRECORD.fields_by_name['receivedCanMessage'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['transmittedCanMessage'])
+_DATALOGGERRECORD.fields_by_name['transmittedCanMessage'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['canError'])
+_DATALOGGERRECORD.fields_by_name['canError'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['rtcTime'])
+_DATALOGGERRECORD.fields_by_name['rtcTime'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['sensorReading'])
+_DATALOGGERRECORD.fields_by_name['sensorReading'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
+_DATALOGGERRECORD.oneofs_by_name['payload'].fields.append(
+  _DATALOGGERRECORD.fields_by_name['sensorDistribution'])
+_DATALOGGERRECORD.fields_by_name['sensorDistribution'].containing_oneof = _DATALOGGERRECORD.oneofs_by_name['payload']
 DESCRIPTOR.message_types_by_name['StatisticalAggregate'] = _STATISTICALAGGREGATE
 DESCRIPTOR.message_types_by_name['IntHistogram'] = _INTHISTOGRAM
-DESCRIPTOR.message_types_by_name['DataloggerRecord'] = _DATALOGGERRECORD
 DESCRIPTOR.message_types_by_name['LegacyPayload'] = _LEGACYPAYLOAD
 DESCRIPTOR.message_types_by_name['SourceDef'] = _SOURCEDEF
 DESCRIPTOR.message_types_by_name['InfoString'] = _INFOSTRING
 DESCRIPTOR.message_types_by_name['CanMessage'] = _CANMESSAGE
 DESCRIPTOR.message_types_by_name['CanError'] = _CANERROR
 DESCRIPTOR.message_types_by_name['CanErrorCounter'] = _CANERRORCOUNTER
+DESCRIPTOR.message_types_by_name['DataloggerRecord'] = _DATALOGGERRECORD
 
 StatisticalAggregate = _reflection.GeneratedProtocolMessageType('StatisticalAggregate', (_message.Message,), dict(
   DESCRIPTOR = _STATISTICALAGGREGATE,
@@ -812,13 +812,6 @@ IntHistogram = _reflection.GeneratedProtocolMessageType('IntHistogram', (_messag
   # @@protoc_insertion_point(class_scope:IntHistogram)
   ))
 _sym_db.RegisterMessage(IntHistogram)
-
-DataloggerRecord = _reflection.GeneratedProtocolMessageType('DataloggerRecord', (_message.Message,), dict(
-  DESCRIPTOR = _DATALOGGERRECORD,
-  __module__ = 'datalogger_pb2'
-  # @@protoc_insertion_point(class_scope:DataloggerRecord)
-  ))
-_sym_db.RegisterMessage(DataloggerRecord)
 
 LegacyPayload = _reflection.GeneratedProtocolMessageType('LegacyPayload', (_message.Message,), dict(
   DESCRIPTOR = _LEGACYPAYLOAD,
@@ -862,13 +855,18 @@ CanErrorCounter = _reflection.GeneratedProtocolMessageType('CanErrorCounter', (_
   ))
 _sym_db.RegisterMessage(CanErrorCounter)
 
+DataloggerRecord = _reflection.GeneratedProtocolMessageType('DataloggerRecord', (_message.Message,), dict(
+  DESCRIPTOR = _DATALOGGERRECORD,
+  __module__ = 'datalogger_pb2'
+  # @@protoc_insertion_point(class_scope:DataloggerRecord)
+  ))
+_sym_db.RegisterMessage(DataloggerRecord)
+
 
 _INTHISTOGRAM.fields_by_name['buckets'].has_options = True
 _INTHISTOGRAM.fields_by_name['buckets']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\n'))
 _INTHISTOGRAM.fields_by_name['counts'].has_options = True
 _INTHISTOGRAM.fields_by_name['counts']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\020\013'))
-_DATALOGGERRECORD.fields_by_name['legacy_payload'].has_options = True
-_DATALOGGERRECORD.fields_by_name['legacy_payload']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\030\001'))
 _LEGACYPAYLOAD.fields_by_name['canErrorCount'].has_options = True
 _LEGACYPAYLOAD.fields_by_name['canErrorCount']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\030\001'))
 _LEGACYPAYLOAD.fields_by_name['voltageReading'].has_options = True
@@ -885,4 +883,6 @@ _INFOSTRING.fields_by_name['info'].has_options = True
 _INFOSTRING.fields_by_name['info']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\003\010\200\001'))
 _CANMESSAGE.fields_by_name['data'].has_options = True
 _CANMESSAGE.fields_by_name['data']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\222?\002\010\010'))
+_DATALOGGERRECORD.fields_by_name['legacy_payload'].has_options = True
+_DATALOGGERRECORD.fields_by_name['legacy_payload']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\030\001'))
 # @@protoc_insertion_point(module_scope)

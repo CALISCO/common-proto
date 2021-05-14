@@ -3,11 +3,13 @@ Import('env')
 # .srcnode is a hack that allows this SConstruct file to be invoked inside another
 env.Append(PROTOCPROTOPATH=Dir('nanopb/generator/proto').srcnode())
 
-env.Nanopb('telemetry', 'telemetry/telemetry.proto')
+env.Nanopb('.', 'telemetry/telemetry.proto',
+           genfiles=['telemetry/telemetry.pb.c'])
 env.ProtocJava('telemetry', 'telemetry/telemetry.proto',
                genfiles=['telemetry/TelemetryProto.java'])
 
-env.Nanopb('datalogger', 'datalogger/datalogger.proto')
+env.Nanopb('.', 'datalogger/datalogger.proto',
+           genfiles=['datalogger/datalogger.pb.c'])
 env.ProtocPython('datalogger', 'datalogger/datalogger.proto')
 
 env_libs = env.Clone()

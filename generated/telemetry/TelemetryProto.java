@@ -12,32 +12,80 @@ public final class TelemetryProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface TelemetryOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:Telemetry)
+  public interface DeviceInfoMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:DeviceInfoMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional int32 timestamp_ms = 1;</code>
+     * <code>optional uint32 id = 1;</code>
      */
-    boolean hasTimestampMs();
+    boolean hasId();
     /**
-     * <code>optional int32 timestamp_ms = 1;</code>
+     * <code>optional uint32 id = 1;</code>
      */
-    int getTimestampMs();
+    int getId();
+
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    boolean hasName();
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    boolean hasMeasurementInfo();
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getMeasurementInfo();
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder getMeasurementInfoOrBuilder();
+
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    boolean hasDelayInfo();
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDelayInfo();
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder getDelayInfoOrBuilder();
   }
   /**
-   * Protobuf type {@code Telemetry}
+   * <pre>
+   *A DeviceInfoMessage should only be sent if a request is received from the telemetry viewer (ex. if the
+   *      viewer sees a device it hasn't registered yet)
+   *Otherwise, the viewer will just reference its config files (stored offline) for this information
+   *TODO: Make a better model for determining anomalies (a machine learning algorithm perhaps?)
+   * </pre>
+   *
+   * Protobuf type {@code DeviceInfoMessage}
    */
-  public  static final class Telemetry extends
+  public  static final class DeviceInfoMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:Telemetry)
-      TelemetryOrBuilder {
-    // Use Telemetry.newBuilder() to construct.
-    private Telemetry(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:DeviceInfoMessage)
+      DeviceInfoMessageOrBuilder {
+    // Use DeviceInfoMessage.newBuilder() to construct.
+    private DeviceInfoMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Telemetry() {
-      timestampMs_ = 0;
+    private DeviceInfoMessage() {
+      id_ = 0;
+      name_ = "";
     }
 
     @java.lang.Override
@@ -45,7 +93,7 @@ public final class TelemetryProto {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Telemetry(
+    private DeviceInfoMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -70,7 +118,39 @@ public final class TelemetryProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              timestampMs_ = input.readInt32();
+              id_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              name_ = bs;
+              break;
+            }
+            case 26: {
+              TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = measurementInfo_.toBuilder();
+              }
+              measurementInfo_ = input.readMessage(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(measurementInfo_);
+                measurementInfo_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 34: {
+              TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                subBuilder = delayInfo_.toBuilder();
+              }
+              delayInfo_ = input.readMessage(TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(delayInfo_);
+                delayInfo_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
               break;
             }
           }
@@ -87,30 +167,2131 @@ public final class TelemetryProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return TelemetryProto.internal_static_Telemetry_descriptor;
+      return TelemetryProto.internal_static_DeviceInfoMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return TelemetryProto.internal_static_Telemetry_fieldAccessorTable
+      return TelemetryProto.internal_static_DeviceInfoMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              TelemetryProto.Telemetry.class, TelemetryProto.Telemetry.Builder.class);
+              TelemetryProto.DeviceInfoMessage.class, TelemetryProto.DeviceInfoMessage.Builder.class);
+    }
+
+    public interface DeviceMeasurementInfoOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:DeviceInfoMessage.DeviceMeasurementInfo)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+       */
+      boolean hasReadingType();
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+       */
+      TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE getReadingType();
+
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      boolean hasUnits();
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      java.lang.String getUnits();
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      com.google.protobuf.ByteString
+          getUnitsBytes();
+
+      /**
+       * <code>optional uint32 minSensorLimit = 3;</code>
+       */
+      boolean hasMinSensorLimit();
+      /**
+       * <code>optional uint32 minSensorLimit = 3;</code>
+       */
+      int getMinSensorLimit();
+
+      /**
+       * <code>optional uint32 maxSensorLimit = 4;</code>
+       */
+      boolean hasMaxSensorLimit();
+      /**
+       * <code>optional uint32 maxSensorLimit = 4;</code>
+       */
+      int getMaxSensorLimit();
+
+      /**
+       * <pre>
+       *if a reading &lt; minErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 minErrorBound = 5;</code>
+       */
+      boolean hasMinErrorBound();
+      /**
+       * <pre>
+       *if a reading &lt; minErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 minErrorBound = 5;</code>
+       */
+      int getMinErrorBound();
+
+      /**
+       * <pre>
+       *if a reading &gt; maxErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 maxErrorBound = 6;</code>
+       */
+      boolean hasMaxErrorBound();
+      /**
+       * <pre>
+       *if a reading &gt; maxErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 maxErrorBound = 6;</code>
+       */
+      int getMaxErrorBound();
+
+      /**
+       * <code>optional uint32 resolution = 7;</code>
+       */
+      boolean hasResolution();
+      /**
+       * <code>optional uint32 resolution = 7;</code>
+       */
+      int getResolution();
+
+      /**
+       * <code>optional uint32 accuracy = 8;</code>
+       */
+      boolean hasAccuracy();
+      /**
+       * <code>optional uint32 accuracy = 8;</code>
+       */
+      int getAccuracy();
+    }
+    /**
+     * Protobuf type {@code DeviceInfoMessage.DeviceMeasurementInfo}
+     */
+    public  static final class DeviceMeasurementInfo extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:DeviceInfoMessage.DeviceMeasurementInfo)
+        DeviceMeasurementInfoOrBuilder {
+      // Use DeviceMeasurementInfo.newBuilder() to construct.
+      private DeviceMeasurementInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private DeviceMeasurementInfo() {
+        readingType_ = 1;
+        units_ = "";
+        minSensorLimit_ = 0;
+        maxSensorLimit_ = 0;
+        minErrorBound_ = 0;
+        maxErrorBound_ = 0;
+        resolution_ = 0;
+        accuracy_ = 0;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private DeviceMeasurementInfo(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 8: {
+                int rawValue = input.readEnum();
+                TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE value = TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(1, rawValue);
+                } else {
+                  bitField0_ |= 0x00000001;
+                  readingType_ = rawValue;
+                }
+                break;
+              }
+              case 18: {
+                com.google.protobuf.ByteString bs = input.readBytes();
+                bitField0_ |= 0x00000002;
+                units_ = bs;
+                break;
+              }
+              case 24: {
+                bitField0_ |= 0x00000004;
+                minSensorLimit_ = input.readUInt32();
+                break;
+              }
+              case 32: {
+                bitField0_ |= 0x00000008;
+                maxSensorLimit_ = input.readUInt32();
+                break;
+              }
+              case 40: {
+                bitField0_ |= 0x00000010;
+                minErrorBound_ = input.readUInt32();
+                break;
+              }
+              case 48: {
+                bitField0_ |= 0x00000020;
+                maxErrorBound_ = input.readUInt32();
+                break;
+              }
+              case 56: {
+                bitField0_ |= 0x00000040;
+                resolution_ = input.readUInt32();
+                break;
+              }
+              case 64: {
+                bitField0_ |= 0x00000080;
+                accuracy_ = input.readUInt32();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_DeviceInfoMessage_DeviceMeasurementInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.class, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder.class);
+      }
+
+      /**
+       * Protobuf enum {@code DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE}
+       */
+      public enum READING_TYPE
+          implements com.google.protobuf.ProtocolMessageEnum {
+        /**
+         * <code>VOLTAGE = 1;</code>
+         */
+        VOLTAGE(1),
+        /**
+         * <code>CURRENT = 2;</code>
+         */
+        CURRENT(2),
+        /**
+         * <code>TEMPERATURE = 3;</code>
+         */
+        TEMPERATURE(3),
+        /**
+         * <code>MCC = 4;</code>
+         */
+        MCC(4),
+        /**
+         * <pre>
+         *i.e. pedal board
+         * </pre>
+         *
+         * <code>DRIVER_CONTROL = 5;</code>
+         */
+        DRIVER_CONTROL(5),
+        ;
+
+        /**
+         * <code>VOLTAGE = 1;</code>
+         */
+        public static final int VOLTAGE_VALUE = 1;
+        /**
+         * <code>CURRENT = 2;</code>
+         */
+        public static final int CURRENT_VALUE = 2;
+        /**
+         * <code>TEMPERATURE = 3;</code>
+         */
+        public static final int TEMPERATURE_VALUE = 3;
+        /**
+         * <code>MCC = 4;</code>
+         */
+        public static final int MCC_VALUE = 4;
+        /**
+         * <pre>
+         *i.e. pedal board
+         * </pre>
+         *
+         * <code>DRIVER_CONTROL = 5;</code>
+         */
+        public static final int DRIVER_CONTROL_VALUE = 5;
+
+
+        public final int getNumber() {
+          return value;
+        }
+
+        /**
+         * @deprecated Use {@link #forNumber(int)} instead.
+         */
+        @java.lang.Deprecated
+        public static READING_TYPE valueOf(int value) {
+          return forNumber(value);
+        }
+
+        public static READING_TYPE forNumber(int value) {
+          switch (value) {
+            case 1: return VOLTAGE;
+            case 2: return CURRENT;
+            case 3: return TEMPERATURE;
+            case 4: return MCC;
+            case 5: return DRIVER_CONTROL;
+            default: return null;
+          }
+        }
+
+        public static com.google.protobuf.Internal.EnumLiteMap<READING_TYPE>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static final com.google.protobuf.Internal.EnumLiteMap<
+            READING_TYPE> internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<READING_TYPE>() {
+                public READING_TYPE findValueByNumber(int number) {
+                  return READING_TYPE.forNumber(number);
+                }
+              };
+
+        public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+          return getDescriptor().getValues().get(ordinal());
+        }
+        public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+          return TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDescriptor().getEnumTypes().get(0);
+        }
+
+        private static final READING_TYPE[] VALUES = values();
+
+        public static READING_TYPE valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          if (desc.getType() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "EnumValueDescriptor is not for this type.");
+          }
+          return VALUES[desc.getIndex()];
+        }
+
+        private final int value;
+
+        private READING_TYPE(int value) {
+          this.value = value;
+        }
+
+        // @@protoc_insertion_point(enum_scope:DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE)
+      }
+
+      private int bitField0_;
+      public static final int READINGTYPE_FIELD_NUMBER = 1;
+      private int readingType_;
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+       */
+      public boolean hasReadingType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE getReadingType() {
+        TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE result = TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE.valueOf(readingType_);
+        return result == null ? TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE.VOLTAGE : result;
+      }
+
+      public static final int UNITS_FIELD_NUMBER = 2;
+      private volatile java.lang.Object units_;
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      public boolean hasUnits() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      public java.lang.String getUnits() {
+        java.lang.Object ref = units_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            units_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       *max of four letters (mV, A, degC, mph, etc.)
+       * </pre>
+       *
+       * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+       */
+      public com.google.protobuf.ByteString
+          getUnitsBytes() {
+        java.lang.Object ref = units_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          units_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int MINSENSORLIMIT_FIELD_NUMBER = 3;
+      private int minSensorLimit_;
+      /**
+       * <code>optional uint32 minSensorLimit = 3;</code>
+       */
+      public boolean hasMinSensorLimit() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional uint32 minSensorLimit = 3;</code>
+       */
+      public int getMinSensorLimit() {
+        return minSensorLimit_;
+      }
+
+      public static final int MAXSENSORLIMIT_FIELD_NUMBER = 4;
+      private int maxSensorLimit_;
+      /**
+       * <code>optional uint32 maxSensorLimit = 4;</code>
+       */
+      public boolean hasMaxSensorLimit() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional uint32 maxSensorLimit = 4;</code>
+       */
+      public int getMaxSensorLimit() {
+        return maxSensorLimit_;
+      }
+
+      public static final int MINERRORBOUND_FIELD_NUMBER = 5;
+      private int minErrorBound_;
+      /**
+       * <pre>
+       *if a reading &lt; minErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 minErrorBound = 5;</code>
+       */
+      public boolean hasMinErrorBound() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <pre>
+       *if a reading &lt; minErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 minErrorBound = 5;</code>
+       */
+      public int getMinErrorBound() {
+        return minErrorBound_;
+      }
+
+      public static final int MAXERRORBOUND_FIELD_NUMBER = 6;
+      private int maxErrorBound_;
+      /**
+       * <pre>
+       *if a reading &gt; maxErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 maxErrorBound = 6;</code>
+       */
+      public boolean hasMaxErrorBound() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <pre>
+       *if a reading &gt; maxErrorBound -&gt; send error message
+       * </pre>
+       *
+       * <code>optional uint32 maxErrorBound = 6;</code>
+       */
+      public int getMaxErrorBound() {
+        return maxErrorBound_;
+      }
+
+      public static final int RESOLUTION_FIELD_NUMBER = 7;
+      private int resolution_;
+      /**
+       * <code>optional uint32 resolution = 7;</code>
+       */
+      public boolean hasResolution() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional uint32 resolution = 7;</code>
+       */
+      public int getResolution() {
+        return resolution_;
+      }
+
+      public static final int ACCURACY_FIELD_NUMBER = 8;
+      private int accuracy_;
+      /**
+       * <code>optional uint32 accuracy = 8;</code>
+       */
+      public boolean hasAccuracy() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional uint32 accuracy = 8;</code>
+       */
+      public int getAccuracy() {
+        return accuracy_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeEnum(1, readingType_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, units_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeUInt32(3, minSensorLimit_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeUInt32(4, maxSensorLimit_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeUInt32(5, minErrorBound_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          output.writeUInt32(6, maxErrorBound_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          output.writeUInt32(7, resolution_);
+        }
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          output.writeUInt32(8, accuracy_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(1, readingType_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, units_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(3, minSensorLimit_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(4, maxSensorLimit_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(5, minErrorBound_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(6, maxErrorBound_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(7, resolution_);
+        }
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(8, accuracy_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo)) {
+          return super.equals(obj);
+        }
+        TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo other = (TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo) obj;
+
+        boolean result = true;
+        result = result && (hasReadingType() == other.hasReadingType());
+        if (hasReadingType()) {
+          result = result && readingType_ == other.readingType_;
+        }
+        result = result && (hasUnits() == other.hasUnits());
+        if (hasUnits()) {
+          result = result && getUnits()
+              .equals(other.getUnits());
+        }
+        result = result && (hasMinSensorLimit() == other.hasMinSensorLimit());
+        if (hasMinSensorLimit()) {
+          result = result && (getMinSensorLimit()
+              == other.getMinSensorLimit());
+        }
+        result = result && (hasMaxSensorLimit() == other.hasMaxSensorLimit());
+        if (hasMaxSensorLimit()) {
+          result = result && (getMaxSensorLimit()
+              == other.getMaxSensorLimit());
+        }
+        result = result && (hasMinErrorBound() == other.hasMinErrorBound());
+        if (hasMinErrorBound()) {
+          result = result && (getMinErrorBound()
+              == other.getMinErrorBound());
+        }
+        result = result && (hasMaxErrorBound() == other.hasMaxErrorBound());
+        if (hasMaxErrorBound()) {
+          result = result && (getMaxErrorBound()
+              == other.getMaxErrorBound());
+        }
+        result = result && (hasResolution() == other.hasResolution());
+        if (hasResolution()) {
+          result = result && (getResolution()
+              == other.getResolution());
+        }
+        result = result && (hasAccuracy() == other.hasAccuracy());
+        if (hasAccuracy()) {
+          result = result && (getAccuracy()
+              == other.getAccuracy());
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasReadingType()) {
+          hash = (37 * hash) + READINGTYPE_FIELD_NUMBER;
+          hash = (53 * hash) + readingType_;
+        }
+        if (hasUnits()) {
+          hash = (37 * hash) + UNITS_FIELD_NUMBER;
+          hash = (53 * hash) + getUnits().hashCode();
+        }
+        if (hasMinSensorLimit()) {
+          hash = (37 * hash) + MINSENSORLIMIT_FIELD_NUMBER;
+          hash = (53 * hash) + getMinSensorLimit();
+        }
+        if (hasMaxSensorLimit()) {
+          hash = (37 * hash) + MAXSENSORLIMIT_FIELD_NUMBER;
+          hash = (53 * hash) + getMaxSensorLimit();
+        }
+        if (hasMinErrorBound()) {
+          hash = (37 * hash) + MINERRORBOUND_FIELD_NUMBER;
+          hash = (53 * hash) + getMinErrorBound();
+        }
+        if (hasMaxErrorBound()) {
+          hash = (37 * hash) + MAXERRORBOUND_FIELD_NUMBER;
+          hash = (53 * hash) + getMaxErrorBound();
+        }
+        if (hasResolution()) {
+          hash = (37 * hash) + RESOLUTION_FIELD_NUMBER;
+          hash = (53 * hash) + getResolution();
+        }
+        if (hasAccuracy()) {
+          hash = (37 * hash) + ACCURACY_FIELD_NUMBER;
+          hash = (53 * hash) + getAccuracy();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code DeviceInfoMessage.DeviceMeasurementInfo}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:DeviceInfoMessage.DeviceMeasurementInfo)
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceMeasurementInfo_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.class, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder.class);
+        }
+
+        // Construct using TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          readingType_ = 1;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          units_ = "";
+          bitField0_ = (bitField0_ & ~0x00000002);
+          minSensorLimit_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          maxSensorLimit_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          minErrorBound_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          maxErrorBound_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000020);
+          resolution_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000040);
+          accuracy_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000080);
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor;
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getDefaultInstanceForType() {
+          return TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance();
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo build() {
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo buildPartial() {
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo result = new TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.readingType_ = readingType_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.units_ = units_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.minSensorLimit_ = minSensorLimit_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.maxSensorLimit_ = maxSensorLimit_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.minErrorBound_ = minErrorBound_;
+          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+            to_bitField0_ |= 0x00000020;
+          }
+          result.maxErrorBound_ = maxErrorBound_;
+          if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+            to_bitField0_ |= 0x00000040;
+          }
+          result.resolution_ = resolution_;
+          if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+            to_bitField0_ |= 0x00000080;
+          }
+          result.accuracy_ = accuracy_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo) {
+            return mergeFrom((TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo other) {
+          if (other == TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance()) return this;
+          if (other.hasReadingType()) {
+            setReadingType(other.getReadingType());
+          }
+          if (other.hasUnits()) {
+            bitField0_ |= 0x00000002;
+            units_ = other.units_;
+            onChanged();
+          }
+          if (other.hasMinSensorLimit()) {
+            setMinSensorLimit(other.getMinSensorLimit());
+          }
+          if (other.hasMaxSensorLimit()) {
+            setMaxSensorLimit(other.getMaxSensorLimit());
+          }
+          if (other.hasMinErrorBound()) {
+            setMinErrorBound(other.getMinErrorBound());
+          }
+          if (other.hasMaxErrorBound()) {
+            setMaxErrorBound(other.getMaxErrorBound());
+          }
+          if (other.hasResolution()) {
+            setResolution(other.getResolution());
+          }
+          if (other.hasAccuracy()) {
+            setAccuracy(other.getAccuracy());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private int readingType_ = 1;
+        /**
+         * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+         */
+        public boolean hasReadingType() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+         */
+        public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE getReadingType() {
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE result = TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE.valueOf(readingType_);
+          return result == null ? TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE.VOLTAGE : result;
+        }
+        /**
+         * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+         */
+        public Builder setReadingType(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bitField0_ |= 0x00000001;
+          readingType_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo.READING_TYPE readingType = 1;</code>
+         */
+        public Builder clearReadingType() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          readingType_ = 1;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object units_ = "";
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public boolean hasUnits() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public java.lang.String getUnits() {
+          java.lang.Object ref = units_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              units_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public com.google.protobuf.ByteString
+            getUnitsBytes() {
+          java.lang.Object ref = units_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            units_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public Builder setUnits(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          units_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public Builder clearUnits() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          units_ = getDefaultInstance().getUnits();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *max of four letters (mV, A, degC, mph, etc.)
+         * </pre>
+         *
+         * <code>optional string units = 2 [(.nanopb) = { ... }</code>
+         */
+        public Builder setUnitsBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          units_ = value;
+          onChanged();
+          return this;
+        }
+
+        private int minSensorLimit_ ;
+        /**
+         * <code>optional uint32 minSensorLimit = 3;</code>
+         */
+        public boolean hasMinSensorLimit() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>optional uint32 minSensorLimit = 3;</code>
+         */
+        public int getMinSensorLimit() {
+          return minSensorLimit_;
+        }
+        /**
+         * <code>optional uint32 minSensorLimit = 3;</code>
+         */
+        public Builder setMinSensorLimit(int value) {
+          bitField0_ |= 0x00000004;
+          minSensorLimit_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional uint32 minSensorLimit = 3;</code>
+         */
+        public Builder clearMinSensorLimit() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          minSensorLimit_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int maxSensorLimit_ ;
+        /**
+         * <code>optional uint32 maxSensorLimit = 4;</code>
+         */
+        public boolean hasMaxSensorLimit() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>optional uint32 maxSensorLimit = 4;</code>
+         */
+        public int getMaxSensorLimit() {
+          return maxSensorLimit_;
+        }
+        /**
+         * <code>optional uint32 maxSensorLimit = 4;</code>
+         */
+        public Builder setMaxSensorLimit(int value) {
+          bitField0_ |= 0x00000008;
+          maxSensorLimit_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional uint32 maxSensorLimit = 4;</code>
+         */
+        public Builder clearMaxSensorLimit() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          maxSensorLimit_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int minErrorBound_ ;
+        /**
+         * <pre>
+         *if a reading &lt; minErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 minErrorBound = 5;</code>
+         */
+        public boolean hasMinErrorBound() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <pre>
+         *if a reading &lt; minErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 minErrorBound = 5;</code>
+         */
+        public int getMinErrorBound() {
+          return minErrorBound_;
+        }
+        /**
+         * <pre>
+         *if a reading &lt; minErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 minErrorBound = 5;</code>
+         */
+        public Builder setMinErrorBound(int value) {
+          bitField0_ |= 0x00000010;
+          minErrorBound_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *if a reading &lt; minErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 minErrorBound = 5;</code>
+         */
+        public Builder clearMinErrorBound() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          minErrorBound_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int maxErrorBound_ ;
+        /**
+         * <pre>
+         *if a reading &gt; maxErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 maxErrorBound = 6;</code>
+         */
+        public boolean hasMaxErrorBound() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        /**
+         * <pre>
+         *if a reading &gt; maxErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 maxErrorBound = 6;</code>
+         */
+        public int getMaxErrorBound() {
+          return maxErrorBound_;
+        }
+        /**
+         * <pre>
+         *if a reading &gt; maxErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 maxErrorBound = 6;</code>
+         */
+        public Builder setMaxErrorBound(int value) {
+          bitField0_ |= 0x00000020;
+          maxErrorBound_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *if a reading &gt; maxErrorBound -&gt; send error message
+         * </pre>
+         *
+         * <code>optional uint32 maxErrorBound = 6;</code>
+         */
+        public Builder clearMaxErrorBound() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          maxErrorBound_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int resolution_ ;
+        /**
+         * <code>optional uint32 resolution = 7;</code>
+         */
+        public boolean hasResolution() {
+          return ((bitField0_ & 0x00000040) == 0x00000040);
+        }
+        /**
+         * <code>optional uint32 resolution = 7;</code>
+         */
+        public int getResolution() {
+          return resolution_;
+        }
+        /**
+         * <code>optional uint32 resolution = 7;</code>
+         */
+        public Builder setResolution(int value) {
+          bitField0_ |= 0x00000040;
+          resolution_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional uint32 resolution = 7;</code>
+         */
+        public Builder clearResolution() {
+          bitField0_ = (bitField0_ & ~0x00000040);
+          resolution_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int accuracy_ ;
+        /**
+         * <code>optional uint32 accuracy = 8;</code>
+         */
+        public boolean hasAccuracy() {
+          return ((bitField0_ & 0x00000080) == 0x00000080);
+        }
+        /**
+         * <code>optional uint32 accuracy = 8;</code>
+         */
+        public int getAccuracy() {
+          return accuracy_;
+        }
+        /**
+         * <code>optional uint32 accuracy = 8;</code>
+         */
+        public Builder setAccuracy(int value) {
+          bitField0_ |= 0x00000080;
+          accuracy_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional uint32 accuracy = 8;</code>
+         */
+        public Builder clearAccuracy() {
+          bitField0_ = (bitField0_ & ~0x00000080);
+          accuracy_ = 0;
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:DeviceInfoMessage.DeviceMeasurementInfo)
+      }
+
+      // @@protoc_insertion_point(class_scope:DeviceInfoMessage.DeviceMeasurementInfo)
+      private static final TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo();
+      }
+
+      public static TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated public static final com.google.protobuf.Parser<DeviceMeasurementInfo>
+          PARSER = new com.google.protobuf.AbstractParser<DeviceMeasurementInfo>() {
+        public DeviceMeasurementInfo parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+            return new DeviceMeasurementInfo(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<DeviceMeasurementInfo> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<DeviceMeasurementInfo> getParserForType() {
+        return PARSER;
+      }
+
+      public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface DeviceDelayInfoOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:DeviceInfoMessage.DeviceDelayInfo)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <pre>
+       *expected time between sample readings
+       * </pre>
+       *
+       * <code>optional uint32 expectedSampleDelay = 1;</code>
+       */
+      boolean hasExpectedSampleDelay();
+      /**
+       * <pre>
+       *expected time between sample readings
+       * </pre>
+       *
+       * <code>optional uint32 expectedSampleDelay = 1;</code>
+       */
+      int getExpectedSampleDelay();
+
+      /**
+       * <pre>
+       *if exceeded, indicates a probable lack of connection
+       * </pre>
+       *
+       * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+       */
+      boolean hasLongestAcceptedSampleDelay();
+      /**
+       * <pre>
+       *if exceeded, indicates a probable lack of connection
+       * </pre>
+       *
+       * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+       */
+      int getLongestAcceptedSampleDelay();
+    }
+    /**
+     * Protobuf type {@code DeviceInfoMessage.DeviceDelayInfo}
+     */
+    public  static final class DeviceDelayInfo extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:DeviceInfoMessage.DeviceDelayInfo)
+        DeviceDelayInfoOrBuilder {
+      // Use DeviceDelayInfo.newBuilder() to construct.
+      private DeviceDelayInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private DeviceDelayInfo() {
+        expectedSampleDelay_ = 0;
+        longestAcceptedSampleDelay_ = 0;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private DeviceDelayInfo(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 8: {
+                bitField0_ |= 0x00000001;
+                expectedSampleDelay_ = input.readUInt32();
+                break;
+              }
+              case 16: {
+                bitField0_ |= 0x00000002;
+                longestAcceptedSampleDelay_ = input.readUInt32();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_DeviceInfoMessage_DeviceDelayInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.class, TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int EXPECTEDSAMPLEDELAY_FIELD_NUMBER = 1;
+      private int expectedSampleDelay_;
+      /**
+       * <pre>
+       *expected time between sample readings
+       * </pre>
+       *
+       * <code>optional uint32 expectedSampleDelay = 1;</code>
+       */
+      public boolean hasExpectedSampleDelay() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <pre>
+       *expected time between sample readings
+       * </pre>
+       *
+       * <code>optional uint32 expectedSampleDelay = 1;</code>
+       */
+      public int getExpectedSampleDelay() {
+        return expectedSampleDelay_;
+      }
+
+      public static final int LONGESTACCEPTEDSAMPLEDELAY_FIELD_NUMBER = 2;
+      private int longestAcceptedSampleDelay_;
+      /**
+       * <pre>
+       *if exceeded, indicates a probable lack of connection
+       * </pre>
+       *
+       * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+       */
+      public boolean hasLongestAcceptedSampleDelay() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <pre>
+       *if exceeded, indicates a probable lack of connection
+       * </pre>
+       *
+       * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+       */
+      public int getLongestAcceptedSampleDelay() {
+        return longestAcceptedSampleDelay_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeUInt32(1, expectedSampleDelay_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeUInt32(2, longestAcceptedSampleDelay_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(1, expectedSampleDelay_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(2, longestAcceptedSampleDelay_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof TelemetryProto.DeviceInfoMessage.DeviceDelayInfo)) {
+          return super.equals(obj);
+        }
+        TelemetryProto.DeviceInfoMessage.DeviceDelayInfo other = (TelemetryProto.DeviceInfoMessage.DeviceDelayInfo) obj;
+
+        boolean result = true;
+        result = result && (hasExpectedSampleDelay() == other.hasExpectedSampleDelay());
+        if (hasExpectedSampleDelay()) {
+          result = result && (getExpectedSampleDelay()
+              == other.getExpectedSampleDelay());
+        }
+        result = result && (hasLongestAcceptedSampleDelay() == other.hasLongestAcceptedSampleDelay());
+        if (hasLongestAcceptedSampleDelay()) {
+          result = result && (getLongestAcceptedSampleDelay()
+              == other.getLongestAcceptedSampleDelay());
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasExpectedSampleDelay()) {
+          hash = (37 * hash) + EXPECTEDSAMPLEDELAY_FIELD_NUMBER;
+          hash = (53 * hash) + getExpectedSampleDelay();
+        }
+        if (hasLongestAcceptedSampleDelay()) {
+          hash = (37 * hash) + LONGESTACCEPTEDSAMPLEDELAY_FIELD_NUMBER;
+          hash = (53 * hash) + getLongestAcceptedSampleDelay();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(TelemetryProto.DeviceInfoMessage.DeviceDelayInfo prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code DeviceInfoMessage.DeviceDelayInfo}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:DeviceInfoMessage.DeviceDelayInfo)
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceDelayInfo_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.class, TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder.class);
+        }
+
+        // Construct using TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          expectedSampleDelay_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          longestAcceptedSampleDelay_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return TelemetryProto.internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor;
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDefaultInstanceForType() {
+          return TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance();
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo build() {
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo buildPartial() {
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo result = new TelemetryProto.DeviceInfoMessage.DeviceDelayInfo(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.expectedSampleDelay_ = expectedSampleDelay_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.longestAcceptedSampleDelay_ = longestAcceptedSampleDelay_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof TelemetryProto.DeviceInfoMessage.DeviceDelayInfo) {
+            return mergeFrom((TelemetryProto.DeviceInfoMessage.DeviceDelayInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(TelemetryProto.DeviceInfoMessage.DeviceDelayInfo other) {
+          if (other == TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance()) return this;
+          if (other.hasExpectedSampleDelay()) {
+            setExpectedSampleDelay(other.getExpectedSampleDelay());
+          }
+          if (other.hasLongestAcceptedSampleDelay()) {
+            setLongestAcceptedSampleDelay(other.getLongestAcceptedSampleDelay());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (TelemetryProto.DeviceInfoMessage.DeviceDelayInfo) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private int expectedSampleDelay_ ;
+        /**
+         * <pre>
+         *expected time between sample readings
+         * </pre>
+         *
+         * <code>optional uint32 expectedSampleDelay = 1;</code>
+         */
+        public boolean hasExpectedSampleDelay() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <pre>
+         *expected time between sample readings
+         * </pre>
+         *
+         * <code>optional uint32 expectedSampleDelay = 1;</code>
+         */
+        public int getExpectedSampleDelay() {
+          return expectedSampleDelay_;
+        }
+        /**
+         * <pre>
+         *expected time between sample readings
+         * </pre>
+         *
+         * <code>optional uint32 expectedSampleDelay = 1;</code>
+         */
+        public Builder setExpectedSampleDelay(int value) {
+          bitField0_ |= 0x00000001;
+          expectedSampleDelay_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *expected time between sample readings
+         * </pre>
+         *
+         * <code>optional uint32 expectedSampleDelay = 1;</code>
+         */
+        public Builder clearExpectedSampleDelay() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          expectedSampleDelay_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private int longestAcceptedSampleDelay_ ;
+        /**
+         * <pre>
+         *if exceeded, indicates a probable lack of connection
+         * </pre>
+         *
+         * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+         */
+        public boolean hasLongestAcceptedSampleDelay() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <pre>
+         *if exceeded, indicates a probable lack of connection
+         * </pre>
+         *
+         * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+         */
+        public int getLongestAcceptedSampleDelay() {
+          return longestAcceptedSampleDelay_;
+        }
+        /**
+         * <pre>
+         *if exceeded, indicates a probable lack of connection
+         * </pre>
+         *
+         * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+         */
+        public Builder setLongestAcceptedSampleDelay(int value) {
+          bitField0_ |= 0x00000002;
+          longestAcceptedSampleDelay_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *if exceeded, indicates a probable lack of connection
+         * </pre>
+         *
+         * <code>optional uint32 longestAcceptedSampleDelay = 2;</code>
+         */
+        public Builder clearLongestAcceptedSampleDelay() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          longestAcceptedSampleDelay_ = 0;
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:DeviceInfoMessage.DeviceDelayInfo)
+      }
+
+      // @@protoc_insertion_point(class_scope:DeviceInfoMessage.DeviceDelayInfo)
+      private static final TelemetryProto.DeviceInfoMessage.DeviceDelayInfo DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new TelemetryProto.DeviceInfoMessage.DeviceDelayInfo();
+      }
+
+      public static TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated public static final com.google.protobuf.Parser<DeviceDelayInfo>
+          PARSER = new com.google.protobuf.AbstractParser<DeviceDelayInfo>() {
+        public DeviceDelayInfo parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+            return new DeviceDelayInfo(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<DeviceDelayInfo> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<DeviceDelayInfo> getParserForType() {
+        return PARSER;
+      }
+
+      public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     private int bitField0_;
-    public static final int TIMESTAMP_MS_FIELD_NUMBER = 1;
-    private int timestampMs_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
     /**
-     * <code>optional int32 timestamp_ms = 1;</code>
+     * <code>optional uint32 id = 1;</code>
      */
-    public boolean hasTimestampMs() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional int32 timestamp_ms = 1;</code>
+     * <code>optional uint32 id = 1;</code>
      */
-    public int getTimestampMs() {
-      return timestampMs_;
+    public int getId() {
+      return id_;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MEASUREMENTINFO_FIELD_NUMBER = 3;
+    private TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo measurementInfo_;
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    public boolean hasMeasurementInfo() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getMeasurementInfo() {
+      return measurementInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance() : measurementInfo_;
+    }
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+     */
+    public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder getMeasurementInfoOrBuilder() {
+      return measurementInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance() : measurementInfo_;
+    }
+
+    public static final int DELAYINFO_FIELD_NUMBER = 4;
+    private TelemetryProto.DeviceInfoMessage.DeviceDelayInfo delayInfo_;
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    public boolean hasDelayInfo() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDelayInfo() {
+      return delayInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance() : delayInfo_;
+    }
+    /**
+     * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+     */
+    public TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder getDelayInfoOrBuilder() {
+      return delayInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance() : delayInfo_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -126,7 +2307,16 @@ public final class TelemetryProto {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, timestampMs_);
+        output.writeUInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, getMeasurementInfo());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, getDelayInfo());
       }
       unknownFields.writeTo(output);
     }
@@ -138,7 +2328,18 @@ public final class TelemetryProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, timestampMs_);
+          .computeUInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getMeasurementInfo());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getDelayInfo());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -151,16 +2352,31 @@ public final class TelemetryProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof TelemetryProto.Telemetry)) {
+      if (!(obj instanceof TelemetryProto.DeviceInfoMessage)) {
         return super.equals(obj);
       }
-      TelemetryProto.Telemetry other = (TelemetryProto.Telemetry) obj;
+      TelemetryProto.DeviceInfoMessage other = (TelemetryProto.DeviceInfoMessage) obj;
 
       boolean result = true;
-      result = result && (hasTimestampMs() == other.hasTimestampMs());
-      if (hasTimestampMs()) {
-        result = result && (getTimestampMs()
-            == other.getTimestampMs());
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && (getId()
+            == other.getId());
+      }
+      result = result && (hasName() == other.hasName());
+      if (hasName()) {
+        result = result && getName()
+            .equals(other.getName());
+      }
+      result = result && (hasMeasurementInfo() == other.hasMeasurementInfo());
+      if (hasMeasurementInfo()) {
+        result = result && getMeasurementInfo()
+            .equals(other.getMeasurementInfo());
+      }
+      result = result && (hasDelayInfo() == other.hasDelayInfo());
+      if (hasDelayInfo()) {
+        result = result && getDelayInfo()
+            .equals(other.getDelayInfo());
       }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -173,67 +2389,79 @@ public final class TelemetryProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasTimestampMs()) {
-        hash = (37 * hash) + TIMESTAMP_MS_FIELD_NUMBER;
-        hash = (53 * hash) + getTimestampMs();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasName()) {
+        hash = (37 * hash) + NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getName().hashCode();
+      }
+      if (hasMeasurementInfo()) {
+        hash = (37 * hash) + MEASUREMENTINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getMeasurementInfo().hashCode();
+      }
+      if (hasDelayInfo()) {
+        hash = (37 * hash) + DELAYINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getDelayInfo().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static TelemetryProto.Telemetry parseFrom(byte[] data)
+    public static TelemetryProto.DeviceInfoMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static TelemetryProto.Telemetry parseFrom(java.io.InputStream input)
+    public static TelemetryProto.DeviceInfoMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static TelemetryProto.Telemetry parseDelimitedFrom(java.io.InputStream input)
+    public static TelemetryProto.DeviceInfoMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static TelemetryProto.Telemetry parseDelimitedFrom(
+    public static TelemetryProto.DeviceInfoMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static TelemetryProto.Telemetry parseFrom(
+    public static TelemetryProto.DeviceInfoMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -245,7 +2473,7 @@ public final class TelemetryProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(TelemetryProto.Telemetry prototype) {
+    public static Builder newBuilder(TelemetryProto.DeviceInfoMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -260,25 +2488,32 @@ public final class TelemetryProto {
       return builder;
     }
     /**
-     * Protobuf type {@code Telemetry}
+     * <pre>
+     *A DeviceInfoMessage should only be sent if a request is received from the telemetry viewer (ex. if the
+     *      viewer sees a device it hasn't registered yet)
+     *Otherwise, the viewer will just reference its config files (stored offline) for this information
+     *TODO: Make a better model for determining anomalies (a machine learning algorithm perhaps?)
+     * </pre>
+     *
+     * Protobuf type {@code DeviceInfoMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:Telemetry)
-        TelemetryProto.TelemetryOrBuilder {
+        // @@protoc_insertion_point(builder_implements:DeviceInfoMessage)
+        TelemetryProto.DeviceInfoMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return TelemetryProto.internal_static_Telemetry_descriptor;
+        return TelemetryProto.internal_static_DeviceInfoMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return TelemetryProto.internal_static_Telemetry_fieldAccessorTable
+        return TelemetryProto.internal_static_DeviceInfoMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                TelemetryProto.Telemetry.class, TelemetryProto.Telemetry.Builder.class);
+                TelemetryProto.DeviceInfoMessage.class, TelemetryProto.DeviceInfoMessage.Builder.class);
       }
 
-      // Construct using TelemetryProto.Telemetry.newBuilder()
+      // Construct using TelemetryProto.DeviceInfoMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -291,40 +2526,76 @@ public final class TelemetryProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getMeasurementInfoFieldBuilder();
+          getDelayInfoFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
-        timestampMs_ = 0;
+        id_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (measurementInfoBuilder_ == null) {
+          measurementInfo_ = null;
+        } else {
+          measurementInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (delayInfoBuilder_ == null) {
+          delayInfo_ = null;
+        } else {
+          delayInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return TelemetryProto.internal_static_Telemetry_descriptor;
+        return TelemetryProto.internal_static_DeviceInfoMessage_descriptor;
       }
 
-      public TelemetryProto.Telemetry getDefaultInstanceForType() {
-        return TelemetryProto.Telemetry.getDefaultInstance();
+      public TelemetryProto.DeviceInfoMessage getDefaultInstanceForType() {
+        return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
       }
 
-      public TelemetryProto.Telemetry build() {
-        TelemetryProto.Telemetry result = buildPartial();
+      public TelemetryProto.DeviceInfoMessage build() {
+        TelemetryProto.DeviceInfoMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public TelemetryProto.Telemetry buildPartial() {
-        TelemetryProto.Telemetry result = new TelemetryProto.Telemetry(this);
+      public TelemetryProto.DeviceInfoMessage buildPartial() {
+        TelemetryProto.DeviceInfoMessage result = new TelemetryProto.DeviceInfoMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.timestampMs_ = timestampMs_;
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (measurementInfoBuilder_ == null) {
+          result.measurementInfo_ = measurementInfo_;
+        } else {
+          result.measurementInfo_ = measurementInfoBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        if (delayInfoBuilder_ == null) {
+          result.delayInfo_ = delayInfo_;
+        } else {
+          result.delayInfo_ = delayInfoBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -357,18 +2628,29 @@ public final class TelemetryProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof TelemetryProto.Telemetry) {
-          return mergeFrom((TelemetryProto.Telemetry)other);
+        if (other instanceof TelemetryProto.DeviceInfoMessage) {
+          return mergeFrom((TelemetryProto.DeviceInfoMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(TelemetryProto.Telemetry other) {
-        if (other == TelemetryProto.Telemetry.getDefaultInstance()) return this;
-        if (other.hasTimestampMs()) {
-          setTimestampMs(other.getTimestampMs());
+      public Builder mergeFrom(TelemetryProto.DeviceInfoMessage other) {
+        if (other == TelemetryProto.DeviceInfoMessage.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000002;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasMeasurementInfo()) {
+          mergeMeasurementInfo(other.getMeasurementInfo());
+        }
+        if (other.hasDelayInfo()) {
+          mergeDelayInfo(other.getDelayInfo());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -383,11 +2665,11 @@ public final class TelemetryProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        TelemetryProto.Telemetry parsedMessage = null;
+        TelemetryProto.DeviceInfoMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (TelemetryProto.Telemetry) e.getUnfinishedMessage();
+          parsedMessage = (TelemetryProto.DeviceInfoMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -398,34 +2680,1160 @@ public final class TelemetryProto {
       }
       private int bitField0_;
 
-      private int timestampMs_ ;
+      private int id_ ;
       /**
-       * <code>optional int32 timestamp_ms = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        */
-      public boolean hasTimestampMs() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional int32 timestamp_ms = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        */
-      public int getTimestampMs() {
-        return timestampMs_;
+      public int getId() {
+        return id_;
       }
       /**
-       * <code>optional int32 timestamp_ms = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        */
-      public Builder setTimestampMs(int value) {
+      public Builder setId(int value) {
         bitField0_ |= 0x00000001;
-        timestampMs_ = value;
+        id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 timestamp_ms = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        */
-      public Builder clearTimestampMs() {
+      public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        timestampMs_ = 0;
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo measurementInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder> measurementInfoBuilder_;
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public boolean hasMeasurementInfo() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo getMeasurementInfo() {
+        if (measurementInfoBuilder_ == null) {
+          return measurementInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance() : measurementInfo_;
+        } else {
+          return measurementInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public Builder setMeasurementInfo(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo value) {
+        if (measurementInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          measurementInfo_ = value;
+          onChanged();
+        } else {
+          measurementInfoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public Builder setMeasurementInfo(
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder builderForValue) {
+        if (measurementInfoBuilder_ == null) {
+          measurementInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          measurementInfoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public Builder mergeMeasurementInfo(TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo value) {
+        if (measurementInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              measurementInfo_ != null &&
+              measurementInfo_ != TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance()) {
+            measurementInfo_ =
+              TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.newBuilder(measurementInfo_).mergeFrom(value).buildPartial();
+          } else {
+            measurementInfo_ = value;
+          }
+          onChanged();
+        } else {
+          measurementInfoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public Builder clearMeasurementInfo() {
+        if (measurementInfoBuilder_ == null) {
+          measurementInfo_ = null;
+          onChanged();
+        } else {
+          measurementInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder getMeasurementInfoBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getMeasurementInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder getMeasurementInfoOrBuilder() {
+        if (measurementInfoBuilder_ != null) {
+          return measurementInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return measurementInfo_ == null ?
+              TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.getDefaultInstance() : measurementInfo_;
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceMeasurementInfo measurementInfo = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder> 
+          getMeasurementInfoFieldBuilder() {
+        if (measurementInfoBuilder_ == null) {
+          measurementInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceMeasurementInfoOrBuilder>(
+                  getMeasurementInfo(),
+                  getParentForChildren(),
+                  isClean());
+          measurementInfo_ = null;
+        }
+        return measurementInfoBuilder_;
+      }
+
+      private TelemetryProto.DeviceInfoMessage.DeviceDelayInfo delayInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo, TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder> delayInfoBuilder_;
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public boolean hasDelayInfo() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo getDelayInfo() {
+        if (delayInfoBuilder_ == null) {
+          return delayInfo_ == null ? TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance() : delayInfo_;
+        } else {
+          return delayInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public Builder setDelayInfo(TelemetryProto.DeviceInfoMessage.DeviceDelayInfo value) {
+        if (delayInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          delayInfo_ = value;
+          onChanged();
+        } else {
+          delayInfoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public Builder setDelayInfo(
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder builderForValue) {
+        if (delayInfoBuilder_ == null) {
+          delayInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          delayInfoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public Builder mergeDelayInfo(TelemetryProto.DeviceInfoMessage.DeviceDelayInfo value) {
+        if (delayInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              delayInfo_ != null &&
+              delayInfo_ != TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance()) {
+            delayInfo_ =
+              TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.newBuilder(delayInfo_).mergeFrom(value).buildPartial();
+          } else {
+            delayInfo_ = value;
+          }
+          onChanged();
+        } else {
+          delayInfoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public Builder clearDelayInfo() {
+        if (delayInfoBuilder_ == null) {
+          delayInfo_ = null;
+          onChanged();
+        } else {
+          delayInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder getDelayInfoBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getDelayInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder getDelayInfoOrBuilder() {
+        if (delayInfoBuilder_ != null) {
+          return delayInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return delayInfo_ == null ?
+              TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.getDefaultInstance() : delayInfo_;
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage.DeviceDelayInfo delayInfo = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage.DeviceDelayInfo, TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder> 
+          getDelayInfoFieldBuilder() {
+        if (delayInfoBuilder_ == null) {
+          delayInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.DeviceInfoMessage.DeviceDelayInfo, TelemetryProto.DeviceInfoMessage.DeviceDelayInfo.Builder, TelemetryProto.DeviceInfoMessage.DeviceDelayInfoOrBuilder>(
+                  getDelayInfo(),
+                  getParentForChildren(),
+                  isClean());
+          delayInfo_ = null;
+        }
+        return delayInfoBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:DeviceInfoMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:DeviceInfoMessage)
+    private static final TelemetryProto.DeviceInfoMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new TelemetryProto.DeviceInfoMessage();
+    }
+
+    public static TelemetryProto.DeviceInfoMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<DeviceInfoMessage>
+        PARSER = new com.google.protobuf.AbstractParser<DeviceInfoMessage>() {
+      public DeviceInfoMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new DeviceInfoMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeviceInfoMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeviceInfoMessage> getParserForType() {
+      return PARSER;
+    }
+
+    public TelemetryProto.DeviceInfoMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface StatisticalAggregateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:StatisticalAggregate)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional uint32 numSamples = 1;</code>
+     */
+    boolean hasNumSamples();
+    /**
+     * <code>optional uint32 numSamples = 1;</code>
+     */
+    int getNumSamples();
+
+    /**
+     * <code>optional uint32 min = 2;</code>
+     */
+    boolean hasMin();
+    /**
+     * <code>optional uint32 min = 2;</code>
+     */
+    int getMin();
+
+    /**
+     * <code>optional uint32 max = 3;</code>
+     */
+    boolean hasMax();
+    /**
+     * <code>optional uint32 max = 3;</code>
+     */
+    int getMax();
+
+    /**
+     * <code>optional uint32 mean = 4;</code>
+     */
+    boolean hasMean();
+    /**
+     * <code>optional uint32 mean = 4;</code>
+     */
+    int getMean();
+
+    /**
+     * <code>optional uint32 stdev = 5;</code>
+     */
+    boolean hasStdev();
+    /**
+     * <code>optional uint32 stdev = 5;</code>
+     */
+    int getStdev();
+  }
+  /**
+   * Protobuf type {@code StatisticalAggregate}
+   */
+  public  static final class StatisticalAggregate extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:StatisticalAggregate)
+      StatisticalAggregateOrBuilder {
+    // Use StatisticalAggregate.newBuilder() to construct.
+    private StatisticalAggregate(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StatisticalAggregate() {
+      numSamples_ = 0;
+      min_ = 0;
+      max_ = 0;
+      mean_ = 0;
+      stdev_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StatisticalAggregate(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              numSamples_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              min_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              max_ = input.readUInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              mean_ = input.readUInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              stdev_ = input.readUInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return TelemetryProto.internal_static_StatisticalAggregate_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return TelemetryProto.internal_static_StatisticalAggregate_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              TelemetryProto.StatisticalAggregate.class, TelemetryProto.StatisticalAggregate.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int NUMSAMPLES_FIELD_NUMBER = 1;
+    private int numSamples_;
+    /**
+     * <code>optional uint32 numSamples = 1;</code>
+     */
+    public boolean hasNumSamples() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional uint32 numSamples = 1;</code>
+     */
+    public int getNumSamples() {
+      return numSamples_;
+    }
+
+    public static final int MIN_FIELD_NUMBER = 2;
+    private int min_;
+    /**
+     * <code>optional uint32 min = 2;</code>
+     */
+    public boolean hasMin() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional uint32 min = 2;</code>
+     */
+    public int getMin() {
+      return min_;
+    }
+
+    public static final int MAX_FIELD_NUMBER = 3;
+    private int max_;
+    /**
+     * <code>optional uint32 max = 3;</code>
+     */
+    public boolean hasMax() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional uint32 max = 3;</code>
+     */
+    public int getMax() {
+      return max_;
+    }
+
+    public static final int MEAN_FIELD_NUMBER = 4;
+    private int mean_;
+    /**
+     * <code>optional uint32 mean = 4;</code>
+     */
+    public boolean hasMean() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional uint32 mean = 4;</code>
+     */
+    public int getMean() {
+      return mean_;
+    }
+
+    public static final int STDEV_FIELD_NUMBER = 5;
+    private int stdev_;
+    /**
+     * <code>optional uint32 stdev = 5;</code>
+     */
+    public boolean hasStdev() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional uint32 stdev = 5;</code>
+     */
+    public int getStdev() {
+      return stdev_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, numSamples_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, min_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt32(3, max_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt32(4, mean_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeUInt32(5, stdev_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, numSamples_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, min_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, max_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, mean_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(5, stdev_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof TelemetryProto.StatisticalAggregate)) {
+        return super.equals(obj);
+      }
+      TelemetryProto.StatisticalAggregate other = (TelemetryProto.StatisticalAggregate) obj;
+
+      boolean result = true;
+      result = result && (hasNumSamples() == other.hasNumSamples());
+      if (hasNumSamples()) {
+        result = result && (getNumSamples()
+            == other.getNumSamples());
+      }
+      result = result && (hasMin() == other.hasMin());
+      if (hasMin()) {
+        result = result && (getMin()
+            == other.getMin());
+      }
+      result = result && (hasMax() == other.hasMax());
+      if (hasMax()) {
+        result = result && (getMax()
+            == other.getMax());
+      }
+      result = result && (hasMean() == other.hasMean());
+      if (hasMean()) {
+        result = result && (getMean()
+            == other.getMean());
+      }
+      result = result && (hasStdev() == other.hasStdev());
+      if (hasStdev()) {
+        result = result && (getStdev()
+            == other.getStdev());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNumSamples()) {
+        hash = (37 * hash) + NUMSAMPLES_FIELD_NUMBER;
+        hash = (53 * hash) + getNumSamples();
+      }
+      if (hasMin()) {
+        hash = (37 * hash) + MIN_FIELD_NUMBER;
+        hash = (53 * hash) + getMin();
+      }
+      if (hasMax()) {
+        hash = (37 * hash) + MAX_FIELD_NUMBER;
+        hash = (53 * hash) + getMax();
+      }
+      if (hasMean()) {
+        hash = (37 * hash) + MEAN_FIELD_NUMBER;
+        hash = (53 * hash) + getMean();
+      }
+      if (hasStdev()) {
+        hash = (37 * hash) + STDEV_FIELD_NUMBER;
+        hash = (53 * hash) + getStdev();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.StatisticalAggregate parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.StatisticalAggregate parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.StatisticalAggregate parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(TelemetryProto.StatisticalAggregate prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code StatisticalAggregate}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:StatisticalAggregate)
+        TelemetryProto.StatisticalAggregateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_StatisticalAggregate_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_StatisticalAggregate_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.StatisticalAggregate.class, TelemetryProto.StatisticalAggregate.Builder.class);
+      }
+
+      // Construct using TelemetryProto.StatisticalAggregate.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        numSamples_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        min_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        max_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        mean_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        stdev_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return TelemetryProto.internal_static_StatisticalAggregate_descriptor;
+      }
+
+      public TelemetryProto.StatisticalAggregate getDefaultInstanceForType() {
+        return TelemetryProto.StatisticalAggregate.getDefaultInstance();
+      }
+
+      public TelemetryProto.StatisticalAggregate build() {
+        TelemetryProto.StatisticalAggregate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public TelemetryProto.StatisticalAggregate buildPartial() {
+        TelemetryProto.StatisticalAggregate result = new TelemetryProto.StatisticalAggregate(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.numSamples_ = numSamples_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.min_ = min_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.max_ = max_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.mean_ = mean_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.stdev_ = stdev_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof TelemetryProto.StatisticalAggregate) {
+          return mergeFrom((TelemetryProto.StatisticalAggregate)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(TelemetryProto.StatisticalAggregate other) {
+        if (other == TelemetryProto.StatisticalAggregate.getDefaultInstance()) return this;
+        if (other.hasNumSamples()) {
+          setNumSamples(other.getNumSamples());
+        }
+        if (other.hasMin()) {
+          setMin(other.getMin());
+        }
+        if (other.hasMax()) {
+          setMax(other.getMax());
+        }
+        if (other.hasMean()) {
+          setMean(other.getMean());
+        }
+        if (other.hasStdev()) {
+          setStdev(other.getStdev());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        TelemetryProto.StatisticalAggregate parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (TelemetryProto.StatisticalAggregate) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int numSamples_ ;
+      /**
+       * <code>optional uint32 numSamples = 1;</code>
+       */
+      public boolean hasNumSamples() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional uint32 numSamples = 1;</code>
+       */
+      public int getNumSamples() {
+        return numSamples_;
+      }
+      /**
+       * <code>optional uint32 numSamples = 1;</code>
+       */
+      public Builder setNumSamples(int value) {
+        bitField0_ |= 0x00000001;
+        numSamples_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 numSamples = 1;</code>
+       */
+      public Builder clearNumSamples() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        numSamples_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int min_ ;
+      /**
+       * <code>optional uint32 min = 2;</code>
+       */
+      public boolean hasMin() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional uint32 min = 2;</code>
+       */
+      public int getMin() {
+        return min_;
+      }
+      /**
+       * <code>optional uint32 min = 2;</code>
+       */
+      public Builder setMin(int value) {
+        bitField0_ |= 0x00000002;
+        min_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 min = 2;</code>
+       */
+      public Builder clearMin() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        min_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int max_ ;
+      /**
+       * <code>optional uint32 max = 3;</code>
+       */
+      public boolean hasMax() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional uint32 max = 3;</code>
+       */
+      public int getMax() {
+        return max_;
+      }
+      /**
+       * <code>optional uint32 max = 3;</code>
+       */
+      public Builder setMax(int value) {
+        bitField0_ |= 0x00000004;
+        max_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 max = 3;</code>
+       */
+      public Builder clearMax() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        max_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int mean_ ;
+      /**
+       * <code>optional uint32 mean = 4;</code>
+       */
+      public boolean hasMean() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional uint32 mean = 4;</code>
+       */
+      public int getMean() {
+        return mean_;
+      }
+      /**
+       * <code>optional uint32 mean = 4;</code>
+       */
+      public Builder setMean(int value) {
+        bitField0_ |= 0x00000008;
+        mean_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 mean = 4;</code>
+       */
+      public Builder clearMean() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        mean_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int stdev_ ;
+      /**
+       * <code>optional uint32 stdev = 5;</code>
+       */
+      public boolean hasStdev() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional uint32 stdev = 5;</code>
+       */
+      public int getStdev() {
+        return stdev_;
+      }
+      /**
+       * <code>optional uint32 stdev = 5;</code>
+       */
+      public Builder setStdev(int value) {
+        bitField0_ |= 0x00000010;
+        stdev_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 stdev = 5;</code>
+       */
+      public Builder clearStdev() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        stdev_ = 0;
         onChanged();
         return this;
       }
@@ -440,49 +3848,3150 @@ public final class TelemetryProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:Telemetry)
+      // @@protoc_insertion_point(builder_scope:StatisticalAggregate)
     }
 
-    // @@protoc_insertion_point(class_scope:Telemetry)
-    private static final TelemetryProto.Telemetry DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:StatisticalAggregate)
+    private static final TelemetryProto.StatisticalAggregate DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new TelemetryProto.Telemetry();
+      DEFAULT_INSTANCE = new TelemetryProto.StatisticalAggregate();
     }
 
-    public static TelemetryProto.Telemetry getDefaultInstance() {
+    public static TelemetryProto.StatisticalAggregate getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<Telemetry>
-        PARSER = new com.google.protobuf.AbstractParser<Telemetry>() {
-      public Telemetry parsePartialFrom(
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<StatisticalAggregate>
+        PARSER = new com.google.protobuf.AbstractParser<StatisticalAggregate>() {
+      public StatisticalAggregate parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Telemetry(input, extensionRegistry);
+          return new StatisticalAggregate(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Telemetry> parser() {
+    public static com.google.protobuf.Parser<StatisticalAggregate> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Telemetry> getParserForType() {
+    public com.google.protobuf.Parser<StatisticalAggregate> getParserForType() {
       return PARSER;
     }
 
-    public TelemetryProto.Telemetry getDefaultInstanceForType() {
+    public TelemetryProto.StatisticalAggregate getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MeasurementAggregateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:MeasurementAggregate)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    boolean hasReading();
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    TelemetryProto.StatisticalAggregate getReading();
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    TelemetryProto.StatisticalAggregateOrBuilder getReadingOrBuilder();
+
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    boolean hasSampleDelay();
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    TelemetryProto.StatisticalAggregate getSampleDelay();
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    TelemetryProto.StatisticalAggregateOrBuilder getSampleDelayOrBuilder();
+  }
+  /**
+   * Protobuf type {@code MeasurementAggregate}
+   */
+  public  static final class MeasurementAggregate extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:MeasurementAggregate)
+      MeasurementAggregateOrBuilder {
+    // Use MeasurementAggregate.newBuilder() to construct.
+    private MeasurementAggregate(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MeasurementAggregate() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MeasurementAggregate(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              TelemetryProto.StatisticalAggregate.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = reading_.toBuilder();
+              }
+              reading_ = input.readMessage(TelemetryProto.StatisticalAggregate.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(reading_);
+                reading_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              TelemetryProto.StatisticalAggregate.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = sampleDelay_.toBuilder();
+              }
+              sampleDelay_ = input.readMessage(TelemetryProto.StatisticalAggregate.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(sampleDelay_);
+                sampleDelay_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return TelemetryProto.internal_static_MeasurementAggregate_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return TelemetryProto.internal_static_MeasurementAggregate_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              TelemetryProto.MeasurementAggregate.class, TelemetryProto.MeasurementAggregate.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int READING_FIELD_NUMBER = 1;
+    private TelemetryProto.StatisticalAggregate reading_;
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    public boolean hasReading() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    public TelemetryProto.StatisticalAggregate getReading() {
+      return reading_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : reading_;
+    }
+    /**
+     * <code>optional .StatisticalAggregate reading = 1;</code>
+     */
+    public TelemetryProto.StatisticalAggregateOrBuilder getReadingOrBuilder() {
+      return reading_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : reading_;
+    }
+
+    public static final int SAMPLEDELAY_FIELD_NUMBER = 2;
+    private TelemetryProto.StatisticalAggregate sampleDelay_;
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    public boolean hasSampleDelay() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    public TelemetryProto.StatisticalAggregate getSampleDelay() {
+      return sampleDelay_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : sampleDelay_;
+    }
+    /**
+     * <pre>
+     *statistics on the times between samples
+     * </pre>
+     *
+     * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+     */
+    public TelemetryProto.StatisticalAggregateOrBuilder getSampleDelayOrBuilder() {
+      return sampleDelay_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : sampleDelay_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, getReading());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, getSampleDelay());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getReading());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getSampleDelay());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof TelemetryProto.MeasurementAggregate)) {
+        return super.equals(obj);
+      }
+      TelemetryProto.MeasurementAggregate other = (TelemetryProto.MeasurementAggregate) obj;
+
+      boolean result = true;
+      result = result && (hasReading() == other.hasReading());
+      if (hasReading()) {
+        result = result && getReading()
+            .equals(other.getReading());
+      }
+      result = result && (hasSampleDelay() == other.hasSampleDelay());
+      if (hasSampleDelay()) {
+        result = result && getSampleDelay()
+            .equals(other.getSampleDelay());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasReading()) {
+        hash = (37 * hash) + READING_FIELD_NUMBER;
+        hash = (53 * hash) + getReading().hashCode();
+      }
+      if (hasSampleDelay()) {
+        hash = (37 * hash) + SAMPLEDELAY_FIELD_NUMBER;
+        hash = (53 * hash) + getSampleDelay().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.MeasurementAggregate parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.MeasurementAggregate parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.MeasurementAggregate parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(TelemetryProto.MeasurementAggregate prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code MeasurementAggregate}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:MeasurementAggregate)
+        TelemetryProto.MeasurementAggregateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_MeasurementAggregate_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_MeasurementAggregate_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.MeasurementAggregate.class, TelemetryProto.MeasurementAggregate.Builder.class);
+      }
+
+      // Construct using TelemetryProto.MeasurementAggregate.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getReadingFieldBuilder();
+          getSampleDelayFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (readingBuilder_ == null) {
+          reading_ = null;
+        } else {
+          readingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (sampleDelayBuilder_ == null) {
+          sampleDelay_ = null;
+        } else {
+          sampleDelayBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return TelemetryProto.internal_static_MeasurementAggregate_descriptor;
+      }
+
+      public TelemetryProto.MeasurementAggregate getDefaultInstanceForType() {
+        return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+      }
+
+      public TelemetryProto.MeasurementAggregate build() {
+        TelemetryProto.MeasurementAggregate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public TelemetryProto.MeasurementAggregate buildPartial() {
+        TelemetryProto.MeasurementAggregate result = new TelemetryProto.MeasurementAggregate(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (readingBuilder_ == null) {
+          result.reading_ = reading_;
+        } else {
+          result.reading_ = readingBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (sampleDelayBuilder_ == null) {
+          result.sampleDelay_ = sampleDelay_;
+        } else {
+          result.sampleDelay_ = sampleDelayBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof TelemetryProto.MeasurementAggregate) {
+          return mergeFrom((TelemetryProto.MeasurementAggregate)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(TelemetryProto.MeasurementAggregate other) {
+        if (other == TelemetryProto.MeasurementAggregate.getDefaultInstance()) return this;
+        if (other.hasReading()) {
+          mergeReading(other.getReading());
+        }
+        if (other.hasSampleDelay()) {
+          mergeSampleDelay(other.getSampleDelay());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        TelemetryProto.MeasurementAggregate parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (TelemetryProto.MeasurementAggregate) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private TelemetryProto.StatisticalAggregate reading_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder> readingBuilder_;
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public boolean hasReading() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public TelemetryProto.StatisticalAggregate getReading() {
+        if (readingBuilder_ == null) {
+          return reading_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : reading_;
+        } else {
+          return readingBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public Builder setReading(TelemetryProto.StatisticalAggregate value) {
+        if (readingBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          reading_ = value;
+          onChanged();
+        } else {
+          readingBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public Builder setReading(
+          TelemetryProto.StatisticalAggregate.Builder builderForValue) {
+        if (readingBuilder_ == null) {
+          reading_ = builderForValue.build();
+          onChanged();
+        } else {
+          readingBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public Builder mergeReading(TelemetryProto.StatisticalAggregate value) {
+        if (readingBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              reading_ != null &&
+              reading_ != TelemetryProto.StatisticalAggregate.getDefaultInstance()) {
+            reading_ =
+              TelemetryProto.StatisticalAggregate.newBuilder(reading_).mergeFrom(value).buildPartial();
+          } else {
+            reading_ = value;
+          }
+          onChanged();
+        } else {
+          readingBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public Builder clearReading() {
+        if (readingBuilder_ == null) {
+          reading_ = null;
+          onChanged();
+        } else {
+          readingBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public TelemetryProto.StatisticalAggregate.Builder getReadingBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getReadingFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      public TelemetryProto.StatisticalAggregateOrBuilder getReadingOrBuilder() {
+        if (readingBuilder_ != null) {
+          return readingBuilder_.getMessageOrBuilder();
+        } else {
+          return reading_ == null ?
+              TelemetryProto.StatisticalAggregate.getDefaultInstance() : reading_;
+        }
+      }
+      /**
+       * <code>optional .StatisticalAggregate reading = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder> 
+          getReadingFieldBuilder() {
+        if (readingBuilder_ == null) {
+          readingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder>(
+                  getReading(),
+                  getParentForChildren(),
+                  isClean());
+          reading_ = null;
+        }
+        return readingBuilder_;
+      }
+
+      private TelemetryProto.StatisticalAggregate sampleDelay_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder> sampleDelayBuilder_;
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public boolean hasSampleDelay() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public TelemetryProto.StatisticalAggregate getSampleDelay() {
+        if (sampleDelayBuilder_ == null) {
+          return sampleDelay_ == null ? TelemetryProto.StatisticalAggregate.getDefaultInstance() : sampleDelay_;
+        } else {
+          return sampleDelayBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public Builder setSampleDelay(TelemetryProto.StatisticalAggregate value) {
+        if (sampleDelayBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sampleDelay_ = value;
+          onChanged();
+        } else {
+          sampleDelayBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public Builder setSampleDelay(
+          TelemetryProto.StatisticalAggregate.Builder builderForValue) {
+        if (sampleDelayBuilder_ == null) {
+          sampleDelay_ = builderForValue.build();
+          onChanged();
+        } else {
+          sampleDelayBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public Builder mergeSampleDelay(TelemetryProto.StatisticalAggregate value) {
+        if (sampleDelayBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              sampleDelay_ != null &&
+              sampleDelay_ != TelemetryProto.StatisticalAggregate.getDefaultInstance()) {
+            sampleDelay_ =
+              TelemetryProto.StatisticalAggregate.newBuilder(sampleDelay_).mergeFrom(value).buildPartial();
+          } else {
+            sampleDelay_ = value;
+          }
+          onChanged();
+        } else {
+          sampleDelayBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public Builder clearSampleDelay() {
+        if (sampleDelayBuilder_ == null) {
+          sampleDelay_ = null;
+          onChanged();
+        } else {
+          sampleDelayBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public TelemetryProto.StatisticalAggregate.Builder getSampleDelayBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getSampleDelayFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      public TelemetryProto.StatisticalAggregateOrBuilder getSampleDelayOrBuilder() {
+        if (sampleDelayBuilder_ != null) {
+          return sampleDelayBuilder_.getMessageOrBuilder();
+        } else {
+          return sampleDelay_ == null ?
+              TelemetryProto.StatisticalAggregate.getDefaultInstance() : sampleDelay_;
+        }
+      }
+      /**
+       * <pre>
+       *statistics on the times between samples
+       * </pre>
+       *
+       * <code>optional .StatisticalAggregate sampleDelay = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder> 
+          getSampleDelayFieldBuilder() {
+        if (sampleDelayBuilder_ == null) {
+          sampleDelayBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.StatisticalAggregate, TelemetryProto.StatisticalAggregate.Builder, TelemetryProto.StatisticalAggregateOrBuilder>(
+                  getSampleDelay(),
+                  getParentForChildren(),
+                  isClean());
+          sampleDelay_ = null;
+        }
+        return sampleDelayBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:MeasurementAggregate)
+    }
+
+    // @@protoc_insertion_point(class_scope:MeasurementAggregate)
+    private static final TelemetryProto.MeasurementAggregate DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new TelemetryProto.MeasurementAggregate();
+    }
+
+    public static TelemetryProto.MeasurementAggregate getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MeasurementAggregate>
+        PARSER = new com.google.protobuf.AbstractParser<MeasurementAggregate>() {
+      public MeasurementAggregate parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new MeasurementAggregate(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MeasurementAggregate> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MeasurementAggregate> getParserForType() {
+      return PARSER;
+    }
+
+    public TelemetryProto.MeasurementAggregate getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface InfoMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:InfoMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+     */
+    boolean hasMessageType();
+    /**
+     * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+     */
+    TelemetryProto.InfoMessage.MESSAGE_TYPE getMessageType();
+
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    boolean hasMessage();
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+  }
+  /**
+   * Protobuf type {@code InfoMessage}
+   */
+  public  static final class InfoMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:InfoMessage)
+      InfoMessageOrBuilder {
+    // Use InfoMessage.newBuilder() to construct.
+    private InfoMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InfoMessage() {
+      messageType_ = 1;
+      message_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InfoMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              TelemetryProto.InfoMessage.MESSAGE_TYPE value = TelemetryProto.InfoMessage.MESSAGE_TYPE.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                messageType_ = rawValue;
+              }
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              message_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return TelemetryProto.internal_static_InfoMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return TelemetryProto.internal_static_InfoMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              TelemetryProto.InfoMessage.class, TelemetryProto.InfoMessage.Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code InfoMessage.MESSAGE_TYPE}
+     */
+    public enum MESSAGE_TYPE
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>INFO = 1;</code>
+       */
+      INFO(1),
+      /**
+       * <code>DEBUG = 2;</code>
+       */
+      DEBUG(2),
+      /**
+       * <code>WARNING = 3;</code>
+       */
+      WARNING(3),
+      /**
+       * <code>ERROR = 4;</code>
+       */
+      ERROR(4),
+      ;
+
+      /**
+       * <code>INFO = 1;</code>
+       */
+      public static final int INFO_VALUE = 1;
+      /**
+       * <code>DEBUG = 2;</code>
+       */
+      public static final int DEBUG_VALUE = 2;
+      /**
+       * <code>WARNING = 3;</code>
+       */
+      public static final int WARNING_VALUE = 3;
+      /**
+       * <code>ERROR = 4;</code>
+       */
+      public static final int ERROR_VALUE = 4;
+
+
+      public final int getNumber() {
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static MESSAGE_TYPE valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static MESSAGE_TYPE forNumber(int value) {
+        switch (value) {
+          case 1: return INFO;
+          case 2: return DEBUG;
+          case 3: return WARNING;
+          case 4: return ERROR;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<MESSAGE_TYPE>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          MESSAGE_TYPE> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<MESSAGE_TYPE>() {
+              public MESSAGE_TYPE findValueByNumber(int number) {
+                return MESSAGE_TYPE.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return TelemetryProto.InfoMessage.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final MESSAGE_TYPE[] VALUES = values();
+
+      public static MESSAGE_TYPE valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private MESSAGE_TYPE(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:InfoMessage.MESSAGE_TYPE)
+    }
+
+    private int bitField0_;
+    public static final int MESSAGETYPE_FIELD_NUMBER = 1;
+    private int messageType_;
+    /**
+     * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+     */
+    public boolean hasMessageType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+     */
+    public TelemetryProto.InfoMessage.MESSAGE_TYPE getMessageType() {
+      TelemetryProto.InfoMessage.MESSAGE_TYPE result = TelemetryProto.InfoMessage.MESSAGE_TYPE.valueOf(messageType_);
+      return result == null ? TelemetryProto.InfoMessage.MESSAGE_TYPE.INFO : result;
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object message_;
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          message_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, messageType_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, messageType_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof TelemetryProto.InfoMessage)) {
+        return super.equals(obj);
+      }
+      TelemetryProto.InfoMessage other = (TelemetryProto.InfoMessage) obj;
+
+      boolean result = true;
+      result = result && (hasMessageType() == other.hasMessageType());
+      if (hasMessageType()) {
+        result = result && messageType_ == other.messageType_;
+      }
+      result = result && (hasMessage() == other.hasMessage());
+      if (hasMessage()) {
+        result = result && getMessage()
+            .equals(other.getMessage());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasMessageType()) {
+        hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
+        hash = (53 * hash) + messageType_;
+      }
+      if (hasMessage()) {
+        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getMessage().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static TelemetryProto.InfoMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.InfoMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.InfoMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.InfoMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(TelemetryProto.InfoMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code InfoMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:InfoMessage)
+        TelemetryProto.InfoMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_InfoMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_InfoMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.InfoMessage.class, TelemetryProto.InfoMessage.Builder.class);
+      }
+
+      // Construct using TelemetryProto.InfoMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        messageType_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return TelemetryProto.internal_static_InfoMessage_descriptor;
+      }
+
+      public TelemetryProto.InfoMessage getDefaultInstanceForType() {
+        return TelemetryProto.InfoMessage.getDefaultInstance();
+      }
+
+      public TelemetryProto.InfoMessage build() {
+        TelemetryProto.InfoMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public TelemetryProto.InfoMessage buildPartial() {
+        TelemetryProto.InfoMessage result = new TelemetryProto.InfoMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.messageType_ = messageType_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.message_ = message_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof TelemetryProto.InfoMessage) {
+          return mergeFrom((TelemetryProto.InfoMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(TelemetryProto.InfoMessage other) {
+        if (other == TelemetryProto.InfoMessage.getDefaultInstance()) return this;
+        if (other.hasMessageType()) {
+          setMessageType(other.getMessageType());
+        }
+        if (other.hasMessage()) {
+          bitField0_ |= 0x00000002;
+          message_ = other.message_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        TelemetryProto.InfoMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (TelemetryProto.InfoMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int messageType_ = 1;
+      /**
+       * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+       */
+      public boolean hasMessageType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+       */
+      public TelemetryProto.InfoMessage.MESSAGE_TYPE getMessageType() {
+        TelemetryProto.InfoMessage.MESSAGE_TYPE result = TelemetryProto.InfoMessage.MESSAGE_TYPE.valueOf(messageType_);
+        return result == null ? TelemetryProto.InfoMessage.MESSAGE_TYPE.INFO : result;
+      }
+      /**
+       * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+       */
+      public Builder setMessageType(TelemetryProto.InfoMessage.MESSAGE_TYPE value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        messageType_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .InfoMessage.MESSAGE_TYPE messageType = 1 [default = INFO];</code>
+       */
+      public Builder clearMessageType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        messageType_ = 1;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public boolean hasMessage() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            message_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder clearMessage() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2 [(.nanopb) = { ... }</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:InfoMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:InfoMessage)
+    private static final TelemetryProto.InfoMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new TelemetryProto.InfoMessage();
+    }
+
+    public static TelemetryProto.InfoMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<InfoMessage>
+        PARSER = new com.google.protobuf.AbstractParser<InfoMessage>() {
+      public InfoMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new InfoMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InfoMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InfoMessage> getParserForType() {
+      return PARSER;
+    }
+
+    public TelemetryProto.InfoMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface TelemetryMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:TelemetryMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *id of the device sending this message
+     * </pre>
+     *
+     * <code>optional uint32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <pre>
+     *id of the device sending this message
+     * </pre>
+     *
+     * <code>optional uint32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <pre>
+     *time the message is sent
+     * </pre>
+     *
+     * <code>optional uint32 timestamp_ms = 2;</code>
+     */
+    boolean hasTimestampMs();
+    /**
+     * <pre>
+     *time the message is sent
+     * </pre>
+     *
+     * <code>optional uint32 timestamp_ms = 2;</code>
+     */
+    int getTimestampMs();
+
+    /**
+     * <code>optional uint32 timestamp_variability = 3;</code>
+     */
+    boolean hasTimestampVariability();
+    /**
+     * <code>optional uint32 timestamp_variability = 3;</code>
+     */
+    int getTimestampVariability();
+
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    boolean hasSensorReading();
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    TelemetryProto.MeasurementAggregate getSensorReading();
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    TelemetryProto.MeasurementAggregateOrBuilder getSensorReadingOrBuilder();
+
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    boolean hasInfoMessage();
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    TelemetryProto.InfoMessage getInfoMessage();
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    TelemetryProto.InfoMessageOrBuilder getInfoMessageOrBuilder();
+
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    boolean hasDeviceInfo();
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    TelemetryProto.DeviceInfoMessage getDeviceInfo();
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    TelemetryProto.DeviceInfoMessageOrBuilder getDeviceInfoOrBuilder();
+
+    public TelemetryProto.TelemetryMessage.ValueCase getValueCase();
+  }
+  /**
+   * Protobuf type {@code TelemetryMessage}
+   */
+  public  static final class TelemetryMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:TelemetryMessage)
+      TelemetryMessageOrBuilder {
+    // Use TelemetryMessage.newBuilder() to construct.
+    private TelemetryMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TelemetryMessage() {
+      id_ = 0;
+      timestampMs_ = 0;
+      timestampVariability_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TelemetryMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              timestampMs_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              timestampVariability_ = input.readUInt32();
+              break;
+            }
+            case 34: {
+              TelemetryProto.MeasurementAggregate.Builder subBuilder = null;
+              if (valueCase_ == 4) {
+                subBuilder = ((TelemetryProto.MeasurementAggregate) value_).toBuilder();
+              }
+              value_ =
+                  input.readMessage(TelemetryProto.MeasurementAggregate.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((TelemetryProto.MeasurementAggregate) value_);
+                value_ = subBuilder.buildPartial();
+              }
+              valueCase_ = 4;
+              break;
+            }
+            case 42: {
+              TelemetryProto.InfoMessage.Builder subBuilder = null;
+              if (valueCase_ == 5) {
+                subBuilder = ((TelemetryProto.InfoMessage) value_).toBuilder();
+              }
+              value_ =
+                  input.readMessage(TelemetryProto.InfoMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((TelemetryProto.InfoMessage) value_);
+                value_ = subBuilder.buildPartial();
+              }
+              valueCase_ = 5;
+              break;
+            }
+            case 50: {
+              TelemetryProto.DeviceInfoMessage.Builder subBuilder = null;
+              if (valueCase_ == 6) {
+                subBuilder = ((TelemetryProto.DeviceInfoMessage) value_).toBuilder();
+              }
+              value_ =
+                  input.readMessage(TelemetryProto.DeviceInfoMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((TelemetryProto.DeviceInfoMessage) value_);
+                value_ = subBuilder.buildPartial();
+              }
+              valueCase_ = 6;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return TelemetryProto.internal_static_TelemetryMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return TelemetryProto.internal_static_TelemetryMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              TelemetryProto.TelemetryMessage.class, TelemetryProto.TelemetryMessage.Builder.class);
+    }
+
+    private int bitField0_;
+    private int valueCase_ = 0;
+    private java.lang.Object value_;
+    public enum ValueCase
+        implements com.google.protobuf.Internal.EnumLite {
+      SENSORREADING(4),
+      INFOMESSAGE(5),
+      DEVICEINFO(6),
+      VALUE_NOT_SET(0);
+      private final int value;
+      private ValueCase(int value) {
+        this.value = value;
+      }
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static ValueCase valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static ValueCase forNumber(int value) {
+        switch (value) {
+          case 4: return SENSORREADING;
+          case 5: return INFOMESSAGE;
+          case 6: return DEVICEINFO;
+          case 0: return VALUE_NOT_SET;
+          default: return null;
+        }
+      }
+      public int getNumber() {
+        return this.value;
+      }
+    };
+
+    public ValueCase
+    getValueCase() {
+      return ValueCase.forNumber(
+          valueCase_);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <pre>
+     *id of the device sending this message
+     * </pre>
+     *
+     * <code>optional uint32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <pre>
+     *id of the device sending this message
+     * </pre>
+     *
+     * <code>optional uint32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int TIMESTAMP_MS_FIELD_NUMBER = 2;
+    private int timestampMs_;
+    /**
+     * <pre>
+     *time the message is sent
+     * </pre>
+     *
+     * <code>optional uint32 timestamp_ms = 2;</code>
+     */
+    public boolean hasTimestampMs() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <pre>
+     *time the message is sent
+     * </pre>
+     *
+     * <code>optional uint32 timestamp_ms = 2;</code>
+     */
+    public int getTimestampMs() {
+      return timestampMs_;
+    }
+
+    public static final int TIMESTAMP_VARIABILITY_FIELD_NUMBER = 3;
+    private int timestampVariability_;
+    /**
+     * <code>optional uint32 timestamp_variability = 3;</code>
+     */
+    public boolean hasTimestampVariability() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional uint32 timestamp_variability = 3;</code>
+     */
+    public int getTimestampVariability() {
+      return timestampVariability_;
+    }
+
+    public static final int SENSORREADING_FIELD_NUMBER = 4;
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    public boolean hasSensorReading() {
+      return valueCase_ == 4;
+    }
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    public TelemetryProto.MeasurementAggregate getSensorReading() {
+      if (valueCase_ == 4) {
+         return (TelemetryProto.MeasurementAggregate) value_;
+      }
+      return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+    }
+    /**
+     * <pre>
+     *reading type specified by device id in the DeviceInfoMessage
+     * </pre>
+     *
+     * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+     */
+    public TelemetryProto.MeasurementAggregateOrBuilder getSensorReadingOrBuilder() {
+      if (valueCase_ == 4) {
+         return (TelemetryProto.MeasurementAggregate) value_;
+      }
+      return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+    }
+
+    public static final int INFOMESSAGE_FIELD_NUMBER = 5;
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    public boolean hasInfoMessage() {
+      return valueCase_ == 5;
+    }
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    public TelemetryProto.InfoMessage getInfoMessage() {
+      if (valueCase_ == 5) {
+         return (TelemetryProto.InfoMessage) value_;
+      }
+      return TelemetryProto.InfoMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .InfoMessage infoMessage = 5;</code>
+     */
+    public TelemetryProto.InfoMessageOrBuilder getInfoMessageOrBuilder() {
+      if (valueCase_ == 5) {
+         return (TelemetryProto.InfoMessage) value_;
+      }
+      return TelemetryProto.InfoMessage.getDefaultInstance();
+    }
+
+    public static final int DEVICEINFO_FIELD_NUMBER = 6;
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    public boolean hasDeviceInfo() {
+      return valueCase_ == 6;
+    }
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    public TelemetryProto.DeviceInfoMessage getDeviceInfo() {
+      if (valueCase_ == 6) {
+         return (TelemetryProto.DeviceInfoMessage) value_;
+      }
+      return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+     */
+    public TelemetryProto.DeviceInfoMessageOrBuilder getDeviceInfoOrBuilder() {
+      if (valueCase_ == 6) {
+         return (TelemetryProto.DeviceInfoMessage) value_;
+      }
+      return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, timestampMs_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt32(3, timestampVariability_);
+      }
+      if (valueCase_ == 4) {
+        output.writeMessage(4, (TelemetryProto.MeasurementAggregate) value_);
+      }
+      if (valueCase_ == 5) {
+        output.writeMessage(5, (TelemetryProto.InfoMessage) value_);
+      }
+      if (valueCase_ == 6) {
+        output.writeMessage(6, (TelemetryProto.DeviceInfoMessage) value_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, timestampMs_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, timestampVariability_);
+      }
+      if (valueCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (TelemetryProto.MeasurementAggregate) value_);
+      }
+      if (valueCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (TelemetryProto.InfoMessage) value_);
+      }
+      if (valueCase_ == 6) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, (TelemetryProto.DeviceInfoMessage) value_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof TelemetryProto.TelemetryMessage)) {
+        return super.equals(obj);
+      }
+      TelemetryProto.TelemetryMessage other = (TelemetryProto.TelemetryMessage) obj;
+
+      boolean result = true;
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && (getId()
+            == other.getId());
+      }
+      result = result && (hasTimestampMs() == other.hasTimestampMs());
+      if (hasTimestampMs()) {
+        result = result && (getTimestampMs()
+            == other.getTimestampMs());
+      }
+      result = result && (hasTimestampVariability() == other.hasTimestampVariability());
+      if (hasTimestampVariability()) {
+        result = result && (getTimestampVariability()
+            == other.getTimestampVariability());
+      }
+      result = result && getValueCase().equals(
+          other.getValueCase());
+      if (!result) return false;
+      switch (valueCase_) {
+        case 4:
+          result = result && getSensorReading()
+              .equals(other.getSensorReading());
+          break;
+        case 5:
+          result = result && getInfoMessage()
+              .equals(other.getInfoMessage());
+          break;
+        case 6:
+          result = result && getDeviceInfo()
+              .equals(other.getDeviceInfo());
+          break;
+        case 0:
+        default:
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasTimestampMs()) {
+        hash = (37 * hash) + TIMESTAMP_MS_FIELD_NUMBER;
+        hash = (53 * hash) + getTimestampMs();
+      }
+      if (hasTimestampVariability()) {
+        hash = (37 * hash) + TIMESTAMP_VARIABILITY_FIELD_NUMBER;
+        hash = (53 * hash) + getTimestampVariability();
+      }
+      switch (valueCase_) {
+        case 4:
+          hash = (37 * hash) + SENSORREADING_FIELD_NUMBER;
+          hash = (53 * hash) + getSensorReading().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + INFOMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getInfoMessage().hashCode();
+          break;
+        case 6:
+          hash = (37 * hash) + DEVICEINFO_FIELD_NUMBER;
+          hash = (53 * hash) + getDeviceInfo().hashCode();
+          break;
+        case 0:
+        default:
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.TelemetryMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.TelemetryMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static TelemetryProto.TelemetryMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(TelemetryProto.TelemetryMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code TelemetryMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:TelemetryMessage)
+        TelemetryProto.TelemetryMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return TelemetryProto.internal_static_TelemetryMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return TelemetryProto.internal_static_TelemetryMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                TelemetryProto.TelemetryMessage.class, TelemetryProto.TelemetryMessage.Builder.class);
+      }
+
+      // Construct using TelemetryProto.TelemetryMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        timestampMs_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        timestampVariability_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        valueCase_ = 0;
+        value_ = null;
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return TelemetryProto.internal_static_TelemetryMessage_descriptor;
+      }
+
+      public TelemetryProto.TelemetryMessage getDefaultInstanceForType() {
+        return TelemetryProto.TelemetryMessage.getDefaultInstance();
+      }
+
+      public TelemetryProto.TelemetryMessage build() {
+        TelemetryProto.TelemetryMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public TelemetryProto.TelemetryMessage buildPartial() {
+        TelemetryProto.TelemetryMessage result = new TelemetryProto.TelemetryMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.id_ = id_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.timestampMs_ = timestampMs_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.timestampVariability_ = timestampVariability_;
+        if (valueCase_ == 4) {
+          if (sensorReadingBuilder_ == null) {
+            result.value_ = value_;
+          } else {
+            result.value_ = sensorReadingBuilder_.build();
+          }
+        }
+        if (valueCase_ == 5) {
+          if (infoMessageBuilder_ == null) {
+            result.value_ = value_;
+          } else {
+            result.value_ = infoMessageBuilder_.build();
+          }
+        }
+        if (valueCase_ == 6) {
+          if (deviceInfoBuilder_ == null) {
+            result.value_ = value_;
+          } else {
+            result.value_ = deviceInfoBuilder_.build();
+          }
+        }
+        result.bitField0_ = to_bitField0_;
+        result.valueCase_ = valueCase_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof TelemetryProto.TelemetryMessage) {
+          return mergeFrom((TelemetryProto.TelemetryMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(TelemetryProto.TelemetryMessage other) {
+        if (other == TelemetryProto.TelemetryMessage.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasTimestampMs()) {
+          setTimestampMs(other.getTimestampMs());
+        }
+        if (other.hasTimestampVariability()) {
+          setTimestampVariability(other.getTimestampVariability());
+        }
+        switch (other.getValueCase()) {
+          case SENSORREADING: {
+            mergeSensorReading(other.getSensorReading());
+            break;
+          }
+          case INFOMESSAGE: {
+            mergeInfoMessage(other.getInfoMessage());
+            break;
+          }
+          case DEVICEINFO: {
+            mergeDeviceInfo(other.getDeviceInfo());
+            break;
+          }
+          case VALUE_NOT_SET: {
+            break;
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        TelemetryProto.TelemetryMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (TelemetryProto.TelemetryMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int valueCase_ = 0;
+      private java.lang.Object value_;
+      public ValueCase
+          getValueCase() {
+        return ValueCase.forNumber(
+            valueCase_);
+      }
+
+      public Builder clearValue() {
+        valueCase_ = 0;
+        value_ = null;
+        onChanged();
+        return this;
+      }
+
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <pre>
+       *id of the device sending this message
+       * </pre>
+       *
+       * <code>optional uint32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <pre>
+       *id of the device sending this message
+       * </pre>
+       *
+       * <code>optional uint32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <pre>
+       *id of the device sending this message
+       * </pre>
+       *
+       * <code>optional uint32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *id of the device sending this message
+       * </pre>
+       *
+       * <code>optional uint32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int timestampMs_ ;
+      /**
+       * <pre>
+       *time the message is sent
+       * </pre>
+       *
+       * <code>optional uint32 timestamp_ms = 2;</code>
+       */
+      public boolean hasTimestampMs() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <pre>
+       *time the message is sent
+       * </pre>
+       *
+       * <code>optional uint32 timestamp_ms = 2;</code>
+       */
+      public int getTimestampMs() {
+        return timestampMs_;
+      }
+      /**
+       * <pre>
+       *time the message is sent
+       * </pre>
+       *
+       * <code>optional uint32 timestamp_ms = 2;</code>
+       */
+      public Builder setTimestampMs(int value) {
+        bitField0_ |= 0x00000002;
+        timestampMs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *time the message is sent
+       * </pre>
+       *
+       * <code>optional uint32 timestamp_ms = 2;</code>
+       */
+      public Builder clearTimestampMs() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        timestampMs_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int timestampVariability_ ;
+      /**
+       * <code>optional uint32 timestamp_variability = 3;</code>
+       */
+      public boolean hasTimestampVariability() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional uint32 timestamp_variability = 3;</code>
+       */
+      public int getTimestampVariability() {
+        return timestampVariability_;
+      }
+      /**
+       * <code>optional uint32 timestamp_variability = 3;</code>
+       */
+      public Builder setTimestampVariability(int value) {
+        bitField0_ |= 0x00000004;
+        timestampVariability_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 timestamp_variability = 3;</code>
+       */
+      public Builder clearTimestampVariability() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        timestampVariability_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.MeasurementAggregate, TelemetryProto.MeasurementAggregate.Builder, TelemetryProto.MeasurementAggregateOrBuilder> sensorReadingBuilder_;
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public boolean hasSensorReading() {
+        return valueCase_ == 4;
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public TelemetryProto.MeasurementAggregate getSensorReading() {
+        if (sensorReadingBuilder_ == null) {
+          if (valueCase_ == 4) {
+            return (TelemetryProto.MeasurementAggregate) value_;
+          }
+          return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+        } else {
+          if (valueCase_ == 4) {
+            return sensorReadingBuilder_.getMessage();
+          }
+          return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+        }
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public Builder setSensorReading(TelemetryProto.MeasurementAggregate value) {
+        if (sensorReadingBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          value_ = value;
+          onChanged();
+        } else {
+          sensorReadingBuilder_.setMessage(value);
+        }
+        valueCase_ = 4;
+        return this;
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public Builder setSensorReading(
+          TelemetryProto.MeasurementAggregate.Builder builderForValue) {
+        if (sensorReadingBuilder_ == null) {
+          value_ = builderForValue.build();
+          onChanged();
+        } else {
+          sensorReadingBuilder_.setMessage(builderForValue.build());
+        }
+        valueCase_ = 4;
+        return this;
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public Builder mergeSensorReading(TelemetryProto.MeasurementAggregate value) {
+        if (sensorReadingBuilder_ == null) {
+          if (valueCase_ == 4 &&
+              value_ != TelemetryProto.MeasurementAggregate.getDefaultInstance()) {
+            value_ = TelemetryProto.MeasurementAggregate.newBuilder((TelemetryProto.MeasurementAggregate) value_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            value_ = value;
+          }
+          onChanged();
+        } else {
+          if (valueCase_ == 4) {
+            sensorReadingBuilder_.mergeFrom(value);
+          }
+          sensorReadingBuilder_.setMessage(value);
+        }
+        valueCase_ = 4;
+        return this;
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public Builder clearSensorReading() {
+        if (sensorReadingBuilder_ == null) {
+          if (valueCase_ == 4) {
+            valueCase_ = 0;
+            value_ = null;
+            onChanged();
+          }
+        } else {
+          if (valueCase_ == 4) {
+            valueCase_ = 0;
+            value_ = null;
+          }
+          sensorReadingBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public TelemetryProto.MeasurementAggregate.Builder getSensorReadingBuilder() {
+        return getSensorReadingFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      public TelemetryProto.MeasurementAggregateOrBuilder getSensorReadingOrBuilder() {
+        if ((valueCase_ == 4) && (sensorReadingBuilder_ != null)) {
+          return sensorReadingBuilder_.getMessageOrBuilder();
+        } else {
+          if (valueCase_ == 4) {
+            return (TelemetryProto.MeasurementAggregate) value_;
+          }
+          return TelemetryProto.MeasurementAggregate.getDefaultInstance();
+        }
+      }
+      /**
+       * <pre>
+       *reading type specified by device id in the DeviceInfoMessage
+       * </pre>
+       *
+       * <code>optional .MeasurementAggregate sensorReading = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.MeasurementAggregate, TelemetryProto.MeasurementAggregate.Builder, TelemetryProto.MeasurementAggregateOrBuilder> 
+          getSensorReadingFieldBuilder() {
+        if (sensorReadingBuilder_ == null) {
+          if (!(valueCase_ == 4)) {
+            value_ = TelemetryProto.MeasurementAggregate.getDefaultInstance();
+          }
+          sensorReadingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.MeasurementAggregate, TelemetryProto.MeasurementAggregate.Builder, TelemetryProto.MeasurementAggregateOrBuilder>(
+                  (TelemetryProto.MeasurementAggregate) value_,
+                  getParentForChildren(),
+                  isClean());
+          value_ = null;
+        }
+        valueCase_ = 4;
+        onChanged();;
+        return sensorReadingBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.InfoMessage, TelemetryProto.InfoMessage.Builder, TelemetryProto.InfoMessageOrBuilder> infoMessageBuilder_;
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public boolean hasInfoMessage() {
+        return valueCase_ == 5;
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public TelemetryProto.InfoMessage getInfoMessage() {
+        if (infoMessageBuilder_ == null) {
+          if (valueCase_ == 5) {
+            return (TelemetryProto.InfoMessage) value_;
+          }
+          return TelemetryProto.InfoMessage.getDefaultInstance();
+        } else {
+          if (valueCase_ == 5) {
+            return infoMessageBuilder_.getMessage();
+          }
+          return TelemetryProto.InfoMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public Builder setInfoMessage(TelemetryProto.InfoMessage value) {
+        if (infoMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          value_ = value;
+          onChanged();
+        } else {
+          infoMessageBuilder_.setMessage(value);
+        }
+        valueCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public Builder setInfoMessage(
+          TelemetryProto.InfoMessage.Builder builderForValue) {
+        if (infoMessageBuilder_ == null) {
+          value_ = builderForValue.build();
+          onChanged();
+        } else {
+          infoMessageBuilder_.setMessage(builderForValue.build());
+        }
+        valueCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public Builder mergeInfoMessage(TelemetryProto.InfoMessage value) {
+        if (infoMessageBuilder_ == null) {
+          if (valueCase_ == 5 &&
+              value_ != TelemetryProto.InfoMessage.getDefaultInstance()) {
+            value_ = TelemetryProto.InfoMessage.newBuilder((TelemetryProto.InfoMessage) value_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            value_ = value;
+          }
+          onChanged();
+        } else {
+          if (valueCase_ == 5) {
+            infoMessageBuilder_.mergeFrom(value);
+          }
+          infoMessageBuilder_.setMessage(value);
+        }
+        valueCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public Builder clearInfoMessage() {
+        if (infoMessageBuilder_ == null) {
+          if (valueCase_ == 5) {
+            valueCase_ = 0;
+            value_ = null;
+            onChanged();
+          }
+        } else {
+          if (valueCase_ == 5) {
+            valueCase_ = 0;
+            value_ = null;
+          }
+          infoMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public TelemetryProto.InfoMessage.Builder getInfoMessageBuilder() {
+        return getInfoMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      public TelemetryProto.InfoMessageOrBuilder getInfoMessageOrBuilder() {
+        if ((valueCase_ == 5) && (infoMessageBuilder_ != null)) {
+          return infoMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (valueCase_ == 5) {
+            return (TelemetryProto.InfoMessage) value_;
+          }
+          return TelemetryProto.InfoMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .InfoMessage infoMessage = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.InfoMessage, TelemetryProto.InfoMessage.Builder, TelemetryProto.InfoMessageOrBuilder> 
+          getInfoMessageFieldBuilder() {
+        if (infoMessageBuilder_ == null) {
+          if (!(valueCase_ == 5)) {
+            value_ = TelemetryProto.InfoMessage.getDefaultInstance();
+          }
+          infoMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.InfoMessage, TelemetryProto.InfoMessage.Builder, TelemetryProto.InfoMessageOrBuilder>(
+                  (TelemetryProto.InfoMessage) value_,
+                  getParentForChildren(),
+                  isClean());
+          value_ = null;
+        }
+        valueCase_ = 5;
+        onChanged();;
+        return infoMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage, TelemetryProto.DeviceInfoMessage.Builder, TelemetryProto.DeviceInfoMessageOrBuilder> deviceInfoBuilder_;
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public boolean hasDeviceInfo() {
+        return valueCase_ == 6;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage getDeviceInfo() {
+        if (deviceInfoBuilder_ == null) {
+          if (valueCase_ == 6) {
+            return (TelemetryProto.DeviceInfoMessage) value_;
+          }
+          return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+        } else {
+          if (valueCase_ == 6) {
+            return deviceInfoBuilder_.getMessage();
+          }
+          return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public Builder setDeviceInfo(TelemetryProto.DeviceInfoMessage value) {
+        if (deviceInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          value_ = value;
+          onChanged();
+        } else {
+          deviceInfoBuilder_.setMessage(value);
+        }
+        valueCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public Builder setDeviceInfo(
+          TelemetryProto.DeviceInfoMessage.Builder builderForValue) {
+        if (deviceInfoBuilder_ == null) {
+          value_ = builderForValue.build();
+          onChanged();
+        } else {
+          deviceInfoBuilder_.setMessage(builderForValue.build());
+        }
+        valueCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public Builder mergeDeviceInfo(TelemetryProto.DeviceInfoMessage value) {
+        if (deviceInfoBuilder_ == null) {
+          if (valueCase_ == 6 &&
+              value_ != TelemetryProto.DeviceInfoMessage.getDefaultInstance()) {
+            value_ = TelemetryProto.DeviceInfoMessage.newBuilder((TelemetryProto.DeviceInfoMessage) value_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            value_ = value;
+          }
+          onChanged();
+        } else {
+          if (valueCase_ == 6) {
+            deviceInfoBuilder_.mergeFrom(value);
+          }
+          deviceInfoBuilder_.setMessage(value);
+        }
+        valueCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public Builder clearDeviceInfo() {
+        if (deviceInfoBuilder_ == null) {
+          if (valueCase_ == 6) {
+            valueCase_ = 0;
+            value_ = null;
+            onChanged();
+          }
+        } else {
+          if (valueCase_ == 6) {
+            valueCase_ = 0;
+            value_ = null;
+          }
+          deviceInfoBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public TelemetryProto.DeviceInfoMessage.Builder getDeviceInfoBuilder() {
+        return getDeviceInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      public TelemetryProto.DeviceInfoMessageOrBuilder getDeviceInfoOrBuilder() {
+        if ((valueCase_ == 6) && (deviceInfoBuilder_ != null)) {
+          return deviceInfoBuilder_.getMessageOrBuilder();
+        } else {
+          if (valueCase_ == 6) {
+            return (TelemetryProto.DeviceInfoMessage) value_;
+          }
+          return TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .DeviceInfoMessage deviceInfo = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          TelemetryProto.DeviceInfoMessage, TelemetryProto.DeviceInfoMessage.Builder, TelemetryProto.DeviceInfoMessageOrBuilder> 
+          getDeviceInfoFieldBuilder() {
+        if (deviceInfoBuilder_ == null) {
+          if (!(valueCase_ == 6)) {
+            value_ = TelemetryProto.DeviceInfoMessage.getDefaultInstance();
+          }
+          deviceInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TelemetryProto.DeviceInfoMessage, TelemetryProto.DeviceInfoMessage.Builder, TelemetryProto.DeviceInfoMessageOrBuilder>(
+                  (TelemetryProto.DeviceInfoMessage) value_,
+                  getParentForChildren(),
+                  isClean());
+          value_ = null;
+        }
+        valueCase_ = 6;
+        onChanged();;
+        return deviceInfoBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:TelemetryMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:TelemetryMessage)
+    private static final TelemetryProto.TelemetryMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new TelemetryProto.TelemetryMessage();
+    }
+
+    public static TelemetryProto.TelemetryMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<TelemetryMessage>
+        PARSER = new com.google.protobuf.AbstractParser<TelemetryMessage>() {
+      public TelemetryMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new TelemetryMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TelemetryMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TelemetryMessage> getParserForType() {
+      return PARSER;
+    }
+
+    public TelemetryProto.TelemetryMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Telemetry_descriptor;
+    internal_static_DeviceInfoMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Telemetry_fieldAccessorTable;
+      internal_static_DeviceInfoMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_DeviceInfoMessage_DeviceMeasurementInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_DeviceInfoMessage_DeviceDelayInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_StatisticalAggregate_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_StatisticalAggregate_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_MeasurementAggregate_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_MeasurementAggregate_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_InfoMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_InfoMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_TelemetryMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_TelemetryMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -492,9 +7001,37 @@ public final class TelemetryProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017telemetry.proto\032\014nanopb.proto\"!\n\tTelem" +
-      "etry\022\024\n\014timestamp_ms\030\001 \001(\005B\020B\016TelemetryP" +
-      "roto"
+      "\n\017telemetry.proto\032\014nanopb.proto\"\332\004\n\021Devi" +
+      "ceInfoMessage\022\n\n\002id\030\001 \001(\r\022\023\n\004name\030\002 \001(\tB" +
+      "\005\222?\002\010 \022A\n\017measurementInfo\030\003 \001(\0132(.Device" +
+      "InfoMessage.DeviceMeasurementInfo\0225\n\tdel" +
+      "ayInfo\030\004 \001(\0132\".DeviceInfoMessage.DeviceD" +
+      "elayInfo\032\325\002\n\025DeviceMeasurementInfo\022J\n\013re" +
+      "adingType\030\001 \001(\01625.DeviceInfoMessage.Devi" +
+      "ceMeasurementInfo.READING_TYPE\022\024\n\005units\030" +
+      "\002 \001(\tB\005\222?\002\010\004\022\026\n\016minSensorLimit\030\003 \001(\r\022\026\n\016" +
+      "maxSensorLimit\030\004 \001(\r\022\025\n\rminErrorBound\030\005 ",
+      "\001(\r\022\025\n\rmaxErrorBound\030\006 \001(\r\022\022\n\nresolution" +
+      "\030\007 \001(\r\022\020\n\010accuracy\030\010 \001(\r\"V\n\014READING_TYPE" +
+      "\022\013\n\007VOLTAGE\020\001\022\013\n\007CURRENT\020\002\022\017\n\013TEMPERATUR" +
+      "E\020\003\022\007\n\003MCC\020\004\022\022\n\016DRIVER_CONTROL\020\005\032R\n\017Devi" +
+      "ceDelayInfo\022\033\n\023expectedSampleDelay\030\001 \001(\r" +
+      "\022\"\n\032longestAcceptedSampleDelay\030\002 \001(\r\"a\n\024" +
+      "StatisticalAggregate\022\022\n\nnumSamples\030\001 \001(\r" +
+      "\022\013\n\003min\030\002 \001(\r\022\013\n\003max\030\003 \001(\r\022\014\n\004mean\030\004 \001(\r" +
+      "\022\r\n\005stdev\030\005 \001(\r\"j\n\024MeasurementAggregate\022" +
+      "&\n\007reading\030\001 \001(\0132\025.StatisticalAggregate\022",
+      "*\n\013sampleDelay\030\002 \001(\0132\025.StatisticalAggreg" +
+      "ate\"\230\001\n\013InfoMessage\0224\n\013messageType\030\001 \001(\016" +
+      "2\031.InfoMessage.MESSAGE_TYPE:\004INFO\022\026\n\007mes" +
+      "sage\030\002 \001(\tB\005\222?\002\010@\";\n\014MESSAGE_TYPE\022\010\n\004INF" +
+      "O\020\001\022\t\n\005DEBUG\020\002\022\013\n\007WARNING\020\003\022\t\n\005ERROR\020\004\"\333" +
+      "\001\n\020TelemetryMessage\022\n\n\002id\030\001 \001(\r\022\024\n\014times" +
+      "tamp_ms\030\002 \001(\r\022\035\n\025timestamp_variability\030\003" +
+      " \001(\r\022.\n\rsensorReading\030\004 \001(\0132\025.Measuremen" +
+      "tAggregateH\000\022#\n\013infoMessage\030\005 \001(\0132\014.Info" +
+      "MessageH\000\022(\n\ndeviceInfo\030\006 \001(\0132\022.DeviceIn",
+      "foMessageH\000B\007\n\005valueB\020B\016TelemetryProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -509,12 +7046,53 @@ public final class TelemetryProto {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           fi.kapsi.koti.jpa.nanopb.Nanopb.getDescriptor(),
         }, assigner);
-    internal_static_Telemetry_descriptor =
+    internal_static_DeviceInfoMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_Telemetry_fieldAccessorTable = new
+    internal_static_DeviceInfoMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Telemetry_descriptor,
-        new java.lang.String[] { "TimestampMs", });
+        internal_static_DeviceInfoMessage_descriptor,
+        new java.lang.String[] { "Id", "Name", "MeasurementInfo", "DelayInfo", });
+    internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor =
+      internal_static_DeviceInfoMessage_descriptor.getNestedTypes().get(0);
+    internal_static_DeviceInfoMessage_DeviceMeasurementInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_DeviceInfoMessage_DeviceMeasurementInfo_descriptor,
+        new java.lang.String[] { "ReadingType", "Units", "MinSensorLimit", "MaxSensorLimit", "MinErrorBound", "MaxErrorBound", "Resolution", "Accuracy", });
+    internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor =
+      internal_static_DeviceInfoMessage_descriptor.getNestedTypes().get(1);
+    internal_static_DeviceInfoMessage_DeviceDelayInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_DeviceInfoMessage_DeviceDelayInfo_descriptor,
+        new java.lang.String[] { "ExpectedSampleDelay", "LongestAcceptedSampleDelay", });
+    internal_static_StatisticalAggregate_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_StatisticalAggregate_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_StatisticalAggregate_descriptor,
+        new java.lang.String[] { "NumSamples", "Min", "Max", "Mean", "Stdev", });
+    internal_static_MeasurementAggregate_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_MeasurementAggregate_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_MeasurementAggregate_descriptor,
+        new java.lang.String[] { "Reading", "SampleDelay", });
+    internal_static_InfoMessage_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_InfoMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_InfoMessage_descriptor,
+        new java.lang.String[] { "MessageType", "Message", });
+    internal_static_TelemetryMessage_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_TelemetryMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TelemetryMessage_descriptor,
+        new java.lang.String[] { "Id", "TimestampMs", "TimestampVariability", "SensorReading", "InfoMessage", "DeviceInfo", "Value", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(fi.kapsi.koti.jpa.nanopb.Nanopb.nanopb);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
     fi.kapsi.koti.jpa.nanopb.Nanopb.getDescriptor();
   }
 
